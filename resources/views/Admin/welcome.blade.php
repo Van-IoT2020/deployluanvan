@@ -11,7 +11,7 @@
         <link href="/css/app.css" rel="stylesheet">   
     </head>
     <body>
-        <div id="app"></div>
+        <div id="app_admin"></div>
         <script src="/js/app.js"></script>
     </body>
 </html>
