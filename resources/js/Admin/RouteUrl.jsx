@@ -9,7 +9,7 @@ class RouteUrl extends React.Component {
     render() {
         return (
             <Router>
-                <Route exact path="/" component={Home} />
+                <Route exact path="/admin/" component={Home} />
             </Router>
         );
     }

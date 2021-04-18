@@ -2031,7 +2031,7 @@ var RouteUrl = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.BrowserRouter, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
           exact: true,
-          path: "/",
+          path: "/admin/",
           component: _components_Home_Home__WEBPACK_IMPORTED_MODULE_1__.default
         })
       });
