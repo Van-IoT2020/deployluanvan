@@ -1,21 +1,25 @@
 import React from 'react';
+import Content from '../Content/Content';
+import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import Sidebar from '../Sidebar/Sidebar';
 class Home extends React.Component {
     render() {
         return (
-            <>
-                <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col-md-8">
-                            <div className="card">
-                                <div className="card-header">Hello</div>
-                                <div className="card-body">Toi la gi day</div>
+            <div id="page-top">
+                <div id="wrapper">
+                    <Sidebar/>
+                    <div id="content-wrapper" className="d-flex flex-column">
+                        <div id="content">
+                            <Header/>
+                            <div className="container-fluid">
+                                <Content/>
                             </div>
                         </div>
+                        <Footer/>
                     </div>
                 </div>
-
-            </>
+            </div>
         );
     }
 }

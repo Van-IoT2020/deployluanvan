@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RouteUrl from './RouteUrl';
+import './sb-admin-2.min.css';
 function Index() {
     return ( 
         <>
