@@ -1,6 +1,7 @@
 import { faChartArea, faCog, faFolder, faLaughWink, faTable, faTachometerAlt, faWrench } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 export default class Sidebar extends Component {
     render() {
@@ -74,7 +75,7 @@ export default class Sidebar extends Component {
                             <a className="collapse-item" href="forgot-password.html">Forgot Password</a>
                             <div className="collapse-divider" />
                             <h6 className="collapse-header">Other Pages:</h6>
-                            <a className="collapse-item" href="/admin/err">404 Page</a>
+                            <Link className="collapse-item" to="/admin/err">404 Page</Link>
                             <a className="collapse-item" href="blank.html">Blank Page</a>
                         </div>
                     </div>
