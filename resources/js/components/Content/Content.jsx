@@ -7,28 +7,28 @@ class Content extends React.Component {
                 id: 1,
                 name: 'Đầm nữ',
                 price: '150000 VND',
-                image: './images/imageCrs/dam.jpg',
+                image: './images/ImageCrs/dam.jpg',
                 status: true
             },
             {
                 id: 2,
                 name: 'Chân váy công chúa',
                 price: '200000 VND',
-                image: './images/imageCrs/dam.jpg',
+                image: './images/ImageCrs/dam.jpg',
                 status: true
             },
             {
                 id: 3,
                 name: 'Áo sơ mi công sở',
                 price: '400000 VND',
-                image: './images/imageCrs/dam.jpg',
+                image: './images/ImageCrs/dam.jpg',
                 status: true
             },
             {
                 id: 4,
                 name: 'Áo kiểu',
                 price: '250000 VND',
-                image: './images/imageCrs/dam.jpg',
+                image: './images/ImageCrs/dam.jpg',
                 status: true
             }
         ];
