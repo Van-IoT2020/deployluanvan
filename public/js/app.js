@@ -12729,8 +12729,8 @@ var ErrorPage = /*#__PURE__*/function (_Component) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
           className: "text-gray-500 mb-0",
           children: "It looks like you found a glitch in the matrix..."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-          href: "index.html",
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Link, {
+          to: "index.html",
           children: "\u2190 Back to Dashboard"
         })]
       });
