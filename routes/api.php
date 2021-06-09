@@ -17,3 +17,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Route::get('categories/{id}', 'App\Http\Controllers\categoriesController@show');
+Route::Resource('categories', 'App\Http\Controllers\categoriesController');
+
+// Route::get('brand/find-id-by-slug/{slug}', 'App\Http\Controllers\brandController@findIdBySlug');
+Route::resource('brand', 'App\Http\Controllers\brandController');
+
+Route::resource('supplier', 'App\Http\Controllers\supplierController');
+
+Route::resource('Slide', 'App\Http\Controllers\SlideController');
+
+Route::resource('Admin', 'App\Http\Controllers\AdminAccountController');
+Route::post('Admin_login','App\Http\Controllers\AdminAccountController@login');
+
+Route::resource('Product', 'App\Http\Controllers\ProductController');

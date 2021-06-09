@@ -1,5 +1,4 @@
 import React from 'react';
-import Content from '../Content/Content';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
@@ -11,9 +10,10 @@ class Home extends React.Component {
                     <Sidebar/>
                     <div id="content-wrapper" className="d-flex flex-column">
                         <div id="content">
-                            <Header/>
+                            <Header propsParent = {this.props}/>
                             <div className="container-fluid">
-                                <Content/>
+                                {/* <AddCategories props={this.props}/> */}
+                                <div>đây là nơi hiển thị</div>
                             </div>
                         </div>
                         <Footer/>

@@ -8,20 +8,20 @@ export default class Sidebar extends Component {
         return (
             <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
                 {/* Sidebar - Brand */}
-                <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/admin/home">
                     <div className="sidebar-brand-icon rotate-n-15">
                         <FontAwesomeIcon icon={ faLaughWink } size="2x"/>
                     </div>
                     <div className="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-                </a>
+                </Link>
                 {/* Divider */}
                 <hr className="sidebar-divider my-0" />
                 {/* Nav Item - Dashboard */}
                 <li className="nav-item active">
-                    <a className="nav-link" href="index.html">
+                    <Link className="nav-link" to="/admin/home">
                         <FontAwesomeIcon icon={ faTachometerAlt } fixedWidth className="mr-2"/>
                         <span>Dashboard</span>
-                    </a>
+                    </Link>
                 </li>
                 {/* Divider */}
                 <hr className="sidebar-divider" />
@@ -31,13 +31,25 @@ export default class Sidebar extends Component {
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                         <FontAwesomeIcon icon={ faCog } fixedWidth className="mr-2"/>
-                        <span>Components</span>
+                        <span>Quản lý hàng hóa</span>
                     </a>
                     <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Custom Components:</h6>
-                            <a className="collapse-item" href="buttons.html">Buttons</a>
-                            <a className="collapse-item" href="cards.html">Cards</a>
+                            <h6 className="collapse-header">Chức năng danh mục:</h6>
+                            <Link className="collapse-item" to="/admin/home/categories">Xem danh mục</Link>
+                            <Link className="collapse-item" to="/admin/home/add-categories">Thêm danh mục</Link>
+                            <h6 className="collapse-header">Chức năng thương hiệu:</h6>
+                            <Link className="collapse-item" to="/admin/home/brand">Xem thương hiệu</Link>
+                            <Link className="collapse-item" to="/admin/home/add-brand">Thêm thương hiệu</Link>
+                            <h6 className="collapse-header">Chức năng nhà cung cấp:</h6>
+                            <Link className="collapse-item" to="/admin/home/supplier">Xem nhà cung cấp</Link>
+                            <Link className="collapse-item" to="/admin/home/add-supplier">Thêm nhà cung cấp</Link>
+                            <h6 className="collapse-header">Chức năng quảng cáo:</h6>
+                            <Link className="collapse-item" to="/admin/home/slide">Xem banner</Link>
+                            <Link className="collapse-item" to="/admin/home/add-slide">Thêm banner</Link>
+                            <h6 className="collapse-header">Chức năng sản phẩm:</h6>
+                            <Link className="collapse-item" to="/admin/home/product">Xem sản phẩm</Link>
+                            {/* <Link className="collapse-item" to="/admin/home/add-slide">Thêm banner</Link> */}
                         </div>
                     </div>
                 </li>
@@ -45,15 +57,15 @@ export default class Sidebar extends Component {
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <FontAwesomeIcon icon={ faWrench } fixedWidth className="mr-2"/>
-                        <span>Utilities</span>
+                        <span>Quản lý tài khoản</span>
                     </a>
                     <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Custom Utilities:</h6>
-                            <a className="collapse-item" href="utilities-color.html">Colors</a>
-                            <a className="collapse-item" href="utilities-border.html">Borders</a>
-                            <a className="collapse-item" href="utilities-animation.html">Animations</a>
-                            <a className="collapse-item" href="utilities-other.html">Other</a>
+                            <h6 className="collapse-header">Quản lý nhân viên:</h6>
+                            <Link className="collapse-item" to="/admin/home">Colors</Link>
+                            <Link className="collapse-item" to="/admin/home">Borders</Link>
+                            <Link className="collapse-item" to="/admin/home">Animations</Link>
+                            <Link className="collapse-item" to="/admin/home">Other</Link>
                         </div>
                     </div>
                 </li>
@@ -65,41 +77,34 @@ export default class Sidebar extends Component {
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                         <FontAwesomeIcon icon={ faFolder } fixedWidth className="mr-2"/>
-                        <span>Pages</span>
+                        <span>Trang demo</span>
                     </a>
                     <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
                             <h6 className="collapse-header">Login Screens:</h6>
-                            <a className="collapse-item" href="login.html">Login</a>
-                            <a className="collapse-item" href="register.html">Register</a>
-                            <a className="collapse-item" href="forgot-password.html">Forgot Password</a>
+                            <Link className="collapse-item" to="/admin/">Login</Link>
+                            <Link className="collapse-item" to="/admin/register">Register</Link>
+                            <Link className="collapse-item" to="/admin/home">Forgot Password</Link>
                             <div className="collapse-divider" />
                             <h6 className="collapse-header">Other Pages:</h6>
                             <Link className="collapse-item" to="/admin/err">404 Page</Link>
-                            <a className="collapse-item" href="blank.html">Blank Page</a>
                         </div>
                     </div>
                 </li>
                 {/* Nav Item - Charts */}
                 <li className="nav-item">
-                    <a className="nav-link" href="charts.html">
+                    <Link className="nav-link" to="/admin/home">
                         <FontAwesomeIcon icon={ faChartArea } fixedWidth className="mr-2"/>
-                        <span>Charts</span>
-                    </a>
+                        <span>Biểu đồ</span>
+                    </Link>
                 </li>
                 {/* Nav Item - Tables */}
                 <li className="nav-item">
-                    <a className="nav-link" href="tables.html">
+                    <Link className="nav-link" to="/admin/home">
                         <FontAwesomeIcon icon={ faTable } fixedWidth className="mr-2"/>
-                        <span>Tables</span>
-                    </a>
+                        <span>Thống kê</span>
+                    </Link>
                 </li>
-                {/* Divider */}
-                <hr className="sidebar-divider d-none d-md-block" />
-                {/* Sidebar Toggler (Sidebar) */}
-                <div className="text-center d-none d-md-inline">
-                    <button className="rounded-circle border-0" id="sidebarToggle" />
-                </div>
             </ul>
         )
     }
