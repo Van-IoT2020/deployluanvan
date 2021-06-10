@@ -16,7 +16,7 @@ export default class ShowSlide extends Component {
     }
 
     loadSlide(){
-        axios.get('http://127.0.0.1:8000/api/Slide')
+        axios.get('http://127.0.0.1:8000/api/slide')
         .then(res => {
             this.setState({
                 Slide: res.data
@@ -29,7 +29,7 @@ export default class ShowSlide extends Component {
     }
 
     onDelete(id){
-        axios.delete('http://127.0.0.1:8000/api/Slide/' + id)
+        axios.delete('http://127.0.0.1:8000/api/slide/' + id)
         .then(res =>{
             if(res.data != null){
                 this.loadSlide();

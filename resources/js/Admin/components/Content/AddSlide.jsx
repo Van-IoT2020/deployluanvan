@@ -37,7 +37,7 @@ export default class AddSlide extends Component {
             slide_status: this.state.slide_status,
             slide_image: this.state.slide_image
         }
-        axios.post('http://127.0.0.1:8000/api/Slide/', listSlide)
+        axios.post('http://127.0.0.1:8000/api/slide/', listSlide)
         .then(res =>{
             if(res != null){
                 return this.props.history.push('/admin/home/slide')

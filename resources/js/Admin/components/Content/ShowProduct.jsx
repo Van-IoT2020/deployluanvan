@@ -18,7 +18,7 @@ class ShowProduct extends Component {
     loadProduct(){
         // 100 200 -> then
         // 300 400 500 -> catch err -> err.response.data (noi loi tu be api)
-        axios.get('http://127.0.0.1:8000/api/Product/')
+        axios.get('http://127.0.0.1:8000/api/product/')
         .then(res => {
             console.log('categories: ', res);
             this.setState({
@@ -113,8 +113,11 @@ class ShowProduct extends Component {
                 right: true,
             },
             {
-                name: 'Tác vụ',
-                cell: () => <Button variant="contained" color="primary">Action</Button>,
+                cell: () => <Button variant="contained" outline color="info">Sửa</Button>,
+                button: true,
+            },
+            {
+                cell: () => <Button variant="contained" outline color="danger">Xóa</Button>,
                 button: true,
             }
         ];
@@ -131,6 +134,7 @@ class ShowProduct extends Component {
                                     columns={columns}
                                     data={ this.state.product }
                                     pagination
+                                    subHeader
                                 />
                             </div>
                         </div>

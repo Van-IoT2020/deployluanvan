@@ -26,7 +26,7 @@ export default class EditSlide extends Component {
 
     onSubmit(){
         const listSlide = this.state;
-        axios.put('http://127.0.0.1:8000/api/Slide/' + this.props.match.params.id, listSlide)
+        axios.put('http://127.0.0.1:8000/api/slide/' + this.props.match.params.id, listSlide)
         .then(res =>{
             if(res!= null){
                 return this.props.history.push('/admin/home/slide');
@@ -35,7 +35,7 @@ export default class EditSlide extends Component {
     }
 
     editSlide(){
-        axios.get('http://127.0.0.1:8000/api/Slide/' + this.props.match.params.id)
+        axios.get('http://127.0.0.1:8000/api/slide/' + this.props.match.params.id)
         .then( res => {
             this.setState({
                 slide_name: res.data.slide_name,

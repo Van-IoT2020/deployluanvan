@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Login from "./Account/Login";
-import Register from "./Account/Register";
+//import Register from "./Account/Register";
 import Error from "./components/Error/Error";
 
 import ShowCategories from "./components/Content/ShowCategories";
@@ -23,7 +23,10 @@ import EditSupplier from "./components/Content/EditSupplier";
 import ShowSlide from "./components/Content/ShowSlide";
 import AddSlide from "./components/Content/AddSlide";
 import EditSlide from "./components/Content/EditSlide";
+
 import ShowProduct from "./components/Content/ShowProduct";
+import AddProduct from "./components/Content/AddProduct";
+import EditProduct from "./components/Content/EditProduct";
 
 class RouteUrl extends React.Component {
     render() {
@@ -51,8 +54,8 @@ class RouteUrl extends React.Component {
                 <Route exact path="/admin/home/edit-slide/:id" component={EditSlide} />
 
                 <Route exact path="/admin/home/product" component={ShowProduct} />
-                {/* <Route exact path="/admin/home/add-slide" component={AddSlide} />
-                <Route exact path="/admin/home/edit-slide/:id" component={EditSlide} /> */}
+                <Route exact path="/admin/home/add-product" component={AddProduct} />
+                <Route exact path="/admin/home/edit-product/:id" component={EditProduct} />
             </Router>
         );
     }

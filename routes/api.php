@@ -27,9 +27,11 @@ Route::resource('brand', 'App\Http\Controllers\brandController');
 
 Route::resource('supplier', 'App\Http\Controllers\supplierController');
 
-Route::resource('Slide', 'App\Http\Controllers\SlideController');
+Route::resource('slide', 'App\Http\Controllers\SlideController');
 
 Route::resource('Admin', 'App\Http\Controllers\AdminAccountController');
 Route::post('Admin_login','App\Http\Controllers\AdminAccountController@login');
 
-Route::resource('Product', 'App\Http\Controllers\ProductController');
+Route::resource('product', 'App\Http\Controllers\ProductController');
+
+Route::resource('product_type', 'App\Http\Controllers\Product_typeController');
