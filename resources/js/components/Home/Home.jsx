@@ -1,23 +1,22 @@
 import React from 'react';
 import Header from '../Header/Header';
+import Menu from '../Menu/Menu';
+import Footer from '../Footer/Footer';
+import Carousels from '../Carousels/Carousels';
+import Content from '../Content/Content';
 class Home extends React.Component {
     render() {
         return (
-            <>
-                <Header/>
-                <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col-md-8">
-                            <div className="card">
-                                <div className="card-header">Hello</div>
-                                <div className="card-body">Toi la gi day</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </>
+            <div style={{overflow:"hidden", width:"100vw"}}>
+                <Menu />
+                <Carousels />
+                <Header onSearch={this.props.onSearch} />
+                <Content/>
+                <span> </span>
+                <Footer />
+            </div>
         );
+        
     }
 }
 
