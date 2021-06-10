@@ -9,17 +9,17 @@ class Carousels extends React.Component {
     this.state={
       items: [
         {
-          src: './images/imageCrs/3.jpg',
+          src: './images/ImageCrs/3.jpg',
           altText: '',
           caption: ''
         },
         {
-          src: './images/imageCrs/4.jpg',
+          src: './images/ImageCrs/4.jpg',
           altText: '',
           caption: ''
         },
         {
-          src: './images/imageCrs/6.jpg',
+          src: './images/ImageCrs/6.jpg',
           altText: '',
           caption: ''
         }
@@ -31,17 +31,17 @@ class Carousels extends React.Component {
     this.setState({
       items: [
         {
-          src: '/images/imageCrs/3.jpg',
+          src: '/imagesImageCrs/3.jpg',
           altText: '',
           caption: ''
         },
         {
-          src: '/images/imageCrs/4.jpg',
+          src: '/images/ImageCrs/4.jpg',
           altText: '',
           caption: ''
         },
         {
-          src: '/images/imageCrs/6.jpg',
+          src: '/images/ImageCrs/6.jpg',
           altText: '',
           caption: ''
         }
