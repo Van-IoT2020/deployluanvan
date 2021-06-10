@@ -3,3 +3,29 @@
     font-size: 30px;
     font-weight: bold;
 }
+.logo h2{
+    font-size: 30px;
+    font-weight: bold;
+}
+.menu{
+    background-color: black;
+    
+}
+.menu a{
+    color: white;
+}
+.iconu{
+    padding:7px 0px 0px 0px;
+}
+.iconcart{
+    padding:7px 0px 0px 0px;
+}
+.products-new{
+    padding:7px 0px 0px 0px;
+}
+.home{
+    padding:7px 0px 0px 0px;
+}
+.product{
+    color: black;
+}

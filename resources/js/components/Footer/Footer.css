@@ -4,7 +4,7 @@
     font-weight: bold;
 }
 .kv-shop p{
-    font-size: 15px;
+    font-size: 18px;
 }
 h2{
     text-align: center;
@@ -19,9 +19,8 @@ h2{
     font-weight: bold;
 }
 .help a{
-    color: black;
-    background-color: unset;
-    font-size: 15px;
+    color: white;
+    font-size: 20px;
 }
 
 .profile span{
@@ -30,7 +29,12 @@ h2{
     font-weight: bold;
 }
 .profile a{
-    color: black;
-    background-color: unset;
-    font-size: 15px;
+    color: white;
+    font-size: 20px;
+}
+
+.footer{
+    background-color:#110000;
+    color: white;
+    padding: 50px 0px 50px 0px;
 }

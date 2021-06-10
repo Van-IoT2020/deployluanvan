@@ -24,8 +24,17 @@ class Product extends Model
         'product_desc',
         'product_content',
         'product_image',
-        'product_status'
-        // 'created_at',
-        // 'updated_at'
+        'product_status',
+        //'create_at',
+        //'update_at'
     ];
+    public function brand(){
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
+    public function product_type(){
+        return $this->belongsTo(ProductType::class, 'product_type_id');
+    }
+    public function color_details(){
+        return $this->hasMany(ColorDetails::class, 'color_detail_id');
+    }
 }

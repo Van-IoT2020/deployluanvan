@@ -1,32 +1,57 @@
 import React from 'react';
 import './Products.css';
+import {Link} from 'react-router-dom';
+import CurrencyFormat from 'react-number-format';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
 class Products extends React.Component {
     constructor(props){
+        // console.log(props);
         super(props);
         this.onAddToCart=this.onAddToCart.bind(this);
+        
     }
+    
     onAddToCart(){
-        alert(this.props.name + '-' + this.props.price);
+        alert(this.props.product_name + '-' + this.props.unit_price);
     }
-    format_price(price) {
-        return price.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-      }
+    
     render() {
         return (
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">  
-                <div className="thumbnail">
-                    <img src={this.props.image} alt={this.props.name} width="280" height="300"/>
-                    <div className="caption" > 
-                        <div>
-                            <h3>{this.props.name}</h3>
-                        </div> 
-                        <p>{this.format_price(this.props.price)}</p>  
+            <div className="product">
+                <Link to={"/product_details/"+this.props.id +"/"+this.props.product_slug}>
+                    <img className="card-img-top" src={"/images/ImageCrs/"+this.props.image} alt={this.props.name} style={{width:"280"}} style={{height:"300"}} />
+                </Link>
+                <div className="card-body">
+                <h4 className="card-title"><a href="#!">{this.props.name}</a></h4>
+                <div className="form-group">
+                    <div className="form-check-inline">
+                        <h5>
+                            <CurrencyFormat value={this.props.price} displayType={'text'} thousandSeparator={true} prefix={'VND'} />
+                        </h5>
                     </div>
-                    <div>
-                            <a className="btn btn-primary">Xem chi tiết</a><span> </span>
-                            <a className="btn btn-danger" onClick={this.onAddToCart}>Mua hàng</a>
+                    <div className="form-check-inline">
+                        <h5  className="flash-sale">
+                        <CurrencyFormat value={this.props.promotion_price} displayType={'text'} thousandSeparator={true} prefix={'VND'} />
+                        </h5>
                     </div>
-                </div> 
+                </div>
+                <p className="card-text">Gợi ý: {this.props.content}</p>
+                </div>
+                <div className="col-md-12">
+                    <div className="rating">
+                        <label htmlFor="stars-rating-5"><FontAwesomeIcon icon={faStar} size="1x" className="iconstar"/></label>
+                        <label htmlFor="stars-rating-4"><FontAwesomeIcon icon={faStar} size="1x" className="iconstar"/></label>
+                        <label htmlFor="stars-rating-3"><FontAwesomeIcon icon={faStar} size="1x" className="iconstar"/></label>
+                        <label htmlFor="stars-rating-2"><FontAwesomeIcon icon={faStar} size="1x" className="iconstar"/></label>
+                        <label htmlFor="stars-rating-1"><FontAwesomeIcon icon={faStar} size="1x" className="iconstar"/></label>
+                    </div>
+                </div>
+                <div className="col-md-12">
+                    <Link to={"/product_details/"+this.props.id +"/"+this.props.product_slug} className="btn btn-primary">Xem chi tiết</Link><span> </span>
+                    <a className="btn btn-danger" onClick={this.onAddToCart}>Mua hàng</a>
+                </div>
             </div>
         );
     }

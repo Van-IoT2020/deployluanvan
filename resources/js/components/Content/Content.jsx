@@ -1,51 +1,67 @@
 import React from 'react';
 import Products from '../Products/Products';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 class Content extends React.Component {
-    render() {
-        var products=[
-            {
-                id: 1,
-                name: 'Đầm nữ',
-                price: '150000 VND',
-                image: './images/ImageCrs/dam.jpg',
-                status: true
-            },
-            {
-                id: 2,
-                name: 'Chân váy công chúa',
-                price: '200000 VND',
-                image: './images/ImageCrs/dam.jpg',
-                status: true
-            },
-            {
-                id: 3,
-                name: 'Áo sơ mi công sở',
-                price: '400000 VND',
-                image: './images/ImageCrs/dam.jpg',
-                status: true
-            },
-            {
-                id: 4,
-                name: 'Áo kiểu',
-                price: '250000 VND',
-                image: './images/ImageCrs/dam.jpg',
-                status: true
+    
+        constructor(){
+            super();
+            this.state={
+                product:[],
+                categories:[]
             }
-        ];
-        let elements=products.map((product, index) => {
-            return <div key={index} className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        } 
+        componentDidMount(){
+            axios.get('http://127.0.0.1:8000/api/product')
+                .then(res=>{
+                    this.setState({product:res.data});
+                });
+            axios.get('http://127.0.0.1:8000/api/categories')
+                .then(res=>{
+                    this.setState({categories:res.data});
+                });
+        }
+        showCategoriess(){
+            // console.log(this.state.categories);
+            const lstCategories = this.state.categories.map((item, index)=>
+                <Link to={ '/categories/' + item.categories_id } 
+                style={{color:'black'}}  key={index} className="list-group-item">
+                    {item.categories_name}
+                </Link>
+            );
+            return lstCategories;
+        }
+        render(){
+        let elements=this.state.product.map((product, index) => {
+            return <div key={index} className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <Products
-                        id={product.id}
-                        name={product.name}
-                        price={product.price}
-                        image={product.image}
+                        id={product.product_id}
+                        name={product.product_name}
+                        price={product.unit_price}
+                        promotion_price={product.promotion_price}
+                        image={product.product_image}
+                        content={product.product_desc}
+                        product_slug={product.product_slug}
                     />
                 </div>
-        });
-        return (
-            <div className="row">
-                {elements}
-            </div> 
+        }); 
+        return(
+            <div className="form-group">
+            <div className="container">
+                <div className="row">
+                    <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <div className="list-group">
+                            {this.showCategoriess()}
+                        </div>
+                    </div>
+                    <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        <div className="row">
+                            {elements}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         );
     }
 }

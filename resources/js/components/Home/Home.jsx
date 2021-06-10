@@ -10,7 +10,7 @@ class Home extends React.Component {
             <div style={{overflow:"hidden", width:"100vw"}}>
                 <Menu />
                 <Carousels />
-                <Header />
+                <Header onSearch={this.props.onSearch} />
                 <Content/>
                 <span> </span>
                 <Footer />
