@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\categories;
+use App\Models\Categories;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -17,7 +17,7 @@ class categoriesController extends Controller
      */
     public function index()
     {
-        return categories::all();
+        return Categories::all();
     }
 
     /**
@@ -44,7 +44,7 @@ class categoriesController extends Controller
             }
             return response()->json($err, 400);
         }
-        return categories::create($request->all());
+        return Categories::create($request->all());
     }
 
     /**
@@ -56,7 +56,7 @@ class categoriesController extends Controller
     public function show($id)
     {
         // var_dump($cate->all());
-        return categories::findOrFail($id);
+        return Categories::findOrFail($id);
     }
 
     /**
@@ -96,7 +96,7 @@ class categoriesController extends Controller
      */
     public function destroy($id)
     {
-        $cate = categories::findOrFail($id);
+        $cate = Categories::findOrFail($id);
         $count_product_types = $cate->product_type->count();
         if($count_product_types != 0){
             return response()->json('Dạng sản phẩm có tồn tại loại!', 400);

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\brand;
+use App\Models\Brand;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -17,7 +17,7 @@ class brandController extends Controller
      */
     public function index()
     {
-        return brand::all();
+        return Brand::all();
     }
 
     /**
@@ -51,7 +51,7 @@ class brandController extends Controller
             return response()->json($err, 400);
         }
 
-        return brand::create($request->all());
+        return Brand::create($request->all());
     }
 
     /**
@@ -68,7 +68,7 @@ class brandController extends Controller
 
     public function show($id)
     {
-        return brand::findOrFail($id);
+        return Brand::findOrFail($id);
     }
 
     /**
@@ -80,7 +80,7 @@ class brandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $brand = brand::findOrFail($id);
+        $brand = Brand::findOrFail($id);
         $valid = Validator::make($request->all(),
             [
                 'brand_name'=>'required|min:4',
@@ -114,7 +114,7 @@ class brandController extends Controller
      */
     public function destroy($id)
     {
-        $brand = brand::findOrFail($id);
+        $brand = Brand::findOrFail($id);
         $count_products = $brand->product->count();
 
         // var_dump($count_products);

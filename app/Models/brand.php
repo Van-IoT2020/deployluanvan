@@ -20,6 +20,6 @@ class Brand extends Model
         'update_at'
     ];
     public function product(){
-        return $this->hasMany(Product::class, 'brand_id', 'brand_id');
+        return $this->hasMany(Product::class, 'product_id');
     }
 }
