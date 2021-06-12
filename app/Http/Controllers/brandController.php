@@ -81,6 +81,28 @@ class brandController extends Controller
     public function update(Request $request, $id)
     {
         $brand = brand::findOrFail($id);
+        $valid = Validator::make($request->all(),
+            [
+                'brand_name'=>'required|min:4',
+                'brand_slug'=>'required',
+            ],
+            [
+                'brand_name.min'=>'Phải nhập đủ 4 ký tự',
+                'brand_name.required' => 'Phải nhập tên',
+                'brand_slug.required'=> 'Phải nhập slug'
+            ]
+        );
+
+        // var_dump($valid->fails());
+        // print_r($valid->errors());
+        if($valid->fails()){
+            $err = [];
+            foreach($valid->errors()->messages() as $key => $value){
+                // echo($value[0]);
+                $err[] = $value[0];
+            }
+            return response()->json($err, 400);
+        }
         return $brand->update($request->all());
     }
 
@@ -93,7 +115,10 @@ class brandController extends Controller
     public function destroy($id)
     {
         $brand = brand::findOrFail($id);
-        $count_products = $brand->product_func->count();
+        $count_products = $brand->product->count();
+
+        // var_dump($count_products);
+
         // nếu muốn làm tay: cần Model Rates
         // // $products = product::where('product_id','=',$id)->get();
 

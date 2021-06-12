@@ -14,8 +14,6 @@ export default class AddSupplier extends Component {
         this.state = {
             supplier_name: "",
             created_at: moment(new Date()).format("yyyy-MM-DD"),
-
-            err_name: ""
         };
         this.onHandleChange = this.onHandleChange.bind(this);
     }

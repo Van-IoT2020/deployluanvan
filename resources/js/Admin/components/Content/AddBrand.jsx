@@ -17,9 +17,6 @@ export default class AddBrand extends Component {
             brand_desc: "",
             brand_status: 1,
             created_at: moment(new Date()).format("yyyy-MM-DD"),
-
-            err_name: "",
-            err_slug: "",
         }
         this.onHandleChange = this.onHandleChange.bind(this);
     }

@@ -16,4 +16,7 @@ class Categories extends Model
         'create_at',
         'update_at'
     ];
+    public function product_type(){
+        return $this->hasMany(ProductType::class, 'categories_id', 'categories_id');
+    }
 }

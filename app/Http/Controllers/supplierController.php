@@ -65,6 +65,19 @@ class supplierController extends Controller
     public function update(Request $request, $id)
     {
         $supplier = supplier::findOrFail($id);
+        $valid = Validator::make($request->all(),
+        [
+            'supplier_name'=>'required'
+        ],[
+            'supplier_name.required'=>'Phải nhập tên'
+        ]);
+        if($valid->fails()){
+            $err = [];
+            foreach($valid->errors()->messages() as $key => $value){
+                $err[] = $value[0];
+            }
+            return response()->json($err, 400);
+        }
         return $supplier->update($request->all());
     }
 
@@ -77,6 +90,10 @@ class supplierController extends Controller
     public function destroy($id)
     {
         $supplier = supplier::findOrFail($id);
+        // $count_receipt = $supplier->receipt->count();
+        // if($count_products != 0){
+        //     return response()->json('Nhà cung cấp có tồn tại phiếu nhập!', 400);
+        // }
         return $supplier->delete();
     }
 }

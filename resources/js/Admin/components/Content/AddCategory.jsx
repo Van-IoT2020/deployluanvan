@@ -15,8 +15,6 @@ export default class AddCategory extends Component {
             categories_name: "",
             created_at: moment(new Date()).format("yyyy-MM-DD"),
             //attr: ''
-
-            err_name: ""
         };
         this.onHandleChange = this.onHandleChange.bind(this);
     }

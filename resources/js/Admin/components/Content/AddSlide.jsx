@@ -15,10 +15,6 @@ export default class AddSlide extends Component {
             slide_desc: '',
             slide_status: '',
             slide_image: '',
-
-            err_name: "",
-            err_desc: "",
-            err_image: "",
         };
         this.onHandleChange = this.onHandleChange.bind(this);
     }

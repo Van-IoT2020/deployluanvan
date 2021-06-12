@@ -69,6 +69,22 @@ class categoriesController extends Controller
     public function update(Request $request, $id)
     {
         $category = categories::findOrFail($id);
+        $valid = Validator::make($request->all(),
+            [
+                'categories_name'=>'required'
+            ],
+            [
+                'categories_name.required'=>'Phải nhập tên loại'
+            ]
+        );
+        // var_dump($request->all());
+        if($valid->fails()){
+            $err = [];
+            foreach($valid->errors()->messages() as $key => $value){
+                $err[] = $value[0];
+            }
+            return response()->json($err, 400);
+        }
         return $category->update($request->all());
     }
 
@@ -81,6 +97,10 @@ class categoriesController extends Controller
     public function destroy($id)
     {
         $cate = categories::findOrFail($id);
+        $count_product_types = $cate->product_type->count();
+        if($count_product_types != 0){
+            return response()->json('Dạng sản phẩm có tồn tại loại!', 400);
+        }
         return $cate->delete();
     }
 }

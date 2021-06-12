@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import DataTable from 'react-data-table-component';
 import { Button } from 'reactstrap';
 import Footer from '../Footer/Footer';
@@ -20,7 +22,7 @@ class ShowProduct extends Component {
         // 300 400 500 -> catch err -> err.response.data (noi loi tu be api)
         axios.get('http://127.0.0.1:8000/api/product/')
         .then(res => {
-            console.log('categories: ', res);
+            console.log('product: ', res);
             this.setState({
                 product: res.data
             });
@@ -30,6 +32,19 @@ class ShowProduct extends Component {
 
     componentWillMount(){
         this.loadProduct();
+    }
+
+    onDelete(id){
+        axios.delete('http://127.0.0.1:8000/api/product/' + id)
+        .then(res =>{
+            console.log(res);
+            if(res.data != null){
+                this.loadProduct();
+            }
+        })
+        .catch(err => {
+            toast.error('Lỗi '+ err.response.data);
+        })
     }
     
     
@@ -113,16 +128,24 @@ class ShowProduct extends Component {
                 right: true,
             },
             {
-                cell: () => <Button variant="contained" outline color="info">Sửa</Button>,
+                cell: row => <Button onClick={ () => {
+                                this.props.history.push({
+                                    pathname: '/admin/home/edit-product/' + row.product_id,
+                                    sendData: {
+                                        product_id: row.product_id
+                                    }
+                                });
+                            }} outline color="info" style={{margin: "10px"}}>Sửa</Button>,
                 button: true,
             },
             {
-                cell: () => <Button variant="contained" outline color="danger">Xóa</Button>,
+                cell: row => <Button onClick={ (id)=>this.onDelete(row.product_id)} outline color="danger" style={{margin: "10px"}}>Xóa</Button>,
                 button: true,
             }
         ];
         return (
             <div id="page-top">
+                <ToastContainer position="top-right" />
                 <div id="wrapper">
                     <Sidebar/>
                     <div id="content-wrapper" className="d-flex flex-column">

@@ -18,6 +18,6 @@ class Size extends Model
         'update_at'
     ];
     public function size_detail(){
-        return $this->hasMany(SizeDetails::class, 'size_detail_id');
+        return $this->hasMany(SizeDetails::class, 'size_id', 'size_id');
     }
 }

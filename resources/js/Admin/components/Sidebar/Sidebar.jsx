@@ -50,6 +50,9 @@ export default class Sidebar extends Component {
                             <h6 className="collapse-header">Chức năng sản phẩm:</h6>
                             <Link className="collapse-item" to="/admin/home/product">Xem sản phẩm</Link>
                             <Link className="collapse-item" to="/admin/home/add-product">Thêm sản phẩm</Link>
+                            <h6 className="collapse-header">Chức năng loại:</h6>
+                            <Link className="collapse-item" to="/admin/home/product-type">Xem loại</Link>
+                            <Link className="collapse-item" to="/admin/home/add-product-type">Thêm loại</Link>
                         </div>
                     </div>
                 </li>

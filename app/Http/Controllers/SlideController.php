@@ -69,6 +69,23 @@ class SlideController extends Controller
     public function update(Request $request, $id)
     {
         $slide = Slide::findOrFail($id);
+        $valid = Validator::make($request->all(),
+        [
+            'slide_name'=>'required',
+            'slide_desc'=>'required',
+            'slide_image'=>'required'
+        ],[
+            'slide_name.required'=>'Phải nhập tên',
+            'slide_desc.required'=>'Phải nhập mô tả',
+            'slide_image.required'=>'Phải nhập hình'
+        ]);
+        if($valid->fails()){
+            $err = [];
+            foreach($valid->errors()->messages() as $key => $value){
+                $err[] = $value[0];
+            }
+            return response()->json($err, 400);
+        }
         return $slide->update($request->all());
     }
 

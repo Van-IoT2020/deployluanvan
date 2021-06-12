@@ -35,6 +35,9 @@ class Product extends Model
         return $this->belongsTo(ProductType::class, 'product_type_id');
     }
     public function color_details(){
-        return $this->hasMany(ColorDetails::class, 'color_detail_id');
+        return $this->hasMany(ColorDetails::class, 'product_id', 'product_id');
+    }
+    public function size_detail(){
+        return $this->hasMany(SizeDetail::class, 'product_id', 'product_id');
     }
 }

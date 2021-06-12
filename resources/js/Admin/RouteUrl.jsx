@@ -28,6 +28,10 @@ import ShowProduct from "./components/Content/ShowProduct";
 import AddProduct from "./components/Content/AddProduct";
 import EditProduct from "./components/Content/EditProduct";
 
+import ShowProductType from "./components/Content/ShowProductType";
+import AddProductType from "./components/Content/AddProductType";
+import EditProductType from "./components/Content/EditProductType";
+
 class RouteUrl extends React.Component {
     render() {
         return (
@@ -56,6 +60,10 @@ class RouteUrl extends React.Component {
                 <Route exact path="/admin/home/product" component={ShowProduct} />
                 <Route exact path="/admin/home/add-product" component={AddProduct} />
                 <Route exact path="/admin/home/edit-product/:id" component={EditProduct} />
+
+                <Route exact path="/admin/home/product-type" component={ShowProductType} />
+                <Route exact path="/admin/home/add-product-type" component={AddProductType} />
+                <Route exact path="/admin/home/edit-product-type/:id" component={EditProductType} />
             </Router>
         );
     }

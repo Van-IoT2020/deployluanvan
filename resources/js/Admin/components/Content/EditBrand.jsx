@@ -1,6 +1,8 @@
 import axios from 'axios'
 import moment from 'moment'
 import React, { Component } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
@@ -49,6 +51,13 @@ export default class EditBrand extends Component {
                 return this.props.history.push('/admin/home/brand');
             }
         })
+        .catch(err => {
+            err.response.data.map((error) => {
+                console.log(error);
+                // alert(error);
+                toast.error('Lỗi '+ error);
+            })
+        })
     }
 
     // editBrand(){
@@ -93,6 +102,7 @@ export default class EditBrand extends Component {
     render() {
         return (
             <div id="page-top">
+                <ToastContainer position="top-right" />
                 <div id="wrapper">
                     <Sidebar/>
                     <div id="content-wrapper" className="d-flex flex-column">

@@ -17,6 +17,6 @@ class Color extends Model
         'update_at'
     ];
     public function color_details(){
-        return $this->hasMany(ColorDetails::class, 'color_detail_id');
+        return $this->hasMany(ColorDetails::class, 'color_id', 'color_id');
     }
 }

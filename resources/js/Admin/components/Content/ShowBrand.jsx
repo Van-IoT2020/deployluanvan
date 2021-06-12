@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -41,11 +42,24 @@ class ShowBrand extends Component {
                 this.loadBrand();
             }
         })
+        .catch(err => {
+            // if(Array.isArray(err.response.data)){
+            //     err.response.data.map((error) => {
+            //         console.log(error);
+            //         // alert(error);
+            //         toast.error('Lỗi '+ error);
+            //     })
+            // } else {
+            //     toast.error('Lỗi '+ err.response.data);
+            // }
+            toast.error('Lỗi '+ err.response.data);
+        })
     }
 
     render() {
         return (
             <div id="page-top">
+                <ToastContainer position="top-right" />
                 <div id="wrapper">
                     <Sidebar/>
                     <div id="content-wrapper" className="d-flex flex-column">
