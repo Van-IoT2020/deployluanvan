@@ -25,6 +25,6 @@ Route::get('/admin/', function () {
     return view('Admin.welcome');
 });
 
-// Route::get('/admin/home', function () {
-//     return view('Admin.welcome');
-// });
+Route::get('/admin/home', function () {
+    return view('Admin.welcome');
+});
