@@ -16,4 +16,7 @@ class supplier extends Model
         'created_at',
         'update_at'
     ];
+    public function receipt(){
+        return $this->hasMany(Receipt::class, 'supplier_id', 'supplier_id');
+    }
 }

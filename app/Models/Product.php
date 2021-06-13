@@ -40,4 +40,7 @@ class Product extends Model
     public function size_detail(){
         return $this->hasMany(SizeDetail::class, 'product_id', 'product_id');
     }
+    public function receipt_details(){
+        return $this->hasMany(ReceiptDetails::class, 'product_id', 'product_id');
+    }
 }

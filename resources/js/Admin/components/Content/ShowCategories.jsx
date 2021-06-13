@@ -5,6 +5,7 @@ import Sidebar from '../Sidebar/Sidebar';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default class ShowCategories extends Component {
     constructor(props) {
@@ -41,11 +42,15 @@ export default class ShowCategories extends Component {
                 this.loadCategories();
             }
         })
+        .catch(err => {
+            toast.error('Lỗi '+ err.response.data);
+        })
     }
 
     render() {
         return (
             <div id="page-top">
+                <ToastContainer position="top-right" />
                 <div id="wrapper">
                     <Sidebar/>
                     <div id="content-wrapper" className="d-flex flex-column">

@@ -41,18 +41,15 @@ export default class Sidebar extends Component {
                             <h6 className="collapse-header">Chức năng thương hiệu:</h6>
                             <Link className="collapse-item" to="/admin/home/brand">Xem thương hiệu</Link>
                             <Link className="collapse-item" to="/admin/home/add-brand">Thêm thương hiệu</Link>
-                            <h6 className="collapse-header">Chức năng nhà cung cấp:</h6>
-                            <Link className="collapse-item" to="/admin/home/supplier">Xem nhà cung cấp</Link>
-                            <Link className="collapse-item" to="/admin/home/add-supplier">Thêm nhà cung cấp</Link>
-                            <h6 className="collapse-header">Chức năng quảng cáo:</h6>
-                            <Link className="collapse-item" to="/admin/home/slide">Xem banner</Link>
-                            <Link className="collapse-item" to="/admin/home/add-slide">Thêm banner</Link>
                             <h6 className="collapse-header">Chức năng sản phẩm:</h6>
                             <Link className="collapse-item" to="/admin/home/product">Xem sản phẩm</Link>
                             <Link className="collapse-item" to="/admin/home/add-product">Thêm sản phẩm</Link>
                             <h6 className="collapse-header">Chức năng loại:</h6>
                             <Link className="collapse-item" to="/admin/home/product-type">Xem loại</Link>
                             <Link className="collapse-item" to="/admin/home/add-product-type">Thêm loại</Link>
+                            <h6 className="collapse-header">Chức năng màu:</h6>
+                            <Link className="collapse-item" to="/admin/home/color">Xem màu</Link>
+                            <Link className="collapse-item" to="/admin/home/add-color">Thêm màu</Link>
                         </div>
                     </div>
                 </li>
@@ -60,9 +57,28 @@ export default class Sidebar extends Component {
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <FontAwesomeIcon icon={ faWrench } fixedWidth className="mr-2"/>
-                        <span>Quản lý tài khoản</span>
+                        <span>Quản lý nhập</span>
                     </a>
                     <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div className="bg-white py-2 collapse-inner rounded">
+                            <h6 className="collapse-header">Chức năng nhà cung cấp:</h6>
+                            <Link className="collapse-item" to="/admin/home/supplier">Xem nhà cung cấp</Link>
+                            <Link className="collapse-item" to="/admin/home/add-supplier">Thêm nhà cung cấp</Link>
+                            <h6 className="collapse-header">Chức năng phiếu nhập:</h6>
+                            <Link className="collapse-item" to="/admin/home/receipt">Xem phiếu nhập</Link>
+                            <Link className="collapse-item" to="/admin/home/add-receipt">Thêm phiếu nhập</Link>
+                            <h6 className="collapse-header">Chức năng quảng cáo:</h6>
+                            <Link className="collapse-item" to="/admin/home/slide">Xem banner</Link>
+                            <Link className="collapse-item" to="/admin/home/add-slide">Thêm banner</Link>
+                        </div>
+                    </div>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAA" aria-expanded="true" aria-controls="collapseAA">
+                        <FontAwesomeIcon icon={ faWrench } fixedWidth className="mr-2"/>
+                        <span>Quản lý tài khoản</span>
+                    </a>
+                    <div id="collapseAA" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
                             <h6 className="collapse-header">Quản lý nhân viên:</h6>
                             <Link className="collapse-item" to="/admin/home">Colors</Link>
@@ -78,10 +94,10 @@ export default class Sidebar extends Component {
                 <div className="sidebar-heading">Addons</div>
                 {/* Nav Item - Pages Collapse Menu */}
                 <li className="nav-item">
-                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                    <Link className="nav-link collapsed" to="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                         <FontAwesomeIcon icon={ faFolder } fixedWidth className="mr-2"/>
                         <span>Trang demo</span>
-                    </a>
+                    </Link>
                     <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
                             <h6 className="collapse-header">Login Screens:</h6>

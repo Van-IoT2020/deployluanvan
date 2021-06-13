@@ -90,10 +90,10 @@ class supplierController extends Controller
     public function destroy($id)
     {
         $supplier = supplier::findOrFail($id);
-        // $count_receipt = $supplier->receipt->count();
-        // if($count_products != 0){
-        //     return response()->json('Nhà cung cấp có tồn tại phiếu nhập!', 400);
-        // }
+        $count_receipt = $supplier->receipt->count();
+        if($count_receipt != 0){
+            return response()->json('Nhà cung cấp có tồn tại phiếu nhập!', 400);
+        }
         return $supplier->delete();
     }
 }

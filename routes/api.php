@@ -26,6 +26,8 @@ Route::resource('brand', 'App\Http\Controllers\brandController');
 
 Route::resource('supplier', 'App\Http\Controllers\supplierController');
 
+Route::resource('receipt', 'App\Http\Controllers\ReceiptController');
+
 Route::resource('slide', 'App\Http\Controllers\SlideController');
 
 Route::resource('Admin', 'App\Http\Controllers\AdminAccountController');

@@ -32,6 +32,14 @@ import ShowProductType from "./components/Content/ShowProductType";
 import AddProductType from "./components/Content/AddProductType";
 import EditProductType from "./components/Content/EditProductType";
 
+import ShowColor from "./components/Content/ShowColor";
+import AddColor from "./components/Content/AddColor";
+import EditColor from "./components/Content/EditColor";
+
+import ShowReceipt from "./components/Content/ShowReceipt";
+import AddReceipt from "./components/Content/AddReceipt";
+import EditReceipt from "./components/Content/EditReceipt";
+
 class RouteUrl extends React.Component {
     render() {
         return (
@@ -64,6 +72,14 @@ class RouteUrl extends React.Component {
                 <Route exact path="/admin/home/product-type" component={ShowProductType} />
                 <Route exact path="/admin/home/add-product-type" component={AddProductType} />
                 <Route exact path="/admin/home/edit-product-type/:id" component={EditProductType} />
+
+                <Route exact path="/admin/home/color" component={ShowColor} />
+                <Route exact path="/admin/home/add-color" component={AddColor} />
+                <Route exact path="/admin/home/edit-color/:id" component={EditColor} />
+
+                <Route exact path="/admin/home/receipt" component={ShowReceipt} />
+                <Route exact path="/admin/home/add-receipt" component={AddReceipt} />
+                <Route exact path="/admin/home/edit-receipt/:id" component={EditReceipt} />
             </Router>
         );
     }

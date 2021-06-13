@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
 import { Button } from 'reactstrap'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
@@ -35,12 +36,15 @@ export default class ShowSupplier extends Component {
             if(res.data != null){
                 this.loadSupplier();
             }
+        }).catch(err=>{
+            toast.error('Không thể xóa: ' + err.response.data)
         })
     }
 
     render() {
         return (
             <div id="page-top">
+                <ToastContainer position="top-right" />
                 <div id="wrapper">
                     <Sidebar/>
                     <div id="content-wrapper" className="d-flex flex-column">
