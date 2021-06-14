@@ -8,7 +8,7 @@ class ColorDetails extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'color_details'; //sync table name
+    protected $table = 'color_details';
     protected $primaryKey = 'color_detail_id';
     protected $fillable=[
         'product_id',

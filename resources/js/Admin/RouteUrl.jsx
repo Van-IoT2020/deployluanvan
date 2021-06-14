@@ -36,9 +36,23 @@ import ShowColor from "./components/Content/ShowColor";
 import AddColor from "./components/Content/AddColor";
 import EditColor from "./components/Content/EditColor";
 
+import ShowColorDetails from "./components/Content/ShowColorDetails";
+import AddColorDetails from "./components/Content/AddColorDetails";
+import EditColorDetails from "./components/Content/EditColorDetails";
+
+import ShowSizeDetails from "./components/Content/ShowSizeDetails";
+import AddSizeDetails from "./components/Content/AddSizeDetails";
+import EditSizeDetails from "./components/Content/EditSizeDetails";
+
 import ShowReceipt from "./components/Content/ShowReceipt";
 import AddReceipt from "./components/Content/AddReceipt";
 import EditReceipt from "./components/Content/EditReceipt";
+
+import ShowReceiptDetails from "./components/Content/ShowReceiptDetails";
+import AddReceiptDetails from "./components/Content/AddReceiptDetails";
+import EditReceiptDetails from "./components/Content/EditReceiptDetails";
+
+
 
 class RouteUrl extends React.Component {
     render() {
@@ -76,10 +90,22 @@ class RouteUrl extends React.Component {
                 <Route exact path="/admin/home/color" component={ShowColor} />
                 <Route exact path="/admin/home/add-color" component={AddColor} />
                 <Route exact path="/admin/home/edit-color/:id" component={EditColor} />
+                
+                <Route exact path="/admin/home/color-details" component={ShowColorDetails} />
+                <Route exact path="/admin/home/add-color-details" component={AddColorDetails} />
+                <Route exact path="/admin/home/edit-color-details/:id" component={EditColorDetails} />
+
+                <Route exact path="/admin/home/size-details" component={ShowSizeDetails} />
+                <Route exact path="/admin/home/add-size-details" component={AddSizeDetails} />
+                <Route exact path="/admin/home/edit-size-details/:id" component={EditSizeDetails} />
 
                 <Route exact path="/admin/home/receipt" component={ShowReceipt} />
                 <Route exact path="/admin/home/add-receipt" component={AddReceipt} />
                 <Route exact path="/admin/home/edit-receipt/:id" component={EditReceipt} />
+
+                <Route exact path="/admin/home/receipt-details" component={ShowReceiptDetails} />
+                <Route exact path="/admin/home/add-receipt-details" component={AddReceiptDetails} />
+                <Route exact path="/admin/home/edit-receipt-details/:id" component={EditReceiptDetails} />
             </Router>
         );
     }

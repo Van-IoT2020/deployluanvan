@@ -147,6 +147,18 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
+        $count_colors = $product->color_details->count();
+        if($count_colors != 0){
+            return response()->json('Sản phẩm có tồn tại chi tiết màu!', 400);
+        }
+        $count_sizes = $product->size_detail->count();
+        if($count_sizes != 0){
+            return response()->json('Sản phẩm có tồn tại chi tiết size!', 400);
+        }
+        $count_receipts = $product->receipt_details->count();
+        if($count_receipts != 0){
+            return response()->json('Sản phẩm có tồn tại chi tiết phiếu nhập!', 400);
+        }
         return $product->delete();
     }
 }

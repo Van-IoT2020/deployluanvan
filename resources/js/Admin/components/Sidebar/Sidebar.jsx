@@ -38,18 +38,28 @@ export default class Sidebar extends Component {
                             <h6 className="collapse-header">Chức năng danh mục:</h6>
                             <Link className="collapse-item" to="/admin/home/categories">Xem danh mục</Link>
                             <Link className="collapse-item" to="/admin/home/add-categories">Thêm danh mục</Link>
+
                             <h6 className="collapse-header">Chức năng thương hiệu:</h6>
                             <Link className="collapse-item" to="/admin/home/brand">Xem thương hiệu</Link>
                             <Link className="collapse-item" to="/admin/home/add-brand">Thêm thương hiệu</Link>
+
                             <h6 className="collapse-header">Chức năng sản phẩm:</h6>
                             <Link className="collapse-item" to="/admin/home/product">Xem sản phẩm</Link>
                             <Link className="collapse-item" to="/admin/home/add-product">Thêm sản phẩm</Link>
+
                             <h6 className="collapse-header">Chức năng loại:</h6>
                             <Link className="collapse-item" to="/admin/home/product-type">Xem loại</Link>
                             <Link className="collapse-item" to="/admin/home/add-product-type">Thêm loại</Link>
+
                             <h6 className="collapse-header">Chức năng màu:</h6>
                             <Link className="collapse-item" to="/admin/home/color">Xem màu</Link>
                             <Link className="collapse-item" to="/admin/home/add-color">Thêm màu</Link>
+                            <Link className="collapse-item" to="/admin/home/color-details">Xem chi tiết màu</Link>
+                            <Link className="collapse-item" to="/admin/home/add-color-details">Thêm chi tiết màu</Link>
+
+                            <h6 className="collapse-header">Chức năng size:</h6>
+                            <Link className="collapse-item" to="/admin/home/size-details">Xem chi tiết size</Link>
+                            <Link className="collapse-item" to="/admin/home/add-size-details">Thêm chi tiết size</Link>
                         </div>
                     </div>
                 </li>
@@ -64,9 +74,13 @@ export default class Sidebar extends Component {
                             <h6 className="collapse-header">Chức năng nhà cung cấp:</h6>
                             <Link className="collapse-item" to="/admin/home/supplier">Xem nhà cung cấp</Link>
                             <Link className="collapse-item" to="/admin/home/add-supplier">Thêm nhà cung cấp</Link>
+
                             <h6 className="collapse-header">Chức năng phiếu nhập:</h6>
                             <Link className="collapse-item" to="/admin/home/receipt">Xem phiếu nhập</Link>
                             <Link className="collapse-item" to="/admin/home/add-receipt">Thêm phiếu nhập</Link>
+                            <Link className="collapse-item" to="/admin/home/receipt-details">Xem chi tiết phiếu nhập</Link>
+                            <Link className="collapse-item" to="/admin/home/add-receipt-details">Thêm chi tiết phiếu nhập</Link>
+
                             <h6 className="collapse-header">Chức năng quảng cáo:</h6>
                             <Link className="collapse-item" to="/admin/home/slide">Xem banner</Link>
                             <Link className="collapse-item" to="/admin/home/add-slide">Thêm banner</Link>

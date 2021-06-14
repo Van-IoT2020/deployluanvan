@@ -28,6 +28,8 @@ Route::resource('supplier', 'App\Http\Controllers\supplierController');
 
 Route::resource('receipt', 'App\Http\Controllers\ReceiptController');
 
+Route::resource('receipt-details', 'App\Http\Controllers\ReceiptDetailsController');
+
 Route::resource('slide', 'App\Http\Controllers\SlideController');
 
 Route::resource('Admin', 'App\Http\Controllers\AdminAccountController');
@@ -40,6 +42,10 @@ Route::resource('product_type', 'App\Http\Controllers\Product_typeController');
 Route::resource('color', 'App\Http\Controllers\ColorController');
 
 Route::resource('color-details', 'App\Http\Controllers\ColorDetailsController');
+
+Route::resource('size', 'App\Http\Controllers\SizeController');
+
+Route::resource('size-details', 'App\Http\Controllers\SizeDetailsController');
 
 Route::Resource('customer', 'App\Http\Controllers\CustomerController');
 Route::post("signup", "App\Http\Controllers\CustomerController@userSignUp");

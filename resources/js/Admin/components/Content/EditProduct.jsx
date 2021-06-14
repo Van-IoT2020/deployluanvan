@@ -80,7 +80,7 @@ class EditProduct extends Component {
 
     editProduct(){
         const brand_id_C2 = this.props.location.sendData.product_id
-        axios.get('http://127.0.0.1:8000/api/product/' + this.props.match.params.id)
+        axios.get('http://127.0.0.1:8000/api/product/' + brand_id_C2)
         .then(res =>{
             this.setState({
                 product_id: res.data.product_id,
