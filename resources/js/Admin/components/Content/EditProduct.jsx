@@ -7,6 +7,7 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
+import { storage } from '../../../FirebaseConfig'
 
 class EditProduct extends Component {
     constructor(props) {
@@ -29,8 +30,13 @@ class EditProduct extends Component {
 
             brand: [],
             product_type: [],
+
+            haveAChangeFile: false,
+            product_save_image: null,
         };
         this.onHandleChange = this.onHandleChange.bind(this);
+        this.onHandleChangeFile = this.onHandleChangeFile.bind(this);
+        this.showChangeImg = this.showChangeImg.bind(this);
     }
 
     onHandleChange(e){
@@ -40,20 +46,84 @@ class EditProduct extends Component {
         });
     }
 
-    onSubmit(){
-        const listProduct = this.state;
-        axios.put('http://127.0.0.1:8000/api/product/' + this.props.match.params.id, listProduct)
-        .then(res => {
-            if(res != null){
-                return this.props.history.push("/admin/home/product");
-            }
-        }) 
-        .catch(err =>{
-            err.response.data.map((error) =>{
-                console.log(error);
-                toast.error('Lỗi: '+ error);
-            })
+    onHandleChangeFile(e){
+        console.log(e.target.files[0])
+        this.setState({
+            product_save_image: e.target.files[0],
         })
+    }
+
+    showChangeImg(){
+        if(this.state.haveAChangeFile == true){
+            return <Input type="file" onChange={ this.onHandleChangeFile } name="product_image" id="product_image" required />
+        }
+        else{
+            return <Input type="text" defaultValue={ this.state.product_image} name="product_image" id="product_image" readOnly />
+        }
+    }
+
+    onSubmit(){
+        if(this.state.haveAChangeFile == false){
+            const listProduct = this.state;
+            axios.put('http://127.0.0.1:8000/api/product/' + this.props.match.params.id, listProduct)
+            .then(res => {
+                if(res != null){
+                    return this.props.history.push("/admin/home/product");
+                }
+            }) 
+            .catch(err =>{
+                err.response.data.map((error) =>{
+                    console.log(error);
+                    toast.error('Lỗi: '+ error);
+                })
+            })
+        }else{
+            if(this.state.product_save_image != null){
+                try { 
+                    storage.refFromURL(this.state.product_image).delete()
+                    .then(() => {
+                        alert("Picture is deleted successfully!");
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                } catch (error) {
+                    alert("Can't delete Picture!");
+                    console.log(error);
+                }
+                try {
+                    var newNameFile = Date.now() + "_" + this.state.product_save_image.name;
+                    var child = newNameFile;
+            
+                    const uploadTask = storage.ref('product').child(child).put(this.state.product_save_image);
+                        uploadTask.on("state_changed", snapshot => {}, error => { console.log(error) }, () => {
+                            storage.ref('product').child(child).getDownloadURL()
+                            .then(urlImage => { 
+                                this.setState({product_image: urlImage});
+
+                                const listProduct = this.state;
+                                axios.put('http://127.0.0.1:8000/api/product/' + this.props.match.params.id, listProduct)
+                                .then(res => {
+                                    if(res != null){
+                                        return this.props.history.push("/admin/home/product");
+                                    }
+                                }) 
+                                .catch(err =>{
+                                    err.response.data.map((error) =>{
+                                        console.log(error);
+                                        toast.error('Lỗi: '+ error);
+                                    })
+                                })
+                            })
+                        });
+                } catch (error) {
+                    console.error(error);
+                }                
+            } else {
+                alert('Phải chọn hình trước khi cập nhật')
+            }
+        }
+        
     }
 
     loadBrand(){
@@ -172,8 +242,10 @@ class EditProduct extends Component {
                                         <Input type="text" onChange={ this.onHandleChange } value={ this.state.product_content } name="product_content" id="product_content"/>
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                        <Label for="brandName" className="mr-sm-2">Hình sản phẩm</Label>
-                                        <Input type="text" onChange={ this.onHandleChange } value={ this.state.product_image } name="product_image" id="product_image"/>
+                                    <Label check><Input onChange={ (e)=>{ this.setState({haveAChangeFile: e.target.checked}) } } type="checkbox"/>Chọn để thay đổi hình</Label>
+                                        {
+                                            this.showChangeImg()
+                                        }
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="productStatus" className="mr-sm-2">Trạng thái sản phẩm</Label>

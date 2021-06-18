@@ -35,6 +35,7 @@ class Content extends React.Component {
         let elements=this.state.product.map((product, index) => {
             return <div key={index} className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <Products
+                        propsParent={this.props.propsParent}
                         id={product.product_id}
                         name={product.product_name}
                         price={product.unit_price}

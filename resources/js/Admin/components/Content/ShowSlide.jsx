@@ -5,6 +5,7 @@ import { Button } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar'
+import { storage } from '../../../FirebaseConfig';
 
 export default class ShowSlide extends Component {
     constructor(props) {
@@ -28,17 +29,29 @@ export default class ShowSlide extends Component {
         this.loadSlide();
     }
 
-    onDelete(id){
-        axios.delete('http://127.0.0.1:8000/api/slide/' + id)
-        .then(res =>{
-            if(res.data != null){
-                this.loadSlide();
-            }
-        }).catch(err => {
-            err.response.data.map(error => {
-                alert(error);
+    onDelete(id, urlImage){
+        try { 
+            storage.refFromURL(urlImage).delete().then(() => {
+                alert("Picture is deleted successfully!");
+                axios.delete('http://127.0.0.1:8000/api/slide/' + id)
+                .then(res =>{
+                    if(res.data != null){
+                        this.loadSlide();
+                    }
+                }).catch(err => {
+                    err.response.data.map(error => {
+                        alert(error);
+                    })
+                })
             })
-        })
+            .catch((err) => {
+                console.log(err);
+            });
+        } catch (error) {
+            alert("Can't delete Picture!");
+            console.log(error);
+        }
+        
     }
 
     render() {
@@ -94,13 +107,14 @@ export default class ShowSlide extends Component {
                                                                 <td>{item.slide_name}</td>
                                                                 <td>{item.slide_desc}</td>
                                                                 <td>{item.slide_status}</td>
-                                                                <td>{item.slide_image}</td>
+                                                                {/* <td>{item.slide_image}</td> */}
+                                                                <td><img height="100" width="200" src={ item.slide_image } alt="Card image cap" /></td>
                                                                 <td>
                                                                     <Link to = {"/admin/home/edit-slide/" + item.slide_id}>
                                                                         <Button outline color="info" style={{margin: "10px"}}>Sửa</Button>
                                                                     </Link>
                                                                     
-                                                                    <Button onClick={ (id)=>this.onDelete(item.slide_id) } outline color="danger" style={{margin: "10px"}}>Xóa</Button>
+                                                                    <Button onClick={ (id)=>this.onDelete(item.slide_id, item.slide_image ) } outline color="danger" style={{margin: "10px"}}>Xóa</Button>
                                                                 </td>
                                                             </tr>
                                                         )

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SizeDetails;
+use App\Models\Size;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -74,5 +75,17 @@ class SizeDetailsController extends Controller
     {
         $details = SizeDetails::findOrFail($id);
         return $details->delete();
+    }
+
+    public function getSize($id){
+        // r: size 
+        // n: product
+        $arr_size = [];
+
+        $findSize = SizeDetails::select('size_id')->where('product_id', $id)->get();
+        foreach($findSize as $key => $value){
+            $arr_size[] = Size::select('size_id', 'size_name')-> where('size_id', $value->size_id)->first();
+        }
+        return $arr_size;
     }
 }

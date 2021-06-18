@@ -13,7 +13,7 @@ class AddReceipt extends Component {
         super(props);
         this.state = {
             supplier_id: "",
-            bill_total: "",
+            bill_total: 0,
             create_at: moment(new Date()).format("yyyy-MM-DD"),
 
             suppliers: [],
@@ -82,7 +82,7 @@ class AddReceipt extends Component {
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="Name" className="mr-sm-2">Tổng tiền phiếu nhập</Label>
-                                        <Input type="text" onChange={ this.onHandleChange } name="bill_total" id="bill_total"/>
+                                        <Input type="text" onChange={ this.onHandleChange } name="bill_total" value={ this.state.bill_total } id="bill_total" readOnly/>
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="create">Ngày thêm</Label>

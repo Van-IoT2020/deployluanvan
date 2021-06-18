@@ -92,7 +92,7 @@ class EditReceipt extends Component {
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="Name" className="mr-sm-2">Tổng tiền phiếu nhâp</Label>
-                                        <Input type="text" onChange={ this.onHandleChange } value={ this.state.bill_total } name="bill_total" id="bill_total"/>
+                                        <Input type="text" onChange={ this.onHandleChange } value={ this.state.bill_total } name="bill_total" id="bill_total" readOnly/>
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="update">Ngày cập nhật</Label>

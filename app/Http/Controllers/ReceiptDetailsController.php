@@ -57,7 +57,7 @@ class ReceiptDetailsController extends Controller
     public function update(Request $request, $id)
     {
         $details = ReceiptDetails::findOrFail($id);
-        $find = ReceiptDetails::where('receipt_id',$request->receipt_id)->where('product_id',$request->product_id)->get();
+        $find = ReceiptDetails::where('receipt_id',$request->receipt_id)->where('product_id',$request->product_id)->where('receipt_details_id', '!=', $id)->get();
         if($find->count()>0){
             return response()->json('Đã tồn tại sản phẩm cho phiếu nhập này', 400);
         }

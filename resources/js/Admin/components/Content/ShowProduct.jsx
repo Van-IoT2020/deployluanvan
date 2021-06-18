@@ -3,18 +3,30 @@ import React, { Component } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DataTable from 'react-data-table-component';
-import { Button } from 'reactstrap';
+import { Button, Form } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
+import { storage } from '../../../FirebaseConfig';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class ShowProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
             product: [],
+            filter_text:"",
         };
         this.loadProduct = this.loadProduct.bind(this);
+        this.onHandleChange = this.onHandleChange.bind(this);
+    }
+
+    onHandleChange(event){
+        console.log(event.target.value);
+        this.setState({
+            [event.target.name]: event.target.value
+        });
     }
 
     loadProduct(){
@@ -34,17 +46,30 @@ class ShowProduct extends Component {
         this.loadProduct();
     }
 
-    onDelete(id){
-        axios.delete('http://127.0.0.1:8000/api/product/' + id)
-        .then(res =>{
-            console.log(res);
-            if(res.data != null){
-                this.loadProduct();
-            }
-        })
-        .catch(err => {
-            toast.error('Lỗi '+ err.response.data);
-        })
+    onDelete(id, urlImage){
+        try { 
+            storage.refFromURL(urlImage).delete()
+            .then(() => {
+                alert("Picture is deleted successfully!");
+                axios.delete('http://127.0.0.1:8000/api/product/' + id)
+                .then(res =>{
+                    console.log(res);
+                    if(res.data != null){
+                        this.loadProduct();
+                    }
+                })
+                .catch(err => {
+                    toast.error('Lỗi '+ err.response.data);
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        } catch (error) {
+            alert("Can't delete Picture!");
+            console.log(error);
+        }
+        
     }
     
     
@@ -117,7 +142,7 @@ class ShowProduct extends Component {
             },
             {
                 name: 'Hình',
-                selector: 'product_image',
+                cell: row => <img height="100" width="200" src={ row.product_image } alt="Card image cap" />,
                 sortable: true,
                 right: true,
             },
@@ -139,10 +164,26 @@ class ShowProduct extends Component {
                 button: true,
             },
             {
-                cell: row => <Button onClick={ (id)=>this.onDelete(row.product_id)} outline color="danger" style={{margin: "10px"}}>Xóa</Button>,
+                cell: row => <Button onClick={ (id)=>this.onDelete(row.product_id, row.product_image)} outline color="danger" style={{margin: "10px"}}>Xóa</Button>,
                 button: true,
             }
         ];
+
+        var filter_product= this.state.filter_text == "" ? this.state.product : this.state.product.filter(item => item.product_name && item.product_name.toLowerCase().includes(this.state.filter_text.toLowerCase()));
+        const FilterComponent = () => (
+            <>
+                <Form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div className="input-group">
+                        <input type="text" name="filter_text" value = {this.state.filter_text} onChange={this.onHandleChange} className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                        <div className="input-group-append">
+                            <Button className="btn btn-primary" onClick={ () => this.setState({filter_text: ""})} type="button">
+                                <FontAwesomeIcon icon={ faTrash } size="sm"/>
+                            </Button>
+                        </div>
+                    </div>
+                </Form>
+            </>
+          );
         return (
             <div id="page-top">
                 <ToastContainer position="top-right" />
@@ -155,9 +196,10 @@ class ShowProduct extends Component {
                                  <DataTable
                                     title="Danh sách sản phẩm"
                                     columns={columns}
-                                    data={ this.state.product }
+                                    data={ filter_product }
                                     pagination
                                     subHeader
+                                    subHeaderComponent={FilterComponent(this.state.product)}
                                 />
                             </div>
                         </div>

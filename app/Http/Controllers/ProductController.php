@@ -41,7 +41,7 @@ class ProductController extends Controller
                 'promotion_price'=>'required|numeric',
                 'product_desc'=>'required',
                 'product_content'=>'required',
-                'product_image'=>'required',//'product_image'=>'required|image',
+                'product_image'=>'required',
                 // 'product_status'=>'required'
             ],
             [
@@ -59,7 +59,7 @@ class ProductController extends Controller
                 'promotion_price.numeric'=>'Giá khuyến mãi chưa đúng định dạng',
                 'product_desc.required'=>'Chưa nhập mô tả',
                 'product_content.required'=>'Chưa nhập nội dung',
-                'product_image.required'=>'Bạn chưa nhập tên hình',
+                'product_image.required'=>'Hình không được để trống',
                 // 'product_image.image'=>'Hình chưa đúng định dạng'
             ]
         );
@@ -85,6 +85,10 @@ class ProductController extends Controller
         return Product::findOrFail($id);
     }
 
+    public function findIdBySlug($slug)
+    {
+        return Product::select('product_id')->where('product_slug',$slug)->first();//get url theo slug phía backend
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -106,7 +110,7 @@ class ProductController extends Controller
                 'promotion_price'=>'required|numeric',
                 'product_desc'=>'required',
                 'product_content'=>'required',
-                'product_image'=>'required',//'product_image'=>'required|image',
+                // 'product_image'=>'required',
                 // 'product_status'=>'required'
             ],
             [
@@ -121,7 +125,7 @@ class ProductController extends Controller
                 'promotion_price.numeric'=>'Giá khuyến mãi chưa đúng định dạng',
                 'product_desc.required'=>'Chưa nhập mô tả',
                 'product_content.required'=>'Chưa nhập nội dung',
-                'product_image.required'=>'Bạn chưa nhập tên hình',
+                // 'product_image.required'=>'Hình không được để trống',
                 // 'product_image.image'=>'Hình chưa đúng định dạng'
             ]
         );

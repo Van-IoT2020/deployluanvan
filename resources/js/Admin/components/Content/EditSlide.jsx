@@ -6,6 +6,7 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
+import { storage } from '../../../FirebaseConfig';
 
 export default class EditSlide extends Component {
     constructor(props) {
@@ -14,9 +15,14 @@ export default class EditSlide extends Component {
             slide_name: '',
             slide_desc: '',
             slide_status: '',
-            slide_image: ''
+            slide_image: '',
+
+            haveAChangeFile: false,
+            slide_save_image: null,
         };
         this.onHandleChange = this.onHandleChange.bind(this);
+        this.onHandleChangeFile = this.onHandleChangeFile.bind(this);
+        this.showChangeImg = this.showChangeImg.bind(this);
     }
 
     onHandleChange(event){
@@ -26,20 +32,74 @@ export default class EditSlide extends Component {
         });
     }
 
+    onHandleChangeFile(e){
+        console.log(e.target.files[0])
+        this.setState({
+            slide_save_image: e.target.files[0],
+        })
+    }
+
     onSubmit(){
-        const listSlide = this.state;
-        axios.put('http://127.0.0.1:8000/api/slide/' + this.props.match.params.id, listSlide)
-        .then(res =>{
-            if(res!= null){
-                return this.props.history.push('/admin/home/slide');
-            }
-        })
-        .catch(err =>{
-            err.response.data.map((error) =>{
-                console.log(error);
-                toast.error('Lỗi: '+ error);
+        if(this.state.haveAChangeFile == false){
+            const listSlide = this.state;
+            axios.put('http://127.0.0.1:8000/api/slide/' + this.props.match.params.id, listSlide)
+            .then(res =>{
+                if(res!= null){
+                    return this.props.history.push('/admin/home/slide');
+                }
             })
-        })
+            .catch(err =>{
+                err.response.data.map((error) =>{
+                    console.log(error);
+                    toast.error('Lỗi: '+ error);
+                })
+            })
+        }else{
+            if(this.state.slide_save_image != null){
+                try { 
+                    storage.refFromURL(this.state.slide_image).delete()
+                    .then(() => {
+                        alert("Picture is deleted successfully!");
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                } catch (error) {
+                    alert("Can't delete Picture!");
+                    console.log(error);
+                }
+                try {
+                    var newNameFile = Date.now() + "_" + this.state.slide_save_image.name;
+                    var child = newNameFile;
+            
+                    const uploadTask = storage.ref('slide').child(child).put(this.state.slide_save_image);
+                        uploadTask.on("state_changed", snapshot => {}, error => { console.log(error) }, () => {
+                            storage.ref('slide').child(child).getDownloadURL()
+                            .then(urlImage => { 
+                                this.setState({slide_image: urlImage});
+
+                                const listSlide = this.state;
+                                axios.put('http://127.0.0.1:8000/api/slide/' + this.props.match.params.id, listSlide)
+                                .then(res =>{
+                                    if(res!= null){
+                                        return this.props.history.push('/admin/home/slide');
+                                    }
+                                })
+                                .catch(err =>{
+                                    err.response.data.map((error) =>{
+                                        console.log(error);
+                                        toast.error('Lỗi: '+ error);
+                                    })
+                                })
+                            })
+                        });
+                } catch (error) {
+                    console.error(error);
+                }                
+            } else {
+                alert('Phải chọn hình trước khi cập nhật')
+            }
+        }
     }
 
     editSlide(){
@@ -49,9 +109,19 @@ export default class EditSlide extends Component {
                 slide_name: res.data.slide_name,
                 slide_desc: res.data.slide_desc,
                 slide_status: res.data.slide_status,
-                slide_image: res.data.slide_image
+                slide_image: res.data.slide_image,
             });
         })
+    }
+
+    
+    showChangeImg(){
+        if(this.state.haveAChangeFile == true){
+            return <Input type="file" onChange={ this.onHandleChangeFile } name="slide_image" id="slide_image" required />
+        }
+        else{
+            return <Input type="text" defaultValue={ this.state.slide_image} name="slide_image" id="slide_image" readOnly />
+        }
     }
 
     componentWillMount(){
@@ -86,8 +156,15 @@ export default class EditSlide extends Component {
                                         </Input>
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                        <Label for="brandStatus" className="mr-sm-2">Tên hình</Label>
-                                        <Input type="text" onChange={ this.onHandleChange } value={this.state.slide_image} name="slide_image" id="slide_image" />
+                                        <Label check><Input onChange={ (e)=>{ this.setState({haveAChangeFile: e.target.checked}) } } type="checkbox"/>Chọn để thay đổi hình</Label>
+                                        {
+                                            // (this.state.haveAChangeFile == true) ? (
+                                            //     <Input type="file" onChange={ this.onHandleChangeFile } name="slide_image" id="slide_image" required />
+                                            // ) : (
+                                            //     <Input type="text" value={ this.state.slide_image} name="slide_image" id="slide_image" readonly />
+                                            // )
+                                            this.showChangeImg()
+                                        }
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

@@ -34,7 +34,8 @@ class AdminAccountController extends Controller
                 'admin_name'=>'required|min:3',
                 'admin_email'=>'required|email',
                 'admin_phone'=>'required|numeric|digits:10',
-                'admin_password'=>'required|min:5|max:32'
+                'admin_password'=>'required|min:5|max:32',
+                'grant'=>'required|min:1|max:5'
             ],
             [
                 'admin_name.required'=>'Bạn chưa nhập tên người dùng',
@@ -47,6 +48,9 @@ class AdminAccountController extends Controller
                 'admin_password.required'=>'Bạn chưa nhập mật khẩu',
                 'admin_password.min'=>'Mật khẩu phải ít nhất 5 kí tự',
                 'admin_password.max'=>'Mật khẩu chỉ tối đa 32 kí tự',
+                'grant.required'=>'Phải phân quyền tài khoản',
+                'grant.min'=>'Mật khẩu chỉ tối thiểu 1 kí tự',
+                'grant.max'=>'Mật khẩu chỉ tối đa 5 kí tự',
             ]
         );
         if($valid->fails()){
@@ -85,21 +89,14 @@ class AdminAccountController extends Controller
         $valid = Validator::make($request->all(),
             [
                 'admin_name'=>'required|min:3',
-                'admin_email'=>'required|email',
                 'admin_phone'=>'required|numeric|digits:10',
-                'admin_password'=>'required|min:5|max:32'
             ],
             [
                 'admin_name.required'=>'Bạn chưa nhập tên người dùng',
                 'admin_name.min'=>'Tên người dùng phải ít nhất 3 kí tự',
-                'admin_email.required'=>'Bạn chưa nhập email',
-                'admin_email.email'=>'Email chưa đúng định dạng',
                 'admin_phone.required'=>'Bạn chưa nhập số điện thoại',
                 'admin_phone.numeric'=>'Số điện thoại phải là số',
                 'admin_phone.digits'=>'Số điện thoại phải đủ 10 chữ số',
-                'admin_password.required'=>'Bạn chưa nhập mật khẩu',
-                'admin_password.min'=>'Mật khẩu phải ít nhất 5 kí tự',
-                'admin_password.max'=>'Mật khẩu chỉ tối đa 32 kí tự'
             ]
         );
         if($valid->fails()){
@@ -113,19 +110,43 @@ class AdminAccountController extends Controller
 
         $find = AdminAccount::where('admin_email',$request->admin_email)->get();
         // var_dump($find);
-        if (count($find)) {
-            if (Hash::check($request->admin_old_pass, $find[0]->admin_password)) {
-                $request->offsetSet('admin_password',bcrypt($request->input('admin_password'))); 
-
-                $admin = AdminAccount::findOrFail($id);
-                // return $request->all();
-                $admin->update($request->all());
-                return response()->json('Cập nhật mật khẩu thành công', 200);
+        if($request->isChanged){
+            $valid = Validator::make($request->all(),
+                [
+                    'admin_password'=>'required|min:5|max:32'
+                ],
+                [
+                    'admin_password.required'=>'Bạn chưa nhập mật khẩu',
+                    'admin_password.min'=>'Mật khẩu phải ít nhất 5 kí tự',
+                    'admin_password.max'=>'Mật khẩu chỉ tối đa 32 kí tự'
+                ]
+            );
+            if($valid->fails()){
+                $err = [];
+                foreach($valid->errors()->messages() as $key => $value){
+                    // echo($value[0]);
+                    $err[] = $value[0];
+                }
+                return response()->json($err, 400);
             }
+            if (count($find)) {
+                if (Hash::check($request->admin_old_pass, $find[0]->admin_password)) {
+                    $request->offsetSet('admin_password',bcrypt($request->input('admin_password'))); 
+
+                    $admin = AdminAccount::findOrFail($id);
+                    // return $request->all();
+                    $admin->update($request->all());
+                    return response()->json('Cập nhật mật khẩu thành công', 200);
+                }
+            }
+            // var_dump($request->admin_password);
+            return response()->json('Sai mật khẩu cũ', 400);
         }
-        // var_dump($request->admin_password);
-        return response()->json('Sai mật khẩu cũ', 400);
-  
+        else{
+            $admin = AdminAccount::findOrFail($id);
+            $admin->update($request->all());
+            return response()->json('Cập nhật thành công', 200);
+        }
     }
 
     /**

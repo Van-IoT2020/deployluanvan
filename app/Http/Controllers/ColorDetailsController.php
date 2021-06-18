@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ColorDetails;
+use App\Models\Color;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -74,5 +75,17 @@ class ColorDetailsController extends Controller
     {
         $details = ColorDetails::findOrFail($id);
         return $details->delete();
+    }
+
+    public function getColor($id){
+        $arr_color = [];
+        $findColors = ColorDetails::select('color_id')->where('product_id', $id)->get();
+        // echo($findColors[0]->color_id);
+        foreach ($findColors as $key => $value){
+            // echo($value->color_id);
+            $arr_color[] = Color::select('color_id', 'color_name')->where('color_id', $value->color_id)->first();
+        }
+        return $arr_color;
+        // $findProduct_inColorDetails = ColorDetails::findOrFail($id);
     }
 }

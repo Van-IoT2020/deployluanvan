@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import CurrencyFormat from 'react-number-format';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { Button } from 'reactstrap';
 
 class Products extends React.Component {
     constructor(props){
@@ -20,11 +21,20 @@ class Products extends React.Component {
     render() {
         return (
             <div className="product">
-                <Link to={"/product_details/"+this.props.id +"/"+this.props.product_slug}>
-                    <img className="card-img-top" src={"/images/ImageCrs/"+this.props.image} alt={this.props.name} style={{width:"280"}} style={{height:"300"}} />
-                </Link>
+                <span onClick={ () => {
+                        this.props.propsParent.history.push({
+                            pathname: '/product_details/' + this.props.product_slug,
+                            sendData: {
+                                product_id: this.props.id
+                            }
+                        });
+                    }}>
+                    <img className="card-img-top" src={this.props.image} alt={this.props.name} style={{width:"280"}} style={{height:"300"}} />
+                </span>
                 <div className="card-body">
-                <h4 className="card-title"><a href="#!">{this.props.name}</a></h4>
+                <h4 className="card-title">
+                    <Link to="#">{this.props.name}</Link>
+                </h4>
                 <div className="form-group">
                     <div className="form-check-inline">
                         <h5>
@@ -37,7 +47,7 @@ class Products extends React.Component {
                         </h5>
                     </div>
                 </div>
-                <p className="card-text">Gợi ý: {this.props.content}</p>
+                <p className="card-text">Mô tả: {this.props.content}</p>
                 </div>
                 <div className="col-md-12">
                     <div className="rating">
@@ -49,8 +59,15 @@ class Products extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-12">
-                    <Link to={"/product_details/"+this.props.id +"/"+this.props.product_slug} className="btn btn-primary">Xem chi tiết</Link><span> </span>
-                    <a className="btn btn-danger" onClick={this.onAddToCart}>Mua hàng</a>
+                    <Button onClick={ () => {
+                        this.props.propsParent.history.push({
+                            pathname: '/product_details/' + this.props.product_slug,
+                            sendData: {
+                                product_id: this.props.id
+                            }
+                        });
+                    }} color="info" style={{margin: "10px"}}>Xem chi tiết</Button><span> </span>
+                    <Button className="btn btn-danger" onClick={this.onAddToCart}>Mua hàng</Button>
                 </div>
             </div>
         );

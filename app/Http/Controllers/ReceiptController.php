@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Receipt;
+use App\Models\ReceiptDetails;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -110,5 +111,28 @@ class ReceiptController extends Controller
             return response()->json('Phiếu nhập đã có tồn tại chi tiết!', 400);
         }
         return $receipt->delete();
+    }
+
+    public function handle_updateBillTotal(Request $request, $id){
+        //  action: 
+        //  1: add -> increment
+        //  2: update -> decrement n increment 
+        //  3: delete -> decrement
+
+        $find_billTotal = Receipt::select('bill_total')->where('receipt_id', $id)->first()->bill_total;
+        // echo($find_billTotal);
+
+        if($request->action == 1){
+            $new_money = $find_billTotal + $request->total_money;
+        } 
+        elseif($request->action == 3){
+            $new_money =  $find_billTotal - $request->total_money;
+        } 
+        else{
+            $new_money =  $find_billTotal - $request->total_old_money + $request->total_money;
+        }
+        
+        $receipt= Receipt::findOrFail($id);
+        return $receipt->update(['bill_total' => $new_money]);
     }
 }

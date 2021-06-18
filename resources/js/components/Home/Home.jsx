@@ -8,10 +8,10 @@ class Home extends React.Component {
     render() {
         return (
             <div style={{overflow:"hidden", width:"100vw"}}>
-                <Menu />
+                <Menu propsParent = {this.props} />
                 <Carousels />
                 <Header onSearch={this.props.onSearch} />
-                <Content/>
+                <Content propsParent = {this.props}/>
                 <span> </span>
                 <Footer />
             </div>

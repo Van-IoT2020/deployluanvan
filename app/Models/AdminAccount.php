@@ -15,6 +15,7 @@ class AdminAccount extends Model
         'admin_name',
         'admin_email',
         'admin_phone',
-        'admin_password'
+        'admin_password',
+        'grant'
     ];
 }

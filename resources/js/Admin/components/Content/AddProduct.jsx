@@ -7,6 +7,7 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
+import { storage } from '../../../FirebaseConfig';
 
 class AddProduct extends Component {
     constructor(props) {
@@ -27,10 +28,12 @@ class AddProduct extends Component {
             product_status: 1,
             created_at: moment(new Date()).format("yyyy-MM-DD"),
 
+            product_save_image: null,
             brand: [],
             product_type: [],
         };
         this.onHandleChange = this.onHandleChange.bind(this);
+        this.onHandleChangeFile = this.onHandleChangeFile.bind(this);
     }
 
     onHandleChange(e){
@@ -38,6 +41,13 @@ class AddProduct extends Component {
         this.setState({
             [e.target.name] : e.target.value
         });
+    }
+
+    onHandleChangeFile(e){
+        console.log(e.target.files[0])
+        this.setState({
+            product_save_image: e.target.files[0],
+        })
     }
 
     loadBrand(){
@@ -68,36 +78,50 @@ class AddProduct extends Component {
     }
 
     onSubmit(){
-        const listProduct = {
-            product_id: this.state.product_id,
-            product_name: this.state.product_name,
-            product_quantity: this.state.product_quantity,
-            product_slug: this.state.product_slug,
-            product_type_id: this.state.product_type_id,
-            brand_id: this.state.brand_id,
-            unit: this.state.unit,
-            unit_price: this.state.unit_price,
-            promotion_price: this.state.promotion_price,
-            product_desc: this.state.product_desc,
-            product_content: this.state.product_content,
-            product_image: this.state.product_image,
-            product_status: this.state.product_status,
-            created_at: this.state.created_at
+        try {
+            var newNameFile = Date.now() + "_" + this.state.product_save_image.name;
+            var child = newNameFile;
+    
+            const uploadTask = storage.ref('product').child(child).put(this.state.product_save_image);
+                uploadTask.on("state_changed", snapshot => {}, error => { console.log(error) }, () => {
+                    storage.ref('product').child(child).getDownloadURL()
+                    .then(urlImage => { 
+                        this.setState({product_image: urlImage});
+
+                        const listProduct = {
+                        product_id: this.state.product_id,
+                        product_name: this.state.product_name,
+                        product_quantity: this.state.product_quantity,
+                        product_slug: this.state.product_slug,
+                        product_type_id: this.state.product_type_id,
+                        brand_id: this.state.brand_id,
+                        unit: this.state.unit,
+                        unit_price: this.state.unit_price,
+                        promotion_price: this.state.promotion_price,
+                        product_desc: this.state.product_desc,
+                        product_content: this.state.product_content,
+                        product_image: urlImage,
+                        product_status: this.state.product_status,
+                        created_at: this.state.created_at
+                        }
+                        // console.warn('send:', listProduct);
+                        axios.post('http://127.0.0.1:8000/api/product/', listProduct)
+                        .then(res => {
+                            if(res != null){
+                                return this.props.history.push('/admin/home/product');
+                            }
+                        })
+                        .catch(err => {
+                            err.response.data.map((error) => {
+                                // console.log(error);
+                                toast.error('Lỗi '+ error);
+                            })
+                        })
+                    })
+                });
+        } catch (error) {
+            toast.error('Lỗi: Hình không được trống');
         }
-        console.warn('send:', listProduct);
-        axios.post('http://127.0.0.1:8000/api/product/', listProduct)
-        .then(res => {
-            if(res != null){
-                return this.props.history.push('/admin/home/product');
-            }
-        })
-        .catch(err => {
-            err.response.data.map((error) => {
-                console.log(error);
-                // alert(error);
-                toast.error('Lỗi '+ error);
-            })
-        })
     }
     
     render() {
@@ -168,8 +192,8 @@ class AddProduct extends Component {
                                         <Input type="text" onChange={ this.onHandleChange } name="product_content" id="product_content"/>
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                        <Label for="brandName" className="mr-sm-2">Hình sản phẩm</Label>
-                                        <Input type="text" onChange={ this.onHandleChange } name="product_image" id="product_image"/>
+                                        <Label for="Name" className="mr-sm-2">Hình sản phẩm</Label>
+                                        <Input type="file" onChange={ this.onHandleChangeFile } name="product_image" id="product_image" required/>
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="productStatus" className="mr-sm-2">Trạng thái sản phẩm</Label>

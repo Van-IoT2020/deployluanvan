@@ -17,6 +17,9 @@ class EditReceiptDetails extends Component {
             receipt_price:"",
             create_at: moment(new Date()).format("yyyy-MM-DD"),
 
+            
+            receipt_old_quantity:"",
+            receipt_old_price:"",
             receipts: [],
             products: [],
         };
@@ -50,14 +53,17 @@ class EditReceiptDetails extends Component {
         }).catch(err =>console.log(err));
     }
 
-    editColorDetails(){
+    editReceiptDetails(){
         axios.get('http://127.0.0.1:8000/api/receipt-details/' +  this.props.match.params.id)
         .then(res =>{
             this.setState({
                 product_id: res.data.product_id,
                 receipt_id: res.data.receipt_id,
                 receipt_quantity: res.data.receipt_quantity,
-                receipt_price: res.data.receipt_price
+                receipt_price: res.data.receipt_price,
+
+                receipt_old_quantity: res.data.receipt_quantity,
+                receipt_old_price: res.data.receipt_price
             });
         })
     }
@@ -65,7 +71,7 @@ class EditReceiptDetails extends Component {
     componentWillMount() {
         this.loadReceipts();
         this.loadProducts();
-        this.editColorDetails();
+        this.editReceiptDetails();
     }
 
     onSubmit(){
@@ -79,7 +85,15 @@ class EditReceiptDetails extends Component {
         axios.put('http://127.0.0.1:8000/api/receipt-details/' + this.props.match.params.id, listReceiptDetails)
         .then(res => {
             if(res != null){
-                return this.props.history.push('/admin/home/receipt-details');
+                const data = {
+                    total_old_money: this.state.receipt_old_quantity * this.state.receipt_old_price,
+                    total_money: this.state.receipt_quantity * this.state.receipt_price,
+                    action: 2
+                }
+                axios.put('http://127.0.0.1:8000/api/receipt_upd_bill/' + this.state.receipt_id, data)
+                .then(res =>{
+                    return this.props.history.push('/admin/home/receipt-details');
+                })
             }
         }).catch(err => {
             toast.error('Lỗi '+ err.response.data);

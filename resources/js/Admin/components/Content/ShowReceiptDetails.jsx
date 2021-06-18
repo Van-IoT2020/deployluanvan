@@ -29,11 +29,18 @@ class ShowReceiptDetails extends Component {
         this.loadReceiptDetails();
     }
 
-    onDelete(id){
+    onDelete(id, receipt_id, receipt_quantity, receipt_price){
         axios.delete('http://127.0.0.1:8000/api/receipt-details/' + id)
         .then(res => {
             if(res.data != null){
-                this.loadReceiptDetails();
+                const data = { 
+                    total_money: receipt_quantity * receipt_price,
+                    action: 3
+                }
+                axios.put('http://127.0.0.1:8000/api/receipt_upd_bill/' + receipt_id, data)
+                .then(res =>{
+                    this.loadReceiptDetails();
+                })
             }
         })
     }
@@ -93,7 +100,7 @@ class ShowReceiptDetails extends Component {
                                                                         <Button outline color="info" style={{margin: "10px"}}>Sửa</Button>
                                                                     </Link>
                                                                     
-                                                                    <Button onClick={ (id)=>this.onDelete(item.receipt_details_id) } outline color="danger" style={{margin: "10px"}}>Xóa</Button>
+                                                                    <Button onClick={ (id)=>this.onDelete(item.receipt_details_id, item.receipt_id, item.receipt_quantity, item.receipt_price) } outline color="danger" style={{margin: "10px"}}>Xóa</Button>
                                                                 </td>
                                                             </tr>
                                                         )

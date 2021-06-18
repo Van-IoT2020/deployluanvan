@@ -3,12 +3,11 @@ import {
   BrowserRouter as Router,
   Route
 } from "react-router-dom";
-// import Register from "./Admin/Account/Register";
+import Register from "./components/Account/Register";
 import Home from "./components/Home/Home";
 import Cart from "./components/Cart/Cart";
 import New from "./components/New/New";
-import Register from "./components/Register/Register";
-import Login from "./components/Login/Login";
+import Login from "./components/Account/Login";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 class RouteUrl extends React.Component {
     render() {
@@ -16,7 +15,7 @@ class RouteUrl extends React.Component {
             <Router>
                 <div>
                     <Route exact path="/" component={Home} />
-                    <Route exact path="/product_details/:id/:slug" component={ProductDetails} />
+                    <Route exact path="/product_details/:slug" component={ProductDetails} />
                     <Route exact path="/products-new" component={New} />
                     <Route exact path="/cart" component={Cart} />
                     <Route exact path="/register" component={Register} />

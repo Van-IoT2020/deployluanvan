@@ -67,7 +67,14 @@ class AddReceiptDetails extends Component {
         axios.post('http://127.0.0.1:8000/api/receipt-details/', listReceiptDetails)
         .then(res => {
             if(res != null){
-                return this.props.history.push('/admin/home/receipt-details');
+                const data = { 
+                    total_money: this.state.receipt_quantity * this.state.receipt_price,
+                    action: 1
+                }
+                axios.put('http://127.0.0.1:8000/api/receipt_upd_bill/' + this.state.receipt_id, data)
+                .then(res =>{
+                    return this.props.history.push('/admin/home/receipt-details');
+                })
             }
         }).catch(err => {
             toast.error('Lỗi '+ err.response.data);

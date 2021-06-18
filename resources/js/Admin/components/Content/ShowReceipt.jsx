@@ -3,18 +3,29 @@ import React, { Component } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DataTable from 'react-data-table-component';
-import { Button } from 'reactstrap';
+import { Button, Form } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class ShowReceipt extends Component {
     constructor(props) {
         super(props);
         this.state={
-            receipts: []
+            receipts: [],
+            filter_text:"",
         };
         this.loadReceipts = this.loadReceipts.bind(this);
+        this.onHandleChange = this.onHandleChange.bind(this);
+    }
+
+    onHandleChange(event){
+        console.log(event.target.value);
+        this.setState({
+            [event.target.name]: event.target.value
+        });
     }
 
     loadReceipts(){
@@ -90,6 +101,21 @@ class ShowReceipt extends Component {
                 button: true,
             }
         ];
+        var filter_receipt= this.state.filter_text == "" ? this.state.receipts : this.state.receipts.filter(item => item.supplier_id && item.supplier_id == this.state.filter_text);
+        const FilterComponent = () => (
+            <>
+                <Form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div className="input-group">
+                        <input type="text" name="filter_text" value = {this.state.filter_text} onChange={this.onHandleChange} className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                        <div className="input-group-append">
+                            <Button className="btn btn-primary" onClick={ () => this.setState({filter_text: ""})} type="button">
+                                <FontAwesomeIcon icon={ faTrash } size="sm"/>
+                            </Button>
+                        </div>
+                    </div>
+                </Form>
+            </>
+          );
         return (
             <div id="page-top">
                 <ToastContainer position="top-right" />
@@ -102,9 +128,11 @@ class ShowReceipt extends Component {
                                  <DataTable
                                     title="Danh sách phiếu nhập"
                                     columns={columns}
-                                    data={ this.state.receipts }
+                                    data={ filter_receipt }
                                     pagination
                                     subHeader
+                                    subHeaderComponent={FilterComponent(this.state.receipts)}
+                                    // paginationPerPage={1}
                                 />
                             </div>
                         </div>

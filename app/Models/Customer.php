@@ -21,5 +21,8 @@ class Customer extends Model
         'customer_phone',
         'create_at',
         'update_at'
-    ]; 
+    ];
+    public function tbl_order(){
+        return $this->hasMany(TblOrder::class, 'customer_id', 'customer_id');
+    }
 }

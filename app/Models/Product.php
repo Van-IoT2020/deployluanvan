@@ -38,7 +38,7 @@ class Product extends Model
         return $this->hasMany(ColorDetails::class, 'product_id', 'product_id');
     }
     public function size_detail(){
-        return $this->hasMany(SizeDetail::class, 'product_id', 'product_id');
+        return $this->hasMany(SizeDetails::class, 'product_id', 'product_id');
     }
     public function receipt_details(){
         return $this->hasMany(ReceiptDetails::class, 'product_id', 'product_id');
