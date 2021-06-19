@@ -85,10 +85,10 @@ export default class Login extends Component {
                                         </Form>
                                         <hr />
                                         <div className="text-center">
-                                            <Link className="small" to ="forgot-password.html" className="btn btn-danger btn-block"  style={{margin: "2px"}}>Forgot Password?</Link>
+                                            <Link className="small" to ="forgot-password.html" className="btn btn-danger btn-block"  style={{margin: "2px"}}>Quên mật khẩu</Link>
                                         </div>
                                         <div className="text-center">
-                                            <Link className="small" to ='/register' className="btn btn-success btn-block"  style={{margin: "2px"}}>Create an Account!</Link>
+                                            <Link className="small" to ='/register' className="btn btn-success btn-block"  style={{margin: "2px"}}>Tạo một tài khoản mới</Link>
                                         </div>
                                     </div>
                                 </div>

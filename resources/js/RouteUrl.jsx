@@ -9,6 +9,8 @@ import Cart from "./components/Cart/Cart";
 import New from "./components/New/New";
 import Login from "./components/Account/Login";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
+import EditCustomer from "./components/Account/EditCustomer";
+
 class RouteUrl extends React.Component {
     render() {
         return (
@@ -18,6 +20,7 @@ class RouteUrl extends React.Component {
                     <Route exact path="/product_details/:slug" component={ProductDetails} />
                     <Route exact path="/products-new" component={New} />
                     <Route exact path="/cart" component={Cart} />
+                    <Route exact path="/edit-customer/:id" component={EditCustomer} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                 </div>

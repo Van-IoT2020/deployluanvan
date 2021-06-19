@@ -37,8 +37,8 @@ class CustomerController extends Controller
                 'customer_phone'=>'required|numeric|digits:10'
             ],
             [
-                'customer_id.required'=>'Bạn chưa nhập tên người dùng',
-                'customer_id.min'=>'Tên người dùng phải ít nhất 3 kí tự',
+                'customer_id.required'=>'Bạn chưa nhập mã người dùng',
+                'customer_id.min'=>'Mã người dùng phải ít nhất 3 kí tự',
                 'customer_name.required'=>'Bạn chưa nhập tên',
                 'customer_email.required'=>'Bạn chưa nhập email',
                 'customer_email.email'=>'Email chưa đúng định dạng',
@@ -57,6 +57,10 @@ class CustomerController extends Controller
                 $err[] = $value[0];
             }
             return response()->json($err, 400);
+        }
+        $find = Customer::findOrFail($request->customer_id);
+        if($find != null){ 
+            return response()->json('Lỗi: khóa chính đã tồn tại',400);
         }
         $request->offsetSet('customer_password',bcrypt($request->input('customer_password')));
         return Customer::create($request->all());
@@ -83,9 +87,12 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // 1->3 | [1,2,3] -> ko -> xg
+        // 1->1 | [1,2,3] -> ok -> xg
+        // 1->4 | [1,2,3] -> ok
         $valid = Validator::make($request->all(),
             [
-                'customer_id'=>'required|min:3',
+                'customer_id'=>'required|min:3)',
                 'customer_name'=>'required',
                 'customer_email'=>'required|email',
                 'customer_phone'=>'required|numeric|digits:10'

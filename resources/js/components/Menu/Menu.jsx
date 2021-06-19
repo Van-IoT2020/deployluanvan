@@ -86,6 +86,7 @@ class Menu extends React.Component {
             customer_phone: "",
         })
         if(sessionStorage.getItem('objCustomer') == null){
+            alert("Đã đăng xuất tài khoản")
             return this.props.propsParent.history.push("/");
         }
     }
@@ -157,7 +158,9 @@ class Menu extends React.Component {
                                                         {   sessionStorage.getItem('objCustomer') != null && (
                                                             <>
                                                                 <DropdownItem>
-                                                                    <NavbarText className="nav-link"><span>{this.state.customer_name}</span></NavbarText>
+                                                                    <Link to={"/edit-customer/" + this.state.customer_id} style={{color:'black'}}>
+                                                                        <NavbarText className="nav-link" ><span>{this.state.customer_name}</span></NavbarText>
+                                                                    </Link>
                                                                 </DropdownItem>
                                                                 <DropdownItem onClick={ ()=>this.onLogout()}>
                                                                     <NavbarText className="nav-link"><span>Đăng xuất</span></NavbarText>

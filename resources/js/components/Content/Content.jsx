@@ -3,14 +3,14 @@ import Products from '../Products/Products';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 class Content extends React.Component {
-    
-        constructor(){
-            super();
+        constructor(props){
+            super(props);
             this.state={
                 product:[],
                 categories:[]
             }
-        } 
+        }
+        
         componentDidMount(){
             axios.get('http://127.0.0.1:8000/api/product')
                 .then(res=>{
