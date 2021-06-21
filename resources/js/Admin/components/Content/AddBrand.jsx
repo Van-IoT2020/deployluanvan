@@ -77,7 +77,6 @@ export default class AddBrand extends Component {
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="brandStatus" className="mr-sm-2">Trạng thái thương hiệu</Label>
-                                        {/* <Input type="text" onChange={ this.onHandleChange } name="brand_status" id="brand_status" /> */}
                                         <Input type="select" value={this.state.brand_status} onChange={ this.onHandleChange } name="brand_status" id="brand_status" >
                                             <option defaultValue={1}>Đang kinh doanh</option>
                                             <option value={0}>Đã ngừng kinh doanh</option>

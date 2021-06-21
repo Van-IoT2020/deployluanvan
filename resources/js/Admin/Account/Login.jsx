@@ -34,6 +34,7 @@ export default class Login extends Component {
                 var objAdmin = {
                     admin_id: res.data[0].admin_id,
                     admin_name: res.data[0].admin_name,
+                    grant: res.data[0].grant,
                 };
                 console.log(objAdmin);
                 sessionStorage.setItem('objAdmin',JSON.stringify(objAdmin));

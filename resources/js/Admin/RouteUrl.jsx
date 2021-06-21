@@ -52,7 +52,8 @@ import ShowReceiptDetails from "./components/Content/ShowReceiptDetails";
 import AddReceiptDetails from "./components/Content/AddReceiptDetails";
 import EditReceiptDetails from "./components/Content/EditReceiptDetails";
 
-
+import ShowAdmin from "./components/Content/ShowAdmin";
+import AddAdmin from "./components/Content/AddAdmin";
 
 class RouteUrl extends React.Component {
     render() {
@@ -106,6 +107,9 @@ class RouteUrl extends React.Component {
                 <Route exact path="/admin/home/receipt-details" component={ShowReceiptDetails} />
                 <Route exact path="/admin/home/add-receipt-details" component={AddReceiptDetails} />
                 <Route exact path="/admin/home/edit-receipt-details/:id" component={EditReceiptDetails} />
+
+                <Route exact path="/admin/home/admin" component={ShowAdmin} />
+                <Route exact path="/admin/home/add-admin" component={AddAdmin} />
             </Router>
         );
     }

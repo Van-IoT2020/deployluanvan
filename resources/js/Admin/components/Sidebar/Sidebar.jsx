@@ -4,6 +4,39 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 export default class Sidebar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            grant: "",
+        }
+        this.showSideAdmin = this.showSideAdmin.bind(this);
+    }
+
+    componentWillMount(){
+        var admin = sessionStorage.getItem('objAdmin') ? JSON.parse(sessionStorage.getItem('objAdmin')) : '';
+        this.setState({
+            grant: admin.grant,
+        })
+    }
+
+    showSideAdmin(){
+        if(this.state.grant == 1){
+            return <li className="nav-item">
+                        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAA" aria-expanded="true" aria-controls="collapseAA">
+                            <FontAwesomeIcon icon={ faWrench } fixedWidth className="mr-2"/>
+                            <span>Quản lý tài khoản</span>
+                        </a>
+                        <div id="collapseAA" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                            <div className="bg-white py-2 collapse-inner rounded">
+                                <h6 className="collapse-header">Quản lý nhân viên:</h6>
+                                <Link className="collapse-item" to="/admin/home/admin">Xem nhân viên</Link>
+                                <Link className="collapse-item" to="/admin/home/add-admin">Thêm nhân viên</Link>
+                            </div>
+                        </div>
+                    </li>
+        }
+    }
+
     render() {
         return (
             <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -87,21 +120,9 @@ export default class Sidebar extends Component {
                         </div>
                     </div>
                 </li>
-                <li className="nav-item">
-                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAA" aria-expanded="true" aria-controls="collapseAA">
-                        <FontAwesomeIcon icon={ faWrench } fixedWidth className="mr-2"/>
-                        <span>Quản lý tài khoản</span>
-                    </a>
-                    <div id="collapseAA" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                        <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Quản lý nhân viên:</h6>
-                            <Link className="collapse-item" to="/admin/home">Colors</Link>
-                            <Link className="collapse-item" to="/admin/home">Borders</Link>
-                            <Link className="collapse-item" to="/admin/home">Animations</Link>
-                            <Link className="collapse-item" to="/admin/home">Other</Link>
-                        </div>
-                    </div>
-                </li>
+                {
+                    this.showSideAdmin()
+                }
                 {/* Divider */}
                 <hr className="sidebar-divider" />
                 {/* Heading */}

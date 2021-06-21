@@ -12,6 +12,7 @@ class Header extends React.Component{
             admin_email: "",
             admin_phone: "",
             admin_password: "",
+            grant:""
         };
         this.onLogout = this.onLogout.bind(this);
     }
@@ -20,7 +21,8 @@ class Header extends React.Component{
         var admin = sessionStorage.getItem('objAdmin') ? JSON.parse(sessionStorage.getItem('objAdmin')) : '';
         this.setState({
             admin_id: admin.admin_id,
-            admin_name: admin.admin_name
+            admin_name: admin.admin_name,
+            grant: admin.grant,
         })
     }
 
