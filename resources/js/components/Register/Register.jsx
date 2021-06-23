@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import Menu from '../Menu/Menu';
+import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import Carousels from '../Carousels/Carousels';
 import './Register.css';
@@ -61,7 +61,7 @@ class Register extends Component {
         const isLoading = this.state.isLoading;
         return (
             <div style={{overflow:"hidden", width:"100vw"}}>
-                <Menu />
+                <Navigation />
                 <Carousels />
                 <div className="form-group">
                     <div className="row">
@@ -120,6 +120,8 @@ class Register extends Component {
                                 />
                             </FormGroup>
                             <p className="text-white">{this.state.msg}</p>
+                            <FormGroup>
+                            <div className="form-check-inline">
                             <Button
                                 className="text-center mb-4"
                                 color="success"
@@ -136,7 +138,11 @@ class Register extends Component {
                                 <span></span>
                                 )}
                             </Button>
-                            <Link to="/sign-in" className="text-white ml-5">I'm already member</Link>
+                            </div>
+                            <div className="form-check-inline">
+                            <Link to="/login" className="text-center mb-4" color="success">I'm already member</Link>
+                            </div>
+                            </FormGroup>
                             </Form>
                         </div>
                         <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div> 

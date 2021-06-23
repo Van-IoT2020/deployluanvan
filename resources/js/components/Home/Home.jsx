@@ -1,16 +1,30 @@
 import React from 'react';
-import Header from '../Header/Header';
-import Menu from '../Menu/Menu';
+import Search from '../Search/Search';
+import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import Carousels from '../Carousels/Carousels';
 import Content from '../Content/Content';
 class Home extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            keyword:'',
+        }
+    }
+    // handleSearch(value){
+    //     this.setState({
+    //         keyword:value
+    //     });
+    // }
     render() {
+        console.log(this.state.keyword);
         return (
             <div style={{overflow:"hidden", width:"100vw"}}>
-                <Menu />
+                <Navigation />
                 <Carousels />
-                <Header onSearch={this.props.onSearch} />
+                {/* <Header /> */}
+                {/* onSearch={this.props.onSearch} */}
+                <Search />
                 <Content/>
                 <span> </span>
                 <Footer />

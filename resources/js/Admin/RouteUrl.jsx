@@ -42,7 +42,7 @@ class RouteUrl extends React.Component {
                 <Route exact path="/admin/home/add-brand" component={AddBrand} />
                 <Route exact path="/admin/home/edit-brand/:slug" component={EditBrand} />
 
-                {/* <Route exact path="/admin/home/supplier" component={ShowSupplier} /> */}
+                <Route exact path="/admin/home/supplier" component={ShowSupplier} />
                 <Route exact path="/admin/home/add-supplier" component={AddSupplier} />
                 <Route exact path="/admin/home/edit-supplier/:id" component={EditSupplier} />
 

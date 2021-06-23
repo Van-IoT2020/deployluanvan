@@ -1,12 +1,12 @@
 h4{
     font-weight: bold;
 }
-h5{
+/* h5{
     font-weight: bold;
-}
-.unit-price h5{
+} */
+/* .unit-price h5{
     font-weight: none;
-}
+} */
 p{
     font-size: 16px;
     font-weight: bold;
@@ -17,4 +17,8 @@ p{
 .iconstar{
     color: yellow;
     font-size: 20px;
+}
+.inline-price h6{
+    display: inline-block;
+    font-weight: bold;
 }

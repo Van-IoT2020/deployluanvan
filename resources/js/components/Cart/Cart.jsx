@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../Header/Header';
-import Menu from '../Menu/Menu';
+import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import Carousels from '../Carousels/Carousels';
 import './Cart.css';
@@ -9,7 +9,7 @@ class Cart extends Component {
     render() {
         return (
             <div style={{overflow:"hidden", width:"100vw"}}>
-            <Menu />
+            <Navigation />
             <Carousels />
             <Header />
             <div className="content">

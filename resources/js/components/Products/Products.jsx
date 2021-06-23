@@ -14,7 +14,7 @@ class Products extends React.Component {
     }
     
     onAddToCart(){
-        alert(this.props.product_name + '-' + this.props.unit_price);
+        alert(this.props.name + '-' + this.props.price);
     }
     
     render() {
@@ -25,16 +25,16 @@ class Products extends React.Component {
                 </Link>
                 <div className="card-body">
                 <h4 className="card-title"><a href="#!">{this.props.name}</a></h4>
-                <div className="form-group">
+                <div className="form-group" className="inline-price">
                     <div className="form-check-inline">
-                        <h5>
+                        <h6>
                             <CurrencyFormat value={this.props.price} displayType={'text'} thousandSeparator={true} prefix={'VND'} />
-                        </h5>
+                        </h6>
                     </div>
                     <div className="form-check-inline">
-                        <h5  className="flash-sale">
+                        <h6  className="flash-sale">
                         <CurrencyFormat value={this.props.promotion_price} displayType={'text'} thousandSeparator={true} prefix={'VND'} />
-                        </h5>
+                        </h6>
                     </div>
                 </div>
                 <p className="card-text">Gợi ý: {this.props.content}</p>

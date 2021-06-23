@@ -6,8 +6,11 @@ import {
 import Home from "./components/Home/Home";
 import Cart from "./components/Cart/Cart";
 import New from "./components/New/New";
+import Categories from "./components/Categories/Categories";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
+import Header from "./components/Header/Header";
+import ShowProductBrand from "./components/ShowProductBrand/ShowProductBrand";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 class RouteUrl extends React.Component {
     render() {
@@ -17,9 +20,12 @@ class RouteUrl extends React.Component {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/product_details/:id/:slug" component={ProductDetails} />
                     <Route exact path="/products-new" component={New} />
+                    <Route exact path="/categories/:id" component={Categories} />
                     <Route exact path="/cart" component={Cart} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
+                    <Route exact path="/search" component={Header} />
+                    <Route exact path="/brand/:id" component={ShowProductBrand} />
                 </div>
             </Router>
         );

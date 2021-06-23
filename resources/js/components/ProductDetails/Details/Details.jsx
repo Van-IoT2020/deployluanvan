@@ -18,14 +18,12 @@ class Details extends React.Component {
     .then(res=>{
       this.setState({product:res.data});
     });
-    // axios.get('http://127.0.0.1:8000/api/color')
-    // .then(res=>{
-    //   this.setState({color:res.data});
-    // });
-    // axios.get('http://127.0.0.1:8000/api/color_details')
-    // .then(res=>{
-    //   this.setState({color_details:res.data});
-    // });
+    axios.get('http://127.0.0.1:8000/api/get-color-details')
+    .then(res=>{
+      console.log(res);
+      this.setState({color_details:res.data});
+      
+    });
   }
   // showProductDetails(){
   //   // console.log(this.state.categories);
@@ -67,16 +65,26 @@ class Details extends React.Component {
                       <option>L</option>
                       <option>XL</option>
                       <option>XXL</option>
+                      {/* {
+                        this.state.product.map((productSize, index)=>{
+                          <option key = { index } value={productSize.}>M</option>
+                        })
+                      } */}
                     </select>
                   </div>
                   <label>Màu sắc</label>
                   <div className="form-group">
                     <select name="color" className="select" required="required">
-                      <option>---Vui lòng chọn color---</option>
+                      {/* <option>---Vui lòng chọn color---</option>
                       <option>Xanh</option>
                       <option>Đỏ</option>
                       <option>Trắng</option>
-                      <option>Vàng</option>
+                      <option>Vàng</option> */}
+                      {
+                        this.state.color_details.map((productSize, index)=>{
+                          <option key = { index } value={productSize.product_id}>{productSize.color_}</option>
+                        })
+                      }
                     </select>
                   </div>
                 <form>
