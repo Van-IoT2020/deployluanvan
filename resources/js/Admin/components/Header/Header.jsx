@@ -42,9 +42,9 @@ class Header extends React.Component{
                 {/* Topbar Navbar */}
                 <Nav as="ul" className="navbar-nav ml-auto">
                     {/* Nav Item - Search Dropdown (Visible Only XS) */}
-                    <NavItem as="li" className="nav-item dropdown no-arrow d-sm-none">
+                    {/* <NavItem as="li" className="nav-item dropdown no-arrow d-sm-none">
                         <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i className="fas fa-search fa-fw" /></a>
-                        {/* Dropdown - Messages */}
+                        
                         <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                             <Form className="form-inline mr-auto w-100 navbar-search">
                                 <div className="input-group">
@@ -57,7 +57,7 @@ class Header extends React.Component{
                                 </div>
                             </Form>
                         </div>
-                    </NavItem>
+                    </NavItem> */}
                     {/* Nav Item - Alerts */}
                     <div className="topbar-divider d-none d-sm-block" />
                     {/* Nav Item - User Information */}
@@ -68,12 +68,12 @@ class Header extends React.Component{
                         </NavLink>
                         {/* Dropdown - User Information */}
                         <Dropdown className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <DropdownItem className="dropdown-item">
-                                <Link style={{textDecoration: 'none'}} to="#">
-                                    <FontAwesomeIcon icon={ faUser } size="sm" fixedWidth className="mr-2 text-gray-400"/>
-                                    Sửa thông tin
-                                </Link>
-                            </DropdownItem>
+                            <Link style={{textDecoration: 'none'}} to={"/admin/home/edit-admin/" + this.state.admin_id}>
+                                <DropdownItem className="dropdown-item">
+                                        <FontAwesomeIcon icon={ faUser } size="sm" fixedWidth className="mr-2 text-gray-400"/>
+                                        Sửa thông tin
+                                </DropdownItem>
+                            </Link>
                             {/* <DropdownItem className="dropdown-item">
                                 <Link  style={{textDecoration: 'none'}} to="#">
                                     <FontAwesomeIcon icon={ faCogs } size="sm" fixedWidth className="mr-2 text-gray-400"/>

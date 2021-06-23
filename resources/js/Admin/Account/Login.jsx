@@ -42,11 +42,12 @@ export default class Login extends Component {
             }
         }).catch((error)=>{
             console.log(error.response);
-            error.response.data.map( (err) => {
+            if(Array.isArray(error.response.data)){
+                error.response.data.map( (error) => {
                 toast.error(
                     <>
                         <span style={{fontSize: '5vh'}} /> 
-                        <span style={{ fontSize: '2.3vh' }}>{ "Lỗi: " + err }</span>
+                        <span style={{ fontSize: '2.3vh' }}>{ "Lỗi: " + error }</span>
                     </>,
                     {
                         position: "top-center",
@@ -54,6 +55,9 @@ export default class Login extends Component {
                     }
                 );
             })
+            } else {
+                toast.error('Lỗi '+ error.response.data);
+            }
         });
     }
 

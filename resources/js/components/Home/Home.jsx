@@ -7,7 +7,7 @@ import Content from '../Content/Content';
 class Home extends React.Component {
     render() {
         return (
-            <div style={{overflow:"hidden", width:"100vw"}}>
+            <div style={{overflow:"hidden", width:"100vw", textDecoration: 'none'}}>
                 <Menu propsParent = {this.props} />
                 <Carousels />
                 <Header onSearch={this.props.onSearch} />
