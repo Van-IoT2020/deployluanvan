@@ -68,7 +68,7 @@ class Details extends React.Component {
           <div className="form-group">
             <div className="row">
                 <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <img className="card-img-top" src="/images/ImageCrs/dam.jpg" alt="!#" height="350px" />
+                    <img className="card-img-top" height="350" src={ this.state.product.product_image } alt={this.state.product.product_slug} />
                 </div>
                 
                 <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
