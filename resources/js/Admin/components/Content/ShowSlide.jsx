@@ -51,7 +51,6 @@ export default class ShowSlide extends Component {
             alert("Can't delete Picture!");
             console.log(error);
         }
-        
     }
 
     render() {
@@ -113,7 +112,6 @@ export default class ShowSlide extends Component {
                                                                     <Link to = {"/admin/home/edit-slide/" + item.slide_id}>
                                                                         <Button outline color="info" style={{margin: "10px"}}>Sửa</Button>
                                                                     </Link>
-                                                                    
                                                                     <Button onClick={ (id)=>this.onDelete(item.slide_id, item.slide_image ) } outline color="danger" style={{margin: "10px"}}>Xóa</Button>
                                                                 </td>
                                                             </tr>

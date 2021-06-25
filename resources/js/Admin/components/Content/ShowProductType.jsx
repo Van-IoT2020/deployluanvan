@@ -17,7 +17,7 @@ class ShowProductType extends Component {
     }
 
     loadProduct_type(){
-        axios.get('http://127.0.0.1:8000/api/product_type/')
+        axios.get('http://127.0.0.1:8000/api/product-type/')
         .then(res=>{
             console.log('send:', res);
             this.setState({
@@ -31,7 +31,7 @@ class ShowProductType extends Component {
     }
 
     onDelete(id){
-        axios.delete('http://127.0.0.1:8000/api/product_type/' + id)
+        axios.delete('http://127.0.0.1:8000/api/product-type/' + id)
         .then(res =>{
             if(res.data != null){
                 this.loadProduct_type();

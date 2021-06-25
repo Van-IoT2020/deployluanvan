@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AdminAccount;
 use Hash;
-
-
 use Illuminate\Support\Facades\Validator;
 
 class AdminAccountController extends Controller

@@ -15,19 +15,14 @@ class Products extends React.Component {
     }
     
     onAddToCart(){
-        alert(this.props.product_name + '-' + this.props.unit_price);
+        alert(this.props.name + '-' + this.props.price);
     }
     
     render() {
         return (
             <div className="product">
                 <span onClick={ () => {
-                        this.props.propsParent.history.push({
-                            pathname: '/product_details/' + this.props.product_slug,
-                            sendData: {
-                                product_id: this.props.id
-                            }
-                        });
+                        this.props.propsParent.history.push('/product_details/' +  this.props.id + '/' +  this.props.product_slug);
                     }}>
                     <img className="card-img-top" src={this.props.image} alt={this.props.name} style={{width:"280"}} style={{height:"300"}} />
                 </span>
@@ -35,16 +30,16 @@ class Products extends React.Component {
                 <h4 className="card-title">
                     <Link to="#">{this.props.name}</Link>
                 </h4>
-                <div className="form-group">
+                <div className="form-group" className="inline-price">
                     <div className="form-check-inline">
-                        <h5>
+                        <h6>
                             <CurrencyFormat value={this.props.price} displayType={'text'} thousandSeparator={true} prefix={'VND'} />
-                        </h5>
+                        </h6>
                     </div>
                     <div className="form-check-inline">
-                        <h5  className="flash-sale">
+                        <h6  className="flash-sale">
                         <CurrencyFormat value={this.props.promotion_price} displayType={'text'} thousandSeparator={true} prefix={'VND'} />
-                        </h5>
+                        </h6>
                     </div>
                 </div>
                 <p className="card-text">Mô tả: {this.props.content}</p>
@@ -60,12 +55,7 @@ class Products extends React.Component {
                 </div>
                 <div className="col-md-12">
                     <Button onClick={ () => {
-                        this.props.propsParent.history.push({
-                            pathname: '/product_details/' + this.props.product_slug,
-                            sendData: {
-                                product_id: this.props.id
-                            }
-                        });
+                        this.props.propsParent.history.push('/product_details/' +  this.props.id + '/' +  this.props.product_slug);
                     }} color="info" style={{margin: "10px"}}>Xem chi tiết</Button><span> </span>
                     <Button className="btn btn-danger" onClick={this.onAddToCart}>Mua hàng</Button>
                 </div>

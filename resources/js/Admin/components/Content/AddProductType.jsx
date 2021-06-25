@@ -56,7 +56,7 @@ class AddProductType extends Component {
             product_type_status: this.state.product_type_status,
             created_at : this.state.created_at,
         }
-        axios.post('http://127.0.0.1:8000/api/product_type/', listProductType)
+        axios.post('http://127.0.0.1:8000/api/product-type/', listProductType)
         .then(res => {
             if(res != null){
                 return this.props.history.push('/admin/home/product-type');

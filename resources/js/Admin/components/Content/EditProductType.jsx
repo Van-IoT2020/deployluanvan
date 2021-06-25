@@ -37,7 +37,7 @@ class EditProductType extends Component {
         const brand_id_C2 = this.props.location.sendData.product_type_id
         const listBrand = this.state;
         // console.log('lb:', listBrand);
-        axios.put('http://127.0.0.1:8000/api/product_type/' + brand_id_C2, listBrand)
+        axios.put('http://127.0.0.1:8000/api/product-type/' + brand_id_C2, listBrand)
         .then(res =>{
             if(res != null){
                 return this.props.history.push('/admin/home/product-type');
@@ -54,7 +54,7 @@ class EditProductType extends Component {
 
     editProductType(){
         const proType_id = this.props.location.sendData.product_type_id
-        axios.get('http://127.0.0.1:8000/api/product_type/' + proType_id)
+        axios.get('http://127.0.0.1:8000/api/product-type/' + proType_id)
         .then(res =>{
             this.setState({
                 product_type_id: res.data.product_type_id,

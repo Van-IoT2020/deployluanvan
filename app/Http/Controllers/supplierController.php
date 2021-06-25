@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\supplier;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
-class supplierController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -1,26 +1,51 @@
 import React from 'react';
 import Products from '../Products/Products';
 import axios from 'axios';
+import Pagination from "react-js-pagination";
 import { Link } from 'react-router-dom';
 class Content extends React.Component {
         constructor(props){
             super(props);
             this.state={
                 product:[],
-                categories:[]
+                categories:[],
+                activePage:1,
+                itemsCountPerPage:1,
+                totalItemsCount:1,
+                pageRangeDisplayed:3
             }
-        }
-        
-        componentDidMount(){
-            axios.get('http://127.0.0.1:8000/api/product')
+            this.handlePageChange=this.handlePageChange.bind(this);
+        } 
+        handlePageChange(pageNumber) {
+            console.log(`active page is ${pageNumber}`);
+            // this.setState({activePage: pageNumber});
+            axios.get('http://127.0.0.1:8000/api/product?page='+ pageNumber)
                 .then(res=>{
-                    this.setState({product:res.data});
+                    this.setState({
+                        product:res.data.data,
+                        itemsCountPerPage:res.data.per_page,
+                        totalItemsCount:res.data.total,
+                        activePage:res.data.current_page
+                    });
+                });
+        }
+
+        componentWillMount(){
+            axios.get('http://127.0.0.1:8000/api/product-customer')
+                .then(res=>{
+                    this.setState({
+                        product:res.data.data,
+                        itemsCountPerPage:res.data.per_page,
+                        totalItemsCount:res.data.total,
+                        activePage:res.data.current_page
+                    });
                 });
             axios.get('http://127.0.0.1:8000/api/categories')
                 .then(res=>{
                     this.setState({categories:res.data});
                 });
         }
+
         showCategoriess(){
             // console.log(this.state.categories);
             const lstCategories = this.state.categories.map((item, index)=>
@@ -31,8 +56,9 @@ class Content extends React.Component {
             );
             return lstCategories;
         }
+        
         render(){
-        let elements=this.state.product.map((product, index) => {
+        let elements=Array.isArray(this.state.product) && this.state.product.map((product, index) => {
             return <div key={index} className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <Products
                         propsParent={this.props.propsParent}
@@ -56,8 +82,23 @@ class Content extends React.Component {
                         </div>
                     </div>
                     <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                        <div className="row">
-                            {elements}
+                        <div className="form-group">
+                            <div className="row">
+                                {elements}
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <div className="d-flex justify-content-center">
+                                <Pagination
+                                    activePage={this.state.activePage}
+                                    itemsCountPerPage={this.state.itemsCountPerPage}
+                                    totalItemsCount={this.state.totalItemsCount}
+                                    pageRangeDisplayed={this.state.pageRangeDisplayed}
+                                    onChange={this.handlePageChange.bind(this)}
+                                    itemClass='page-item'
+                                    linkClass='page-link'
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

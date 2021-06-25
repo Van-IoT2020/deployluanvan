@@ -9,6 +9,7 @@ use App\Models\Color;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
+use App\Models\Product;
 
 class ColorDetailsController extends Controller
 {

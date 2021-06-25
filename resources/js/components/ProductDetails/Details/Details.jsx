@@ -8,7 +8,7 @@ class Details extends React.Component {
     constructor(props){
       super(props);
       this.state={
-        product_slug: this.props.slug,
+        // product_slug: this.props.slug,
         product_id: this.props.id,
         product: {},
         color_details:[],
@@ -17,8 +17,9 @@ class Details extends React.Component {
       this.loadColors = this.loadColors.bind(this);
     }
     
-    loadDetail(id){
-      axios.get('http://127.0.0.1:8000/api/product/' + id)
+    loadDetail(){
+      console.log(this.props.id)
+      axios.get('http://127.0.0.1:8000/api/product/' + this.props.id)
       .then(res=>{
         this.setState({product:res.data});
       }).catch(err=>console.log(err));
@@ -43,21 +44,21 @@ class Details extends React.Component {
     }
 
     componentWillMount(){
-      if(this.state.product_id == ""){
-        axios.get('http://127.0.0.1:8000/api/product/find-id-by-slug/' + this.state.product_slug)
-        .then(res=>{
-            console.log('get id by slug', res.data.product_id);
-            this.setState({product_id: res.data.product_id}); // -> this.state.product_id
+      // if(this.state.product_id == ""){
+      //   axios.get('http://127.0.0.1:8000/api/product/find-id-by-slug/' + this.state.product_slug)
+      //   .then(res=>{
+      //       console.log('get id by slug', res.data.product_id);
+      //       this.setState({product_id: res.data.product_id}); // -> this.state.product_id
 
-            this.loadDetail(res.data.product_id);
-            this.loadColors(res.data.product_id);
-            this.loadSizes(res.data.product_id);
-        })
-      } else {
-        this.loadDetail(this.state.product_id);
-        this.loadColors(this.state.product_id);
-        this.loadSizes(this.state.product_id);
-      }
+      //       this.loadDetail(res.data.product_id);
+      //       this.loadColors(res.data.product_id);
+      //       this.loadSizes(res.data.product_id);
+      //   })
+      // } else {
+        this.loadDetail();
+        this.loadColors(this.props.id);
+        this.loadSizes(this.props.id);
+      // }
       console.log(this.props)
     }
 

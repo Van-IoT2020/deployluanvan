@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -20,6 +20,15 @@ class ProductController extends Controller
         return Product::all();
     }
 
+    public function getPagination()
+    {
+        return Product::paginate(3);
+    }
+
+    // public function show_new(){
+    //     $all_sp_new=Product::where('product_status',1)->get();
+    //     return $all_sp_new;
+    // }
     /**
      * Store a newly created resource in storage.
      *
@@ -164,5 +173,12 @@ class ProductController extends Controller
             return response()->json('Sản phẩm có tồn tại chi tiết phiếu nhập!', 400);
         }
         return $product->delete();
+    }
+    public function Search($key){
+        return Product::where('product_name', 'Like', "%$key%")->get();
+    }
+    //Show theo thương hiệu
+    public function showProductBrand($key){
+        return Product::where('brand_id', $key)->get();
     }
 }

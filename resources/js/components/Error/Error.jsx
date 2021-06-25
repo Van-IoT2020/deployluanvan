@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../Header/Header';
-import Menu from '../Menu/Menu';
+import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import Carousels from '../Carousels/Carousels';
 
@@ -9,7 +9,7 @@ export default class ErrorPage extends Component {
     render() {
         return (
             <div style={{overflow:"hidden", width:"100vw"}}>
-                <Menu />
+                <Navigation />
                 <Carousels />
                 <Header />
                 <div className="container-fluid">

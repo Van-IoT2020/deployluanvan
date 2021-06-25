@@ -8,7 +8,7 @@ use App\Models\Brand;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
-class brandController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.

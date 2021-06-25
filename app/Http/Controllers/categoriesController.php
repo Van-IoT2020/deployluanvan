@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Categories;
-
+use App\models\Categories;
+use App\models\ProductType;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
-class categoriesController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,6 +26,15 @@ class categoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function findProductType($id){
+    //     $cate=DB::table('categories')->where('categories_id',$id)->gte();
+    //     $type=$cate->product_type;
+    //     foreach ($type as $sp) {
+    //         $product_type_id = $sp->product_type_id;
+    //     }
+    //     $all_product_type=DB::table('product_type')->where('product_type_id', $product_type_id)->get();
+    //     return response()->json($all_product_type);
+    // }
     public function store(Request $request)
     {
         $valid = Validator::make($request->all(),
