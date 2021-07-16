@@ -138,7 +138,7 @@ class EditProduct extends Component {
     }
 
     loadProduct_type(){
-        axios.get('http://127.0.0.1:8000/api/product_type/')
+        axios.get('http://127.0.0.1:8000/api/product-type/')
         .then(res=>{
             console.log('pro_type:', res);
             this.setState({
@@ -171,9 +171,9 @@ class EditProduct extends Component {
     }
 
     componentWillMount(){
-        this.editProduct();
         this.loadBrand();
         this.loadProduct_type();
+        this.editProduct();
     }
     
     render() {
@@ -197,7 +197,7 @@ class EditProduct extends Component {
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="Name" className="mr-sm-2">Số lượng sản phẩm</Label>
-                                        <Input type="text" onChange={ this.onHandleChange } value={ this.state.product_quantity } name="product_quantity" id="product_quantity"/>
+                                        <Input type="text" onChange={ this.onHandleChange } value={ this.state.product_quantity } name="product_quantity" id="product_quantity" readOnly/>
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="brandSlug" className="mr-sm-2">Tên slug sản phẩm</Label>
@@ -256,7 +256,7 @@ class EditProduct extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="brandCreate">Ngày cập nhật</Label>
-                                        <Input type="date" name="created_at" id="exampleDate" onChange={ this.onHandleChange } defaultValue={moment(this.state.updated_at).format("yyyy-MM-DD")}/>
+                                        <Input type="date" name="created_at" id="exampleDate" onChange={ this.onHandleChange } defaultValue={moment(this.state.updated_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

@@ -19,6 +19,9 @@ Route::get('/', function () {
 Route::get('/product_details/{id}', function () {
     return view('welcome');
 });
+// Route::get('/order-tracking/{id}', function () {
+//     return view('welcome');
+// });
 
 // Admin
 Route::get('/admin/', function () {

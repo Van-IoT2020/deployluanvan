@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { Button, Label } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar'
@@ -55,6 +55,10 @@ export default class ShowAdmin extends Component {
                                         <h6 className="m-0 font-weight-bold text-primary">Bảng tài khoản nhân viên</h6>
                                     </div>
                                     <div className="card-body">
+                                        <Label for="brandName" className="mr-sm-2">Thêm nhân viên:</Label>
+                                        <Link to = {"/admin/home/add-admin/"}>
+                                            <Button color="success" style={{margin: "10px"}}>Thêm</Button>
+                                        </Link>
                                         <div className="table-responsive">
                                             <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                                                 <thead>

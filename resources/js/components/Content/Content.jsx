@@ -19,7 +19,7 @@ class Content extends React.Component {
         handlePageChange(pageNumber) {
             console.log(`active page is ${pageNumber}`);
             // this.setState({activePage: pageNumber});
-            axios.get('http://127.0.0.1:8000/api/product?page='+ pageNumber)
+            axios.get('http://127.0.0.1:8000/api/product-customer?page='+ pageNumber)
                 .then(res=>{
                     this.setState({
                         product:res.data.data,
@@ -58,6 +58,7 @@ class Content extends React.Component {
         }
         
         render(){
+        console.log(this.state.totalItemsCount);
         let elements=Array.isArray(this.state.product) && this.state.product.map((product, index) => {
             return <div key={index} className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <Products

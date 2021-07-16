@@ -16,10 +16,10 @@ class Brand extends Model
         'brand_slug',
         'brand_desc',
         'brand_status',
-        'create_at',
+        'created_at',
         'update_at'
     ];
     public function product(){
-        return $this->hasMany(Product::class, 'product_id', 'product_id');
+        return $this->hasMany(Product::class, 'brand_id', 'brand_id');
     }
 }

@@ -74,9 +74,9 @@ class EditColor extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="exampleDate">Ngày cập nhật</Label>
-                                        <Input type="date" name="date" id="exampleDate" value={
+                                        <Input type="date" name="update_at" id="exampleDate" value={
                                             this.state.update_at
-                                            } onChange={ this.onHandleChange }/>
+                                            } onChange={ this.onHandleChange } readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

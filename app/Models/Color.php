@@ -13,7 +13,7 @@ class Color extends Model
     protected $primaryKey = 'color_id';
     protected $fillable=[
         'color_name',
-        'create_at',
+        'created_at',
         'update_at'
     ];
     public function color_details(){

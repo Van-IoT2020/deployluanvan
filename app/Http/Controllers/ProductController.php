@@ -181,4 +181,12 @@ class ProductController extends Controller
     public function showProductBrand($key){
         return Product::where('brand_id', $key)->get();
     }
+
+    public function updateQuantityAfterOrder(Request $request, $id){
+        $findPro = Product::find($id);
+        $updateQuantity = $findPro->product_quantity - $request->product_quantity;
+        
+        $findPro->update(['product_quantity'=>$updateQuantity]);
+        return response()->json('Cập nhật thành công', 200);
+    }
 }

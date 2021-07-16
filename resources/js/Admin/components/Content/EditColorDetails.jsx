@@ -110,8 +110,8 @@ class EditColorDetails extends Component {
                                         </Input>
                                     </FormGroup>
                                     <FormGroup>
-                                        <Label for="brandCreate">Ngày cập nhật</Label>
-                                        <Input type="date" name="update_at" id="exampleDate" defaultValue={moment(this.state.update_at).format("yyyy-MM-DD")}/>
+                                        <Label for="Create">Ngày cập nhật</Label>
+                                        <Input type="date" name="update_at" id="exampleDate" defaultValue={moment(this.state.update_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

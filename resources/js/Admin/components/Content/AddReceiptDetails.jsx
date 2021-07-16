@@ -16,7 +16,7 @@ class AddReceiptDetails extends Component {
             receipt_id: "",
             receipt_quantity:"",
             receipt_price:"",
-            create_at: moment(new Date()).format("yyyy-MM-DD"),
+            created_at: moment(new Date()).format("yyyy-MM-DD"),
 
             receipts: [],
             products: [],
@@ -67,14 +67,15 @@ class AddReceiptDetails extends Component {
         axios.post('http://127.0.0.1:8000/api/receipt-details/', listReceiptDetails)
         .then(res => {
             if(res != null){
-                const data = { 
-                    total_money: this.state.receipt_quantity * this.state.receipt_price,
-                    action: 1
-                }
-                axios.put('http://127.0.0.1:8000/api/receipt_upd_bill/' + this.state.receipt_id, data)
-                .then(res =>{
-                    return this.props.history.push('/admin/home/receipt-details');
-                })
+                // const data = { 
+                //     total_money: this.state.receipt_quantity * this.state.receipt_price,
+                //     action: 1
+                // }
+                // axios.put('http://127.0.0.1:8000/api/receipt_upd_bill/' + this.state.receipt_id, data)
+                // .then(res =>{
+                    
+                // })
+                return this.props.history.push('/admin/home/receipt-details');
             }
         }).catch(err => {
             toast.error('Lỗi '+ err.response.data);
@@ -119,7 +120,7 @@ class AddReceiptDetails extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="created">Ngày thêm</Label>
-                                        <Input type="date" name="created_at" id="exampleDate" defaultValue={moment(this.state.created_at).format("yyyy-MM-DD")}/>
+                                        <Input type="date" name="created_at" id="exampleDate" defaultValue={moment(this.state.created_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

@@ -6,53 +6,39 @@ import {
 class Carousels extends React.Component {
   constructor(props){
     super(props);
-    this.state={
-      items: [
-        {
-          src: '/images/ImageCrs/3.jpg',
-          altText: '',
-          caption: ''
-        },
-        {
-          src: '/images/ImageCrs/4.jpg',
-          altText: '',
-          caption: ''
-        },
-        {
-          src: '/images/ImageCrs/6.jpg',
-          altText: '',
-          caption: ''
-        }
-      ]
+    this.state = {
+      sliders: []
     };
   }
 
   componentWillMount(){
-    this.setState({
-      items: [
-        {
-          src: '/images/ImageCrs/3.jpg',
-          altText: '',
-          caption: ''
-        },
-        {
-          src: '/images/ImageCrs/4.jpg',
-          altText: '',
-          caption: ''
-        },
-        {
-          src: '/images/ImageCrs/6.jpg',
-          altText: '',
-          caption: ''
+    axios.get('http://127.0.0.1:8000/api/slide/')
+    .then(res => {
+      // this.setState({
+      //   sliders: res.data,
+      // })
+      var lstImg = [];
+      res.data.map((item) => {
+        if(item.slide_status == 1){
+          var objectSlide = {
+            src: item.slide_image,
+            altText: '',
+            caption: ''
+          };
+          lstImg.push(objectSlide);
         }
-      ]
-    })
+      });
+
+      this.setState({
+        sliders: lstImg,
+      })
+    }).catch(err => console.log(err))
   }
 
   render() {
     return (
       <>
-        <UncontrolledCarousel items={this.state.items} /> 
+        <UncontrolledCarousel items= {this.state.sliders}/> 
       </>
     )
   }

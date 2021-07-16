@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Button } from 'reactstrap';
+import { Button, Label } from 'reactstrap';
 import React, { Component } from 'react';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -56,9 +56,13 @@ class ShowColor extends Component {
                             <div className="container-fluid">
                                 <div className="card shadow mb-4">
                                     <div className="card-header py-3">
-                                        <h6 className="m-0 font-weight-bold text-primary">Bảng danh mục</h6>
+                                        <h6 className="m-0 font-weight-bold text-primary">Bảng màu</h6>
                                     </div>
                                     <div className="card-body">
+                                        <Label for="brandName" className="mr-sm-2">Thêm màu:</Label>
+                                        <Link to = {"/admin/home/add-color/"}>
+                                            <Button color="success" style={{margin: "10px"}}>Thêm</Button>
+                                        </Link>
                                         <div className="table-responsive">
                                             <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                                                 <thead>

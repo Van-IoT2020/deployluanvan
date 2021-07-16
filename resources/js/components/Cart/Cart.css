@@ -79,6 +79,7 @@ table.tblone img {
 }
 .shopleft img{outline:none}
 .shopleft a,.shopright a{outline:none}
+.shopleft a:hover,.shopright a:hover{color:#fff}
 .shopright img {
   width: 270px;
   outline:none

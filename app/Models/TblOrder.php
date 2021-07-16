@@ -10,13 +10,14 @@ class TblOrder extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'tbl_order';
-    protected $primaryKey = 'order_id ';
+    protected $primaryKey = 'order_id';
     protected $fillable=[
         'customer_id', 
         'ship_id',
         'order_status',
+        'fee_ship',
         'total_sold',
-        'create_at'
+        'created_at'
     ];
     public function order_details(){
         return $this->hasMany(OrderDetails::class, 'order_id', 'order_id');

@@ -57,12 +57,12 @@ export default class AddSupplier extends Component {
                             <div className="container-fluid">
                                 <Form inline>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                        <Label for="cateName" className="mr-sm-2">Tên nhà cung cấp</Label>
+                                        <Label for="Name" className="mr-sm-2">Tên nhà cung cấp</Label>
                                         <Input type="text" onChange={ this.onHandleChange } name="supplier_name" id="supplier_name" placeholder="Nhập vào tên nhà cung cấp" />
                                     </FormGroup>
                                     <FormGroup>
-                                        <Label for="cateCreate">Ngày thêm</Label>
-                                        <Input type="date" name="created_at" id="exampleDate" defaultValue={moment(this.state.created_at).format("yyyy-MM-DD")}/>
+                                        <Label for="Create">Ngày thêm</Label>
+                                        <Input type="date" name="created_at" id="exampleDate" defaultValue={moment(this.state.created_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

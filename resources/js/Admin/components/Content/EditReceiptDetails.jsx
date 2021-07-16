@@ -15,7 +15,7 @@ class EditReceiptDetails extends Component {
             receipt_id: "",
             receipt_quantity:"",
             receipt_price:"",
-            create_at: moment(new Date()).format("yyyy-MM-DD"),
+            updated_at: moment(new Date()).format("yyyy-MM-DD"),
 
             
             receipt_old_quantity:"",
@@ -62,8 +62,8 @@ class EditReceiptDetails extends Component {
                 receipt_quantity: res.data.receipt_quantity,
                 receipt_price: res.data.receipt_price,
 
-                receipt_old_quantity: res.data.receipt_quantity,
-                receipt_old_price: res.data.receipt_price
+                // receipt_old_quantity: res.data.receipt_quantity,
+                // receipt_old_price: res.data.receipt_price
             });
         })
     }
@@ -80,20 +80,21 @@ class EditReceiptDetails extends Component {
             receipt_id: this.state.receipt_id,
             receipt_quantity: this.state.receipt_quantity,
             receipt_price: this.state.receipt_price,
-            created_at: this.state.created_at
+            updated_at: this.state.updated_at
         }
         axios.put('http://127.0.0.1:8000/api/receipt-details/' + this.props.match.params.id, listReceiptDetails)
         .then(res => {
             if(res != null){
-                const data = {
-                    total_old_money: this.state.receipt_old_quantity * this.state.receipt_old_price,
-                    total_money: this.state.receipt_quantity * this.state.receipt_price,
-                    action: 2
-                }
-                axios.put('http://127.0.0.1:8000/api/receipt_upd_bill/' + this.state.receipt_id, data)
-                .then(res =>{
-                    return this.props.history.push('/admin/home/receipt-details');
-                })
+                // const data = {
+                //     total_old_money: this.state.receipt_old_quantity * this.state.receipt_old_price,
+                //     total_money: this.state.receipt_quantity * this.state.receipt_price,
+                //     action: 2
+                // }
+                // axios.put('http://127.0.0.1:8000/api/receipt_upd_bill/' + this.state.receipt_id, data)
+                // .then(res =>{
+                //     
+                // })
+                return this.props.history.push('/admin/home/receipt-details');
             }
         }).catch(err => {
             toast.error('Lỗi '+ err.response.data);
@@ -138,8 +139,8 @@ class EditReceiptDetails extends Component {
                                         <Input type="text" onChange={ this.onHandleChange } value={this.state.receipt_price} name="receipt_price" id="receipt_price"/>
                                     </FormGroup>
                                     <FormGroup>
-                                        <Label for="created">Ngày thêm</Label>
-                                        <Input type="date" name="updated_at" id="exampleDate" defaultValue={moment(this.state.updated_at).format("yyyy-MM-DD")}/>
+                                        <Label for="created">Ngày sửa</Label>
+                                        <Input type="date" name="updated_at" id="exampleDate" defaultValue={moment(this.state.updated_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

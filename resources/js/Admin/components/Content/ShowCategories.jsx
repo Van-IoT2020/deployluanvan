@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Button } from 'reactstrap';
+import { Button, Label } from 'reactstrap';
 import React, { Component } from 'react'
 import Sidebar from '../Sidebar/Sidebar';
 import Header from '../Header/Header';
@@ -62,6 +62,10 @@ export default class ShowCategories extends Component {
                                         <h6 className="m-0 font-weight-bold text-primary">Bảng danh mục</h6>
                                     </div>
                                     <div className="card-body">
+                                        <Label for="Name" className="mr-sm-2">Thêm danh mục:</Label>
+                                        <Link to = {"/admin/home/add-categories/"}>
+                                            <Button color="success" style={{margin: "10px"}}>Thêm</Button>
+                                        </Link>
                                         <div className="table-responsive">
                                             <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                                                 <thead>

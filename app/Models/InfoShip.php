@@ -12,9 +12,9 @@ class InfoShip extends Model
     protected $table = 'info_ship';
     protected $primaryKey = 'ship_id';
     protected $fillable=[
-        'ship_name', 
         'ship_address',
         'ship_phone',
+        'ship_email',
         'ship_notes',
         'ship_method',
         'created_at',

@@ -13,6 +13,9 @@ import Header from "./components/Header/Header";
 import ShowProductBrand from "./components/ShowProductBrand/ShowProductBrand";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import EditCustomer from "./components/Account/EditCustomer";
+import Order from "./components/Order/Order";
+import InfoOrder from "./components/Order/InfoOrder";
+import HistoryOrder from "./components/Order/HistoryOrder";
 
 class RouteUrl extends React.Component {
     render() {
@@ -29,6 +32,9 @@ class RouteUrl extends React.Component {
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/search" component={Header} />
                     <Route exact path="/brand/:id" component={ShowProductBrand} />
+                    <Route exact path="/thanh-toan" component={Order} />
+                    <Route exact path="/order-tracking/:id" component={InfoOrder} />
+                    <Route exact path="/history-order/:id" component={HistoryOrder} />
                 </div>
             </Router>
         );

@@ -56,6 +56,9 @@ import ShowAdmin from "./components/Content/ShowAdmin";
 import AddAdmin from "./components/Content/AddAdmin";
 import EditAdmin from "./components/Content/EditAdmin";
 
+import ShowTblOrder from "./components/Content/ShowTblOrder";
+import ShowTblOrderPDF from './components/Content/ShowTblOrderPDF';
+
 
 class RouteUrl extends React.Component {
     render() {
@@ -113,6 +116,9 @@ class RouteUrl extends React.Component {
                 <Route exact path="/admin/home/admin" component={ShowAdmin} />
                 <Route exact path="/admin/home/add-admin" component={AddAdmin} />
                 <Route exact path="/admin/home/edit-admin/:id" component={EditAdmin} />
+
+                <Route exact path="/admin/home/tbl-order" component={ShowTblOrder} />
+                <Route exact path="/admin/home/tbl-order-pdf/:id" component={ShowTblOrderPDF} />
             </Router>
         );
     }

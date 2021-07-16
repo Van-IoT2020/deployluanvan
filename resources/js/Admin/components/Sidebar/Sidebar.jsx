@@ -1,4 +1,5 @@
-import { faChartArea, faCog, faFolder, faLaughWink, faTable, faTachometerAlt, faWrench } from '@fortawesome/free-solid-svg-icons'
+import { faAdversal } from '@fortawesome/free-brands-svg-icons';
+import { faAddressCard, faChartArea, faCog, faFolder, faLaughWink, faTable, faTachometerAlt, faWrench } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
@@ -23,10 +24,10 @@ export default class Sidebar extends Component {
         if(this.state.grant == 1){
             return <li className="nav-item">
                         <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAA" aria-expanded="true" aria-controls="collapseAA">
-                            <FontAwesomeIcon icon={ faWrench } fixedWidth className="mr-2"/>
+                            <FontAwesomeIcon icon={ faAddressCard } fixedWidth className="mr-2"/>
                             <span>Quản lý tài khoản</span>
                         </a>
-                        <div id="collapseAA" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div id="collapseAA" className="collapse" aria-labelledby="headingAA" data-parent="#accordionSidebar">
                             <div className="bg-white py-2 collapse-inner rounded">
                                 <h6 className="collapse-header">Quản lý nhân viên:</h6>
                                 <Link className="collapse-item" to="/admin/home/admin">Xem nhân viên</Link>
@@ -59,7 +60,7 @@ export default class Sidebar extends Component {
                 {/* Divider */}
                 <hr className="sidebar-divider" />
                 {/* Heading */}
-                <div className="sidebar-heading">Interface</div>
+                <div className="sidebar-heading">Chức năng cơ bản</div>
                 {/* Nav Item - Pages Collapse Menu */}
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -113,38 +114,46 @@ export default class Sidebar extends Component {
                             <Link className="collapse-item" to="/admin/home/add-receipt">Thêm phiếu nhập</Link>
                             <Link className="collapse-item" to="/admin/home/receipt-details">Xem chi tiết phiếu nhập</Link>
                             <Link className="collapse-item" to="/admin/home/add-receipt-details">Thêm chi tiết phiếu nhập</Link>
-
+                        </div>
+                    </div>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBB" aria-expanded="true" aria-controls="collapseBB">
+                        <FontAwesomeIcon icon={ faAdversal } fixedWidth className="mr-2"/>
+                        <span>Quản lý promotion</span>
+                    </a>
+                    <div id="collapseBB" className="collapse" aria-labelledby="headingBB" data-parent="#accordionSidebar">
+                        <div className="bg-white py-2 collapse-inner rounded">
                             <h6 className="collapse-header">Chức năng quảng cáo:</h6>
                             <Link className="collapse-item" to="/admin/home/slide">Xem banner</Link>
                             <Link className="collapse-item" to="/admin/home/add-slide">Thêm banner</Link>
                         </div>
                     </div>
                 </li>
-                {
-                    this.showSideAdmin()
-                }
+                
                 {/* Divider */}
                 <hr className="sidebar-divider" />
                 {/* Heading */}
-                <div className="sidebar-heading">Addons</div>
+                <div className="sidebar-heading">Quản lý nâng cao</div>
                 {/* Nav Item - Pages Collapse Menu */}
                 <li className="nav-item">
                     <Link className="nav-link collapsed" to="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                         <FontAwesomeIcon icon={ faFolder } fixedWidth className="mr-2"/>
-                        <span>Trang demo</span>
+                        <span>Quản lý đặt hàng</span>
                     </Link>
                     <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Login Screens:</h6>
-                            <Link className="collapse-item" to="/admin/">Login</Link>
-                            <Link className="collapse-item" to="/admin/register">Register</Link>
-                            <Link className="collapse-item" to="/admin/home">Forgot Password</Link>
+                            <h6 className="collapse-header">Quản lý đơn giao hàng:</h6>
+                            <Link className="collapse-item" to="/admin/home/tbl-order">Xem đơn giao</Link>
                             <div className="collapse-divider" />
                             <h6 className="collapse-header">Other Pages:</h6>
                             <Link className="collapse-item" to="/admin/err">404 Page</Link>
                         </div>
                     </div>
                 </li>
+                {
+                    this.showSideAdmin()
+                }
                 {/* Nav Item - Charts */}
                 <li className="nav-item">
                     <Link className="nav-link" to="/admin/home">

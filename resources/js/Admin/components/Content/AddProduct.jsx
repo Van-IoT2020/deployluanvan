@@ -15,7 +15,7 @@ class AddProduct extends Component {
         this.state = {
             product_id: "",
             product_name: "",
-            product_quantity: "",
+            product_quantity: 0,
             product_slug: "",
             product_type_id: "",
             brand_id: "",
@@ -62,7 +62,7 @@ class AddProduct extends Component {
     }
 
     loadProduct_type(){
-        axios.get('http://127.0.0.1:8000/api/product_type/')
+        axios.get('http://127.0.0.1:8000/api/product-type/')
         .then(res=>{
             console.log('pro_type:', res);
             this.setState({
@@ -145,7 +145,7 @@ class AddProduct extends Component {
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="Name" className="mr-sm-2">Số lượng sản phẩm</Label>
-                                        <Input type="text" onChange={ this.onHandleChange } name="product_quantity" id="product_quantity"/>
+                                        <Input type="text" onChange={ this.onHandleChange } name="product_quantity" id="product_quantity" readOnly/>
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="brandSlug" className="mr-sm-2">Tên slug sản phẩm</Label>
@@ -199,16 +199,18 @@ class AddProduct extends Component {
                                         <Label for="productStatus" className="mr-sm-2">Trạng thái sản phẩm</Label>
                                         {/* <Input type="text" onChange={ this.onHandleChange } name="product_status" id="product_status" /> */}
                                         <Input type="select" value={this.state.product_status} onChange={ this.onHandleChange } name="product_status" id="product_status" >
-                                            <option value={1}>Đang kinh doanh</option>
-                                            <option value={0}>Đã ngừng kinh doanh</option>
+                                            <option value={0}>Đang kinh doanh</option>
+                                            <option value={1}>Sản phẩm mới</option>
+                                            <option value={2}>Tạm ngừng</option>
+                                            <option value={3}>Ngừng kinh doanh</option>
                                         </Input>
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="brandCreate">Ngày thêm</Label>
-                                        <Input type="date" name="created_at" id="exampleDate" defaultValue={moment(this.state.created_at).format("yyyy-MM-DD")}/>
+                                        <Input type="date" name="created_at" id="exampleDate" defaultValue={moment(this.state.created_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
-                                </Form> 
+                                </Form>
                             </div>
                         </div>
                         <Footer/>
