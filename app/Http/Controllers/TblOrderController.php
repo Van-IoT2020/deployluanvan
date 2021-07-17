@@ -107,7 +107,7 @@ class TblOrderController extends Controller
     public function getIncomeStatementByMonth($year){
         $getAllMonthInYear = [];
         for($i=1; $i <= 12 ; $i++) { 
-            $findMonthly = TblOrder::where('order_status','!=',5)->whereMonth('created_at',$i)->whereYear('created_at',$year)->sum('total_sold');
+            $findMonthly = TblOrder::where('order_status','!=',5)->where('order_status',4)->whereMonth('created_at',$i)->whereYear('created_at',$year)->sum('total_sold');
             $getAllMonthInYear[] = $findMonthly;
         }
         return response()->json($getAllMonthInYear, 200);
@@ -116,6 +116,7 @@ class TblOrderController extends Controller
         $findMonthly = TblOrder::select('product.product_id', 'product.product_name', TblOrder::raw('SUM(order_details.product_quantity) as product_quantity'))
         ->leftJoin('order_details', 'tbl_order.order_id', '=', 'order_details.order_id')
         ->leftJoin('product', 'order_details.product_id', '=', 'product.product_id')
+        ->where('tbl_order.order_status',4)
         ->where('tbl_order.order_status','!=',5)
         ->whereMonth('order_details.create_at', $request->month)
         ->whereYear('order_details.create_at', $request->year)
