@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\TblOrder;
 use App\Models\InfoShip;
 use App\Models\Customer;
+use App\Models\OrderDetails;
+use App\Models\Product;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -79,7 +81,9 @@ class TblOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $find = TblOrder::findOrFail($id);
+        echo($find);
+        return $find->update($request->all());
     }
 
     /**
@@ -103,10 +107,21 @@ class TblOrderController extends Controller
     public function getIncomeStatementByMonth($year){
         $getAllMonthInYear = [];
         for($i=1; $i <= 12 ; $i++) { 
-            $findMonthly = TblOrder::whereMonth('created_at',$i)->whereYear('created_at',$year)->sum('total_sold');
+            $findMonthly = TblOrder::where('order_status','!=',5)->whereMonth('created_at',$i)->whereYear('created_at',$year)->sum('total_sold');
             $getAllMonthInYear[] = $findMonthly;
         }
         return response()->json($getAllMonthInYear, 200);
+    }
+    public function getTotalQuantityByMonth(Request $request){
+        $findMonthly = TblOrder::select('product.product_id', 'product.product_name', TblOrder::raw('SUM(order_details.product_quantity) as product_quantity'))
+        ->leftJoin('order_details', 'tbl_order.order_id', '=', 'order_details.order_id')
+        ->leftJoin('product', 'order_details.product_id', '=', 'product.product_id')
+        ->where('tbl_order.order_status','!=',5)
+        ->whereMonth('order_details.create_at', $request->month)
+        ->whereYear('order_details.create_at', $request->year)
+        ->groupBy('product.product_id', 'product.product_name')->get();
+        // echo($findMonthly);
+        return response()->json($findMonthly, 200);
     }
 
     public function getOrderByCustomerId($id)

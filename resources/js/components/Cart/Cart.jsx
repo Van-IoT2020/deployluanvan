@@ -52,7 +52,7 @@ class Cart extends Component {
     render() {
         return (
             <div style={{overflow:"hidden", width:"100vw"}}>
-                <Navigation/>
+                <Navigation propsParent = {this.props}/>
                 {/* <Carousels /> */}
                 <ToastContainer />
                 <div className="content" style={{minHeight:"62vh"}}>

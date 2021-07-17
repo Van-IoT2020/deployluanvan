@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
-import { Button, Form } from 'reactstrap';
+import { Button, FormGroup, Form, Input } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
@@ -9,6 +9,59 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ShowOrderDetails from "./ShowOrderDetails";
 
+class ChangeStatus extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            order: null,
+            order_status: "",
+        }
+    }
+
+    componentWillMount(){
+        this.setState({
+            order: this.props.order,
+            order_status: this.props.order.order_status
+        })
+    }
+    
+    render() {
+        return (
+            <div>
+                <Form inline>
+                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                        <Input type="select" value={this.state.order_status} 
+                            onChange={ (e) => {
+                                this.setState({ order_status: e.target.value },() => {
+                                    var data = this.state.order;
+                                    data.order_status = this.state.order_status;
+                                    axios.put('http://127.0.0.1:8000/api/tbl-order/' + this.state.order.order_id, data)
+                                    .then(res => {
+                                        alert("Bạn vừa cập nhật trạng thái của đơn: " + this.state.order.order_id);
+                                    })
+                                });
+                            } } name="order_status" id="order_status" >
+                            <option value={1}>Đang xác nhận</option>
+                            <option value={2}>Đang xử lý đơn</option>
+                            <option value={3}>Đang giao</option>
+                            <option value={4}>Giao thành công</option>
+                            <option value={5}>Hủy bỏ</option>
+                        </Input>
+                    </FormGroup>
+                    {/* <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                        <Label for="Name" className="mr-sm-2">Nhập vào năm cần kiểm tra</Label>
+                        <Input type="text" onChange={ (e) => {this.setState({ year_input: e.target.value});} } value={this.state.slide_name} name="year_input" id="year_input"/>
+                    </FormGroup>
+                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                        <Label for="Name" className="mr-sm-2">Nhập vào tháng cần kiểm tra</Label>
+                        <Input type="text" onChange={ (e) => {this.setState({ month_input: e.target.value});} } value={this.state.slide_name} name="month_input" id="month_input"/>
+                    </FormGroup>
+                    <Button onClick={ ()=>this.onSubmit() }>Submit</Button> */}
+                </Form>
+            </div>
+        );
+    }
+}
 class ShowTblOrder extends Component {
     constructor(props) {
         super(props);
@@ -67,7 +120,12 @@ class ShowTblOrder extends Component {
                 name: 'Trạng thái đơn đặt hàng',
                 selector: 'order_status',
                 sortable: true,
-                right: true
+                right: true,
+                cell: row => (
+                    <>
+                        <ChangeStatus order={row}/>
+                    </>
+                )
             },
             {
                 name: 'Phí giao hàng',

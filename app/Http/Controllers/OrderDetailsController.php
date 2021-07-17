@@ -108,14 +108,4 @@ class OrderDetailsController extends Controller
     //     }
     //     return response()->json($getAllMonthInYear, 200);
     // }
-
-    public function getTotalQuantityByMonth(Request $request){
-        $findMonthly = OrderDetails::select('order_details.product_id', 'product.product_name', OrderDetails::raw('SUM(order_details.product_quantity) as product_quantity'))
-        ->leftJoin('product', 'product.product_id', '=', 'order_details.product_id')
-        ->whereMonth('order_details.create_at', $request->month)
-        ->whereYear('order_details.create_at', $request->year)
-        ->groupBy('order_details.product_id')->get();
-        // echo($findMonthly);
-        return response()->json($findMonthly, 200);
-    }
 }

@@ -77,7 +77,7 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = categories::findOrFail($id);
+        $category = Categories::findOrFail($id);
         $valid = Validator::make($request->all(),
             [
                 'categories_name'=>'required'

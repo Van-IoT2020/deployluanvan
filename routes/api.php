@@ -70,10 +70,11 @@ Route::get('product-type-categories/{key}', 'App\Http\Controllers\ProductTypeCon
 Route::get('get-income-statement/{year}', 'App\Http\Controllers\TblOrderController@getIncomeStatementByMonth');//Doanh thu bán hàng - admin/home
 Route::get('get-funds/{year}', 'App\Http\Controllers\ReceiptController@getFundsByMonth');//Vốn mua hàng
 // Route::get('get-product-seller', 'App\Http\Controllers\OrderDetailsController@getProductSellerByMonth');//Mặt hàng bán được trong tháng
-Route::post('get-total-product-by-month', 'App\Http\Controllers\OrderDetailsController@getTotalQuantityByMonth');//Tổng số lượng các mặt hàng bán trong tháng
+Route::post('get-total-product-by-month', 'App\Http\Controllers\TblOrderController@getTotalQuantityByMonth');//Tổng số lượng các mặt hàng bán trong tháng
 
 Route::get('get-history-order/{id}', 'App\Http\Controllers\TblOrderController@getOrderByCustomerId');//Khách hàng xem lịch sử mua hàng 
 Route::get('get-info-ship-by/{id}', 'App\Http\Controllers\TblOrderController@getInfoShipByShipID');//Hiển thị thông tin giao hàng của đơn đơn đặt hàng- ShowOrder
+Route::put('tbl-order/{id}', 'App\Http\Controllers\TblOrderController@update');
 Route::resource('tbl-order', 'App\Http\Controllers\TblOrderController');
 
 Route::get('get-order-details-by/{id}', 'App\Http\Controllers\OrderDetailsController@getOrderDetailsByOrderID');//Hiển thị danh sách đơn hàng của đơn đặt hàng - ShowOrder

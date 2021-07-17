@@ -279,7 +279,7 @@ class Order extends Component {
     render() {
         return (
             <div style={{overflow:"hidden", width:"100vw"}}>
-                <Navigation/>
+                <Navigation propsParent = {this.props}/>
                 {/* <Carousels /> */}
                 <div className="content" style={{minHeight:"62vh"}}>
                     <ToastContainer position="top-right" />
