@@ -82,7 +82,18 @@ class TblOrderController extends Controller
     public function update(Request $request, $id)
     {
         $find = TblOrder::findOrFail($id);
-        echo($find);
+        if($request->order_status == 5){//Nếu mà kq trả về có trạng thái là 5
+            $findDetails = OrderDetails::where('order_id', $id)->get();//thì sẽ tìm chi tiết sản phẩm theo cái order_id
+            // echo($findDetails);
+            foreach($findDetails as $value){//Chạy vòng lặp sau khi tìm đc các chi tiết đã được lấy ra
+                $f_product = Product::find($value->product_id);//Tìm từng product_id theo các dòng chi tiết
+
+                $updateQuantity = $f_product->product_quantity + $value->product_quantity;//Cộng sản phẩm lên sau khi hủy
+                // echo($updateQuantity);
+                $update = $f_product->update(['product_quantity' => $updateQuantity]);//Cập nhật lại số lượng sau khi hủy
+            }
+        }
+        // echo($find);
         return $find->update($request->all());
     }
 
@@ -126,6 +137,14 @@ class TblOrderController extends Controller
     }
 
     public function getOrderByCustomerId($id)
+    {
+        $customer = Customer::findOrFail($id);
+        $getOrder = TblOrder::select()->where('customer_id',$customer->customer_id)->get();
+        // echo($getOrder);
+        return response()->json($getOrder, 200);
+    }
+
+    public function updateAfterChangeStatusOrder($id)
     {
         $customer = Customer::findOrFail($id);
         $getOrder = TblOrder::select()->where('customer_id',$customer->customer_id)->get();

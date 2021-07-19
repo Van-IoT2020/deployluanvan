@@ -19,6 +19,7 @@ import Introduce from "./components/Introduce/Introduce";
 import Order from "./components/Order/Order";
 import InfoOrder from "./components/Order/InfoOrder";
 import HistoryOrder from "./components/Order/HistoryOrder";
+import Cart from './components/Cart/Cart';
 
 class RouteUrl extends React.Component {
     render() {
@@ -38,6 +39,7 @@ class RouteUrl extends React.Component {
                     <Route exact path="/categories/:id" component={ProductCategories} />
                     <Route exact path="/tuyen-dung" component={Recruitment} />
                     <Route exact path="/gioi-thieu-kvstore" component={Introduce} />
+                    <Route exact path="/cart" component={Cart} />
                     <Route exact path="/thanh-toan" component={Order} />
                     <Route exact path="/order-tracking/:id" component={InfoOrder} />
                     <Route exact path="/history-order/:id" component={HistoryOrder} />

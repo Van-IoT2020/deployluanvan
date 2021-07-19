@@ -4,8 +4,7 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import ReactToPdf from 'react-to-pdf';
-import DataTable from 'react-data-table-component';
-import { Button } from 'reactstrap';
+import { Button, Form, FormGroup, Label } from 'reactstrap';
 
 class ShowTblOrderPDF extends Component {
     constructor(props) {
@@ -105,82 +104,8 @@ class ShowTblOrderPDF extends Component {
     render() {
         const ref = React.createRef();
         const options = {
-            format: "a1"
+            format: "a2"
         };
-        const columns_tblOrder = [
-            {
-                name: '#',
-                selector: 'order_id',
-                sortable: true,
-            },
-            {
-                name: 'Mã khách hàng',
-                selector: 'customer_id',
-                sortable: true,
-                right: true,
-            },
-            {
-                name: 'Trạng thái đơn đặt hàng',
-                selector: 'order_status',
-                sortable: true,
-                right: true
-            },
-            {
-                name: 'Phí giao hàng',
-                selector: 'fee_ship',
-                sortable: true,
-                right: true
-            },
-            {
-                name: 'Tổng giá đơn đặt',
-                selector: 'total_sold',
-                sortable: true,
-                right: true,
-            },
-            {
-                name: 'Ngày lập đơn',
-                selector: 'created_at',
-                sortable: true,
-                right: true,
-            }
-        ];
-        const columns_infoShip = [
-            {
-                name: '#',
-                selector: 'ship_id',
-                sortable: true,
-            },
-            {
-                name: 'Địa chỉ đặt hàng',
-                selector: 'ship_address',
-                sortable: true,
-                right: true,
-            },
-            {
-                name: 'Điện thoại liên lạc',
-                selector: 'ship_phone',
-                sortable: true,
-                right: true,
-            },
-            {
-                name: 'Địa chỉ email',
-                selector: 'ship_email',
-                sortable: true,
-                right: true,
-            },
-            {
-                name: 'Ghi chú giao hàng',
-                selector: 'ship_notes',
-                sortable: true,
-                right: true,
-            },
-            {
-                name: 'Ngày đặt hàng',
-                selector: 'created_at',
-                sortable: true,
-                right: true,
-            }
-        ];
         return (
             <div id="page-top">
                 <div id="wrapper">
@@ -190,16 +115,65 @@ class ShowTblOrderPDF extends Component {
                             <Header propsParent = {this.props}/>
                             <div ref={ref}>
                                 <div className="container-fluid order-details-bg">
-                                    <DataTable
-                                        title="Thông tin giao hàng"
-                                        columns={columns_infoShip}
-                                        data={ this.state.info_ship }
-                                    />
-                                    <DataTable
-                                        title="Thông tin đơn đặt hàng"
-                                        columns={columns_tblOrder}
-                                        data={ this.state.tbl_order }
-                                    />
+                                    {
+                                        this.state.info_ship.map((item, index) =>
+                                            <div key={index} className="card shadow mb-4">
+                                                <div className="card-header py-3">
+                                                    <h6 className="m-0 font-weight-bold text-primary">Chi tiết giao hàng</h6>
+                                                    <Form>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Mã đơn giao hàng: {item.ship_id}</Label>
+                                                        </FormGroup>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Địa chỉ đặt hàng: {item.ship_address}</Label>
+                                                        </FormGroup>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Điện thoại liên lạc: {item.ship_phone}</Label>
+                                                        </FormGroup>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Địa chỉ email: {item.ship_email}</Label>
+                                                        </FormGroup>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Ghi chú giao hàng: {item.ship_notes}</Label>
+                                                        </FormGroup>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Ngày đặt hàng: {item.created_at}</Label>
+                                                        </FormGroup>
+                                                    </Form>
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                    <hr></hr>
+                                    {
+                                        this.state.tbl_order.map((item, index) => 
+                                            <div key={index} className="card shadow mb-4">
+                                                <div className="card-header py-3">
+                                                    <h6 className="m-0 font-weight-bold text-primary">Chi tiết đơn hàng</h6>
+                                                    <Form>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Mã đơn đặt hàng: {item.order_id}</Label>
+                                                        </FormGroup>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Mã khách hàng: {item.customer_id}</Label>
+                                                        </FormGroup>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Trạng thái đơn đặt hàng: {item.order_status}</Label>
+                                                        </FormGroup>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Phí giao hàng: {item.fee_ship}</Label>
+                                                        </FormGroup>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Tổng giá đơn đặt: {item.total_sold}</Label>
+                                                        </FormGroup>
+                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                            <Label for="name" className="mr-sm-2">Ngày lập đơn: {item.created_at}</Label>
+                                                        </FormGroup>
+                                                    </Form>
+                                                </div>
+                                            </div>
+                                        )
+                                    }
                                 </div>
                                 <div className="container-fluid">
                                     <div className="card shadow mb-4">
@@ -255,7 +229,7 @@ class ShowTblOrderPDF extends Component {
                                     </div>  
                                 </div>
                             </div>
-                            <ReactToPdf targetRef={ref} filename="hoadon.pdf" options={options}>
+                            <ReactToPdf targetRef={ref} filename={this.state.tbl_order.order_id + ".pdf"} options={options}>
                                 {({toPdf}) => (
                                     <Button onClick={toPdf} outline color="danger" style={{margin: "10px"}}>In hóa đơn</Button>
                                 )}
