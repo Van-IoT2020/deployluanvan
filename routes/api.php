@@ -68,9 +68,6 @@ Route::post("login", "App\Http\Controllers\CustomerController@login");
 Route::get('search/{key}', 'App\Http\Controllers\ProductController@Search');
 Route::get('product-type-categories/{key}', 'App\Http\Controllers\ProductTypeController@showProductType');
 
-//Thông tin tuyển dụng
-// Route::resource('recruitment', 'App\Http\Controllers\RecruitmentController');
-
 //In Statement - Funds
 Route::get('get-income-statement/{year}', 'App\Http\Controllers\TblOrderController@getIncomeStatementByMonth');//Doanh thu bán hàng - admin/home
 Route::get('get-funds/{year}', 'App\Http\Controllers\ReceiptController@getFundsByMonth');//Vốn mua hàng

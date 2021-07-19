@@ -3,12 +3,12 @@
     font-size: 30px;
     font-weight: bold;
 }
-ul{
+.row ul{
     color: black;
 }
-li{
+.row li{
     color: black;
 }
-span{
+.row span{
     color: black;
 }
