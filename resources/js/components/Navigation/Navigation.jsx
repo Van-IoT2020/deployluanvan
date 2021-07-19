@@ -164,7 +164,7 @@ class Navigation extends React.Component {
                                         </Col>
                                         <Col md="6" style={{margin:"auto"}}>
                                             <UncontrolledDropdown nav inNavbar>
-                                                <DropdownToggle nav caret className="dropdown" className="iconu"><FontAwesomeIcon icon={faUser} size="lg" /> <span> {this.state.customer_name} </span> </DropdownToggle>
+                                                <DropdownToggle nav caret className="dropdown" className="iconu"><FontAwesomeIcon icon={faUser} size="lg" /> <span> {this.state.customer_name} </span></DropdownToggle>
                                                     <DropdownMenu right>
                                                         {   sessionStorage.getItem('objCustomer') != null && (
                                                             <>

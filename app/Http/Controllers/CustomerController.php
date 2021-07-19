@@ -59,10 +59,7 @@ class CustomerController extends Controller
             return response()->json($err, 400);
         }
         $find = Customer::find($request->customer_id);
-<<<<<<< HEAD
-=======
         // return response()->json($find, 200);
->>>>>>> 8c92182cf2e444c9bb2006b482c5adedbeb6580b
         if($find != null){ 
             return response()->json('Lỗi: khóa chính đã tồn tại',400);
         }
