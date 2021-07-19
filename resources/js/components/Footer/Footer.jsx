@@ -24,9 +24,9 @@ class Footer extends React.Component {
                                 <div className="profile">
                                     <h2>Về <span>KV</span>Store</h2>
                                     <ul>
-                                        <li><a href="#">Giới thiệu</a></li>
+                                        <li><Link to="/gioi-thieu-kvstore">Giới thiệu</Link></li>
                                         <li><a href="#">Liên hệ</a></li>
-                                        <li><a href="#">Tuyển dụng</a></li>
+                                        <li><Link to="/tuyen-dung">Tuyển dụng</Link></li>
                                     </ul>
                                 </div>
                             </div>

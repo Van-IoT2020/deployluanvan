@@ -39,7 +39,6 @@ class Navigation extends React.Component {
             brand:[],
             product_type:[]
         };
-        
     };
     componentDidMount(){
         axios.get('http://127.0.0.1:8000/api/categories')
@@ -55,23 +54,8 @@ class Navigation extends React.Component {
         .then(res=>{
             this.setState({product_type:res.data});
         });
+        
     }
-
-    showCategories(){
-        // console.log(this.state.categories);
-        const lst = this.state.categories.map((item, index)=>
-            // <DropdownItem key={index}>
-            //     <Link to={ '/categories/' + item.categories_id } style={{color:'black'}}>
-            //         <NavbarText className="nav-link"><span>{item.categories_name}</span></NavbarText>
-            //     </Link>
-            // </DropdownItem>
-            <SubMenu label={item.categories_name} key={item.categories_id}>
-                {this.showProductType()}
-            </SubMenu>
-        );
-        return lst;
-    }
-
     showProductType(){
         // console.log(this.state.product_type);
         const lstproducttype=this.state.product_type.map((item, index)=>
@@ -100,7 +84,7 @@ class Navigation extends React.Component {
         this.setState({
             customer_id: customer.customer_id,
             customer_name: customer.customer_name
-        })
+        });
     }
 
     onLogout(){
@@ -155,11 +139,8 @@ class Navigation extends React.Component {
                                         <Col md="3">
                                             {/* <UncontrolledDropdown nav inNavbar> */}
                                             <Menu menuButton={<MenuButton >SẢN PHẨM</MenuButton>}>
-                                                {/* <DropdownMenu right> */}
-                                                    {this.showCategories()}
-                                                {/* </DropdownMenu> */}
+                                                {this.showProductType()}
                                             </Menu>
-                                            {/* </UncontrolledDropdown> */}
                                         </Col>
                                         <Col md="3">
                                             <UncontrolledDropdown nav inNavbar>
@@ -174,13 +155,14 @@ class Navigation extends React.Component {
                                 <Col xs="12" md="2">
                                     <Row style={{margin:"auto"}}>
                                         <Col md="6" style={{margin:"auto"}}>
-                                            <NavItem className="iconcart">
+                                            <NavItem className="cart">
                                                 <Link to="/cart"><FontAwesomeIcon icon={faCartPlus} size="lg" /></Link>
+                                                {/* <span>0</span> */}
                                             </NavItem>
                                         </Col>
                                         <Col md="6" style={{margin:"auto"}}>
                                             <UncontrolledDropdown nav inNavbar>
-                                                <DropdownToggle nav caret className="dropdown" className="iconu"><FontAwesomeIcon icon={faUser} size="lg" /> <span> User </span> </DropdownToggle>
+                                                <DropdownToggle nav caret className="dropdown" className="iconu"><FontAwesomeIcon icon={faUser} size="lg" /> <span> {this.state.customer_name} </span> </DropdownToggle>
                                                     <DropdownMenu right>
                                                         {   sessionStorage.getItem('objCustomer') != null && (
                                                             <>

@@ -33,8 +33,9 @@ class ProductDetails extends React.Component {
                 <Navigation />
                 <Carousels />
                 {/* <Details id={this.state.product_id} slug={this.state.product_slug} /> */}
-                <Details id={this.props.match.params.id} />
-                <span> </span>
+                <div className="form-group">
+                    <Details id={this.props.match.params.id} />
+                </div>
                 <Footer />
             </div>
         );

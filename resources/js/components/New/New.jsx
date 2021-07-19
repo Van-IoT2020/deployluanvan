@@ -24,7 +24,7 @@ import React from 'react';
         handlePageChange(pageNumber) {
             console.log(`active page is ${pageNumber}`);
             // this.setState({activePage: pageNumber});
-            axios.get('http://127.0.0.1:8000/api/product?page='+ pageNumber)
+            axios.get('http://127.0.0.1:8000/api/product-customer?page='+ pageNumber)
                 .then(res=>{
                     this.setState({
                         product:res.data.data,

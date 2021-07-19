@@ -66,10 +66,11 @@ class Details extends React.Component {
     render() {
       // console.log(this.props.id);
         return (
-          <div className="form-group">
+          <div className="product-details">
             <div className="row">
                 <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <img className="card-img-top" height="350" src={ this.state.product.product_image } alt={this.state.product.product_slug} />
+                    
                 </div>
                 
                 <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">

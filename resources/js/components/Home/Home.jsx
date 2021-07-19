@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from '../Search/Search';
 import Navigation from '../Navigation/Navigation';
-import Header from '../Header/Header';
+// import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Carousels from '../Carousels/Carousels';
 import Content from '../Content/Content';

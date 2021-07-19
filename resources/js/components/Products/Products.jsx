@@ -10,14 +10,42 @@ class Products extends React.Component {
     constructor(props){
         // console.log(props);
         super(props);
-        this.onAddToCart=this.onAddToCart.bind(this);
+
         
+        this.onAddToCart=this.onAddToCart.bind(this);
+        this.showPrice=this.showPrice.bind(this);
     }
     
     onAddToCart(){
         alert(this.props.name + '-' + this.props.price);
     }
-    
+    showPrice(){
+        if(this.props.promotion_price !== 0){
+            return <div className="form-group" className="inline-price">
+            <div className="form-check-inline">
+                <h6> 
+                    {/* prefix={'VND'}    */}
+                    <CurrencyFormat style={{textDecorationLine: 'line-through', color:'red'}}   value={this.props.price} displayType={'text'} thousandSeparator={true}  /> 
+                    <del style={{color:'red', CurrencyFormat:'thousand'}}> VND</del>
+                </h6>
+            </div>
+            <div className="form-check-inline">
+                <h6  className="flash-sale">
+                <CurrencyFormat style={{color:'black'}}value={this.props.promotion_price} displayType={'text'} thousandSeparator={true} />
+                <ins className="ega-text--no-underline" style={{textDecoration:'none'}}> VND</ins>
+                </h6>
+            </div>
+        </div>
+        }else{
+            return <div className="form-group" className="inline-price">
+            <div className="form-check-inline">
+                <h6>
+                    <CurrencyFormat style={{color:'black'}} value={this.props.price} displayType={'text'} thousandSeparator={true} prefix={'VND'} />
+                </h6>
+            </div>
+        </div>
+        }
+    }
     render() {
         return (
             <div className="product">
@@ -30,18 +58,7 @@ class Products extends React.Component {
                 <h4 className="card-title">
                     <Link to="#">{this.props.name}</Link>
                 </h4>
-                <div className="form-group" className="inline-price">
-                    <div className="form-check-inline">
-                        <h6>
-                            <CurrencyFormat value={this.props.price} displayType={'text'} thousandSeparator={true} prefix={'VND'} />
-                        </h6>
-                    </div>
-                    <div className="form-check-inline">
-                        <h6  className="flash-sale">
-                        <CurrencyFormat value={this.props.promotion_price} displayType={'text'} thousandSeparator={true} prefix={'VND'} />
-                        </h6>
-                    </div>
-                </div>
+                {this.showPrice()}
                 <p className="card-text">Mô tả: {this.props.content}</p>
                 </div>
                 <div className="col-md-12">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\SizeDetails;
+use DB;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -180,5 +182,41 @@ class ProductController extends Controller
     //Show theo thương hiệu
     public function showProductBrand($key){
         return Product::where('brand_id', $key)->get();
+        // ->Paginate(3)
     }
+
+    //Show theo loai
+    public function showProductType($key){
+        return Product::where('product_type_id', $key)->get();
+        // ->Paginate(3)
+    }
+    // public function showProductCate(){
+    //     $cate_pro = DB::table('categories')->join('product_type', 'categories.categories_id', '=', 'product_type.categories_id')
+    //         ->join('product', 'product.product_type_id', '=', 'product_type.product_type_id')->get();
+    //     return cate_pro;
+    //     // ->Paginate(3)
+    // }
+
+    //show size
+    // public function getProductSize($id){
+    //     return $id;
+    //     $arr_product = [];
+
+    //     $findProduct = SizeDetails::select('product_id')->where('size_id', $id)->get();
+    //     foreach($findProduct as $key => $value){
+    //         $arr_product[] = Product::where('product_id', $value->product_id)->get();
+    //     }
+    //     return $arr_product;
+    // }
+    public function getProductSize($id){
+        $arr = explode('-',$id);
+        $arr_product=[];
+        
+        $findProduct = SizeDetails::select('product_id')->wherein('size_id', $arr)->get();
+         foreach($findProduct as $key => $value){
+             $arr_product[] = Product::where('product_id', $value->product_id)->paginate(3);
+         }
+         return $arr_product;
+      
+     }
 }

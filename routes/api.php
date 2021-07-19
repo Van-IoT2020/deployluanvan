@@ -40,10 +40,13 @@ Route::post('Admin_login','App\Http\Controllers\AdminAccountController@login');
 Route::get('product/find-id-by-slug/{slug}', 'App\Http\Controllers\ProductController@findIdBySlug');
 Route::resource('product', 'App\Http\Controllers\ProductController');
 Route::get('brand-product/{key}', 'App\Http\Controllers\ProductController@showProductBrand');
+Route::get('product-type-product/{key}', 'App\Http\Controllers\ProductController@showProductType');
+Route::get('product-size/{key}', 'App\Http\Controllers\ProductController@getProductSize');
+// Route::get('categories-product/{key}', 'App\Http\Controllers\ProductController@showProductCate');
 Route::get('product-customer', 'App\Http\Controllers\ProductController@getPagination');
 
 Route::resource('product-type', 'App\Http\Controllers\ProductTypeController');
-// Route::get('get-categories-producttype/{id}', 'App\Http\Controllers\ProductTypeController@getnameProductType');
+Route::get('get-categories-producttype/{id}', 'App\Http\Controllers\ProductTypeController@getnameProductType');
 // Route::Resource('product-type/{id}', 'App\Http\Controllers\ProductTypeController@show_type');
 
 Route::resource('color', 'App\Http\Controllers\ColorController');
@@ -63,6 +66,8 @@ Route::post("login", "App\Http\Controllers\CustomerController@login");
 Route::get('search/{key}', 'App\Http\Controllers\ProductController@Search');
 Route::get('product-type-categories/{key}', 'App\Http\Controllers\ProductTypeController@showProductType');
 
+//Thông tin tuyển dụng
+Route::resource('recruitment', 'App\Http\Controllers\RecruitmentController');
 // //Login-Register Customer
 // Route::Resource('customer', 'App\Http\Controllers\CustomerController');
 // Route::post("signup", "App\Http\Controllers\CustomerController@userSignUp");

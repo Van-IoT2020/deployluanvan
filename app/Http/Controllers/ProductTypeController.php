@@ -119,4 +119,7 @@ class ProductTypeController extends Controller
 
         return $product_type->delete();
     }
+    public function getnameProductType($id){
+         return ProductType::where('categories_id', $id)->get();
+    }
 }
