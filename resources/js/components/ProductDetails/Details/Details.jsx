@@ -12,9 +12,24 @@ class Details extends React.Component {
         product_id: this.props.id,
         product: {},
         color_details:[],
-        size_details: []
+        size_details: [],
+
+        order_id:null,
+        color_name: 0,
+        size_name: 0,
+        unit_price:"",
+        promotion_price:"",
+        product_quantity:1,
       }
-      this.loadColors = this.loadColors.bind(this);
+      this.onHandleChange = this.onHandleChange.bind(this);
+      // this.loadColors = this.loadColors.bind(this);
+    }
+
+    onHandleChange(e){
+      // console.log(e.target.value);
+      this.setState({
+          [e.target.name] : e.target.value
+      },()=>console.log(this.state));
     }
     
     loadDetail(){
@@ -29,7 +44,8 @@ class Details extends React.Component {
       axios.get('http://127.0.0.1:8000/api/get-color-details/' +  id)
       .then(res=>{
         this.setState({
-          color_details: res.data
+          color_details: res.data,
+          color_name: res.data[0].color_id
         });
       }).catch(err =>console.log(err))
     }
@@ -38,9 +54,47 @@ class Details extends React.Component {
       axios.get('http://127.0.0.1:8000/api/get-size-details/' +  id)
       .then(res=>{
         this.setState({
-          size_details: res.data
+          size_details: res.data,
+          size_name: res.data[0].size_id
         });
       }).catch(err =>console.log(err))
+    }
+
+    addCart(){
+      console.log(this.state);
+
+      var ten_mau = this.state.color_details[this.state.color_details.findIndex((element) => element.color_id == this.state.color_name)].color_name;
+      var ten_kichco = this.state.size_details[this.state.size_details.findIndex((element) => element.size_id == this.state.size_name)].size_name;
+
+      //la phan tu dat vao storage
+      var itemCart={
+        order_id: null,
+        product_id: this.props.id,
+        product_name: this.state.product.product_name,
+        product_image: this.state.product.product_image,
+        color_name: this.state.color_name,
+        ten_mau: ten_mau,
+        size_name: this.state.size_name,
+        ten_kichco: ten_kichco,
+        unit_price: this.state.product.unit_price,
+        promotion_price: this.state.product.promotion_price,
+        product_quantity: this.state.product_quantity
+      }
+      // console.log('item', itemCart);
+      //là danh sach hien tai co trong storage
+      var arrCart = localStorage.getItem('arrCart') ? JSON.parse(localStorage.getItem('arrCart')) : [];
+
+      var find_product = arrCart.find(x => itemCart.product_id == x.product_id &&  itemCart.color_name == x.color_name &&  itemCart.size_name == x.size_name);
+      // console.log(find_product);
+      if(find_product != null){
+        itemCart.product_quantity = parseInt(find_product.product_quantity) + parseInt(itemCart.product_quantity);
+        arrCart = arrCart.filter(x => itemCart.product_id != x.product_id ||  itemCart.color_name != x.color_name ||  itemCart.size_name != x.size_name);
+        arrCart.push(itemCart);
+        localStorage.setItem('arrCart',JSON.stringify(arrCart));
+      } else {
+        arrCart.push(itemCart);
+        localStorage.setItem('arrCart',JSON.stringify(arrCart));
+      }
     }
 
     componentWillMount(){
@@ -91,7 +145,7 @@ class Details extends React.Component {
                   } */}
                     <Label>Size</Label>
                     <div className="form-group">
-                      <Input type="select" name="size" className="select" required="required">
+                      <Input type="select" name="size_name" className="select" required="required" onChange={ this.onHandleChange } value= {this.state.size_name}>
                         {
                           this.state.size_details.map((item, index) =>
                             <option key={ index } value={item.size_id}>{item.size_name}</option>
@@ -101,7 +155,7 @@ class Details extends React.Component {
                     </div>
                     <Label>Màu sắc</Label>
                     <div className="form-group">
-                      <Input type="select" name="color" className="select" required="required">
+                      <Input type="select" name="color_name" className="select" required="required" onChange={ this.onHandleChange } value= {this.state.color_name}>
                         {
                           this.state.color_details.map((item, index) =>
                             <option key={ index } value={item.color_id}>{item.color_name}</option>
@@ -111,15 +165,15 @@ class Details extends React.Component {
                     </div>
                   <Form>
                     <div className="form-group">
-                      <Input name="qty" type="number" min="1"  />
-                      <Button type="button" className="btn btn-success">Mua ngay</Button>
+                      <Input name="product_quantity" type="number" min="1" onChange={ this.onHandleChange } value= {this.state.product_quantity} />
+                      <Button type="button" onClick={()=>this.addCart()} className="btn btn-success">Thêm vào giỏ hàng</Button>
                     </div>
                   </Form>
                   <h5>Tình trạng</h5>
                   <h5>Hàng còn</h5>
                 </div>
               
-              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              {/* <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                 <Form>
                   <h1>Đánh giá sản phẩm</h1>
                   <Label>Đánh giá sao</Label>
@@ -138,7 +192,7 @@ class Details extends React.Component {
                   </div>
                 </Form>
                 <Button type="submit" className="btn btn-success" name="button">Submit</Button>
-              </div>
+              </div> */}
             </div>  
           </div>
         );

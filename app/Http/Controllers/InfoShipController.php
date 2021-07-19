@@ -29,21 +29,19 @@ class InfoShipController extends Controller
     public function store(Request $request)
     {
         $valid = Validator::make($request->all(),
-            [
-                'ship_name'=>'required', 
+            [ 
                 'ship_address'=>'required',
                 'ship_phone'=>'required',
-                'ship_notes'=>'required',
+                'ship_email'=>'required',
                 'ship_method'=>'required',
-                'created_at'=>'required',
+                // 'created_at'=>'required',
             ],
             [
-                'ship_name.required'=>'Không có phương thức thanh toán',
                 'ship_address.required' => 'Không lưu được địa chỉ giao hàng',
                 'ship_phone.required'=> 'Không lấy được số điện thoại',
-                'ship_notes.required'=> 'Chưa lưu được ghi chú',
+                'ship_email.required'=> 'Không lấy được số email khách hàng',
                 'ship_method.required'=> 'Chưa lưu được phương thức thanh toán',
-                'created_at.required'=> 'Chưa lưu được ngày đặt hàng'
+                // 'created_at.required'=> 'Chưa lưu được ngày đặt hàng'
             ]
         );
         if($valid->fails()){

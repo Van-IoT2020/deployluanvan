@@ -80,8 +80,8 @@ class EditProductType extends Component {
     }
 
     componentWillMount(){
-        this.editProductType();
         this.loadCategories();
+        this.editProductType();
     }
 
     render() {
@@ -129,7 +129,7 @@ class EditProductType extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="productTypeCreate">Ngày cập nhật</Label>
-                                        <Input type="date" name="updated_at" id="exampleDate" defaultValue={moment(this.state.updated_at).format("yyyy-MM-DD")}/>
+                                        <Input type="date" name="updated_at" id="exampleDate" defaultValue={moment(this.state.updated_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

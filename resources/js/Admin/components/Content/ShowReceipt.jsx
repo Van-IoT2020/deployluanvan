@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DataTable from 'react-data-table-component';
-import { Button, Form } from 'reactstrap';
+import { Button, Form, Label } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
@@ -15,6 +16,7 @@ class ShowReceipt extends Component {
         super(props);
         this.state={
             receipts: [],
+            suppliers:[],
             filter_text:"",
         };
         this.loadReceipts = this.loadReceipts.bind(this);
@@ -38,8 +40,19 @@ class ShowReceipt extends Component {
         .catch( err => console.log(err) );
     }
 
+    loadSupplier(){
+        axios.get('http://127.0.0.1:8000/api/supplier/')
+        .then(res => {
+            this.setState({
+                suppliers: res.data
+            });
+        })
+        .catch( err => console.log(err) );
+    }
+
     componentWillMount(){
         this.loadReceipts();
+        this.loadSupplier();
     }
 
     onDelete(id){
@@ -66,6 +79,11 @@ class ShowReceipt extends Component {
                 selector: 'supplier_id',
                 sortable: true,
                 right: true,
+                cell: row => (
+                    <>
+                        {this.state.suppliers.map((item, index) => <div key={index}>{item.supplier_id == row.supplier_id && row.supplier_id + " - " + item.supplier_name}</div>)}
+                    </>
+                ),
             },
             {
                 name: 'Tổng tiền nhập',
@@ -115,7 +133,7 @@ class ShowReceipt extends Component {
                     </div>
                 </Form>
             </>
-          );
+        );
         return (
             <div id="page-top">
                 <ToastContainer position="top-right" />
@@ -125,7 +143,11 @@ class ShowReceipt extends Component {
                         <div id="content">
                             <Header propsParent = {this.props}/>
                             <div className="container-fluid">
-                                 <DataTable
+                                <Label for="Name" className="mr-sm-2">Thêm phiếu nhập:</Label>
+                                <Link to = {"/admin/home/add-receipt/"}>
+                                    <Button color="success" style={{margin: "10px"}}>Thêm</Button>
+                                </Link>
+                                <DataTable
                                     title="Danh sách phiếu nhập"
                                     columns={columns}
                                     data={ filter_receipt }

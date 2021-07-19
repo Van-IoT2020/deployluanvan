@@ -123,7 +123,7 @@ class BrandController extends Controller
         // // $products = product::where('product_id','=',$id)->get();
 
         if($count_products != 0){
-            return response()->json('Thương hiêu có sản phẩm tồn tại!', 400);
+            return response()->json('Thương hiệu có sản phẩm tồn tại!', 400);
         }
 
         return $brand->delete();

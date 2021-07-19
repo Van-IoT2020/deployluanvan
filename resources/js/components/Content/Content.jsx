@@ -165,6 +165,7 @@ class Content extends React.Component {
         //     }
         // }
         render(){
+        console.log(this.state.totalItemsCount);
         let elements=Array.isArray(this.state.product) && this.state.product.map((product, index) => {
             return <div key={index} className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <Products

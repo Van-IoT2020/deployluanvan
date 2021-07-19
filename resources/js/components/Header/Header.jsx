@@ -32,7 +32,7 @@ function Header() {
     }); 
     return ( 
         <div style={{overflow:"hidden", width:"100vw"}}>
-            <Navigation />
+            <Navigation propsParent = {this.props}/>
             <Carousels />
             <Container style={{marginTop:"25px",marginRight:"auto",marginBottom:"25px",marginRight:"auto", width:"100vw", minHeight: '60vh'}}>
                 <Row>

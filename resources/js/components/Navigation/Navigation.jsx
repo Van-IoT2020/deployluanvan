@@ -83,8 +83,10 @@ class Navigation extends React.Component {
         var customer = sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')) : '';
         this.setState({
             customer_id: customer.customer_id,
-            customer_name: customer.customer_name
-        });
+            customer_name: customer.customer_name,
+            customer_email: customer.customer_email,
+            customer_phone: customer.customer_phone
+        })
     }
 
     onLogout(){
@@ -169,6 +171,11 @@ class Navigation extends React.Component {
                                                                 <DropdownItem>
                                                                     <Link to={"/edit-customer/" + this.state.customer_id} style={{color:'black'}}>
                                                                         <NavbarText className="nav-link" ><span>{this.state.customer_name}</span></NavbarText>
+                                                                    </Link>
+                                                                </DropdownItem>
+                                                                <DropdownItem>
+                                                                    <Link to={"/history-order/" + this.state.customer_id} style={{color:'black'}}>
+                                                                        <NavbarText className="nav-link" ><span>Xem lịch sử đơn hàng</span></NavbarText>
                                                                     </Link>
                                                                 </DropdownItem>
                                                                 <DropdownItem onClick={ ()=>this.onLogout()}>

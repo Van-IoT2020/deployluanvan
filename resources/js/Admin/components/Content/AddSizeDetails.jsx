@@ -99,8 +99,8 @@ class AddSizeDetails extends Component {
                                         </Input>
                                     </FormGroup>
                                     <FormGroup>
-                                        <Label for="brandCreate">Ngày thêm</Label>
-                                        <Input type="date" name="create_at" id="exampleDate" defaultValue={moment(this.state.create_at).format("yyyy-MM-DD")}/>
+                                        <Label for="Create">Ngày thêm</Label>
+                                        <Input type="date" name="create_at" id="exampleDate" defaultValue={moment(this.state.create_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

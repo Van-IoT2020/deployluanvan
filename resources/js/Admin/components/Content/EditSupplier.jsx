@@ -79,7 +79,7 @@ export default class EditSupplier extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="exampleDate">Ngày cập nhật</Label>
-                                        <Input type="date" name="date" id="exampleDate" value={this.state.update_at} onChange={ this.onHandleChange } />
+                                        <Input type="date" name="date" id="exampleDate" value={this.state.update_at} onChange={ this.onHandleChange } readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

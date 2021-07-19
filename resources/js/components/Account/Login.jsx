@@ -31,7 +31,9 @@ export default class Login extends Component {
             console.log("then: ", res);
             var objCustomer = {
                 customer_id: res.data[0].customer_id,
-                customer_name: res.data[0].customer_name
+                customer_name: res.data[0].customer_name,
+                customer_email: res.data[0].customer_email,
+                customer_phone: res.data[0].customer_phone,
             };
             console.log(objCustomer);
             sessionStorage.setItem('objCustomer',JSON.stringify(objCustomer));

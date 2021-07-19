@@ -72,3 +72,15 @@ Mật khẩu: x0QAeB7tUK
 Máy chủ: remotemysql.com
 
 Cảng: 3306
+
+#----------------------------------------------------------------
+Host: sql6.freesqldatabase.com
+Database name: sql6426036
+Database user: sql6426036
+Database password: BFQs1A4Swq
+Port number: 3306
+
+# Account PayPal
+BS: sb-bs@business.example.com
+PS: checkpaypal@personal.example.com / sb-ps@personal.example.com
+Link-checkPayPal developer: https://developer.paypal.com/developer/accounts/

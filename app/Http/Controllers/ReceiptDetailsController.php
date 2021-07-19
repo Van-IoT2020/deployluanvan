@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ReceiptDetails;
+use App\Models\Product;
+use App\Models\Receipt;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -33,6 +35,15 @@ class ReceiptDetailsController extends Controller
         if($find->count()>0){
             return response()->json('Đã tồn tại sản phẩm cho phiếu nhập này', 400);
         }
+        $findProduct = Product::find($request->product_id);
+        $new_quantity = $request->receipt_quantity + $findProduct->product_quantity;
+        // var_dump($new_quantity);
+        $update_quantity = $findProduct->update(['product_quantity' => $new_quantity]);
+
+        $findReceipt = Receipt::find($request->receipt_id);
+        $new_money = ($request->receipt_quantity * $request->receipt_price) + $findReceipt->bill_total;
+        $update_billtotal = $findReceipt->update(['bill_total' => $new_money]);
+
         return ReceiptDetails::create($request->all());
     }
 
@@ -61,6 +72,15 @@ class ReceiptDetailsController extends Controller
         if($find->count()>0){
             return response()->json('Đã tồn tại sản phẩm cho phiếu nhập này', 400);
         }
+
+        $findProduct = Product::find($request->product_id);
+        $new_quantity = $request->receipt_quantity + $findProduct->product_quantity - $details->receipt_quantity;
+        $update_quantity = $findProduct->update(['product_quantity' => $new_quantity]);
+
+        $findReceipt = Receipt::find($request->receipt_id);
+        $new_money = ($request->receipt_quantity * $request->receipt_price) + $findReceipt->bill_total - ($details->receipt_price * $details->receipt_quantity);
+        $update_billtotal = $findReceipt->update(['bill_total' => $new_money]);
+
         return $details->update($request->all());
     }
 
@@ -73,6 +93,15 @@ class ReceiptDetailsController extends Controller
     public function destroy($id)
     {
         $details = ReceiptDetails::findOrFail($id);
+
+        $findProduct = Product::find($details->product_id);
+        $new_quantity = $findProduct->product_quantity - $details->receipt_quantity;
+        $update_quantity = $findProduct->update(['product_quantity' => $new_quantity]);
+
+        $findReceipt = Receipt::find($details->receipt_id);
+        $new_money = $findReceipt->bill_total - ($details->receipt_price * $details->receipt_quantity);
+        $update_billtotal = $findReceipt->update(['bill_total' => $new_money]);
+        
         return $details->delete();
     }
 }

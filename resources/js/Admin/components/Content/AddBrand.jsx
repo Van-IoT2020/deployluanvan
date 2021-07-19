@@ -84,7 +84,7 @@ export default class AddBrand extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="brandCreate">Ngày thêm</Label>
-                                        <Input type="date" name="created_at" id="exampleDate" defaultValue={moment(this.state.created_at).format("yyyy-MM-DD")}/>
+                                        <Input type="date" name="created_at" id="exampleDate" defaultValue={moment(this.state.created_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

@@ -86,7 +86,7 @@ class AddReceipt extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="create">Ngày thêm</Label>
-                                        <Input type="date" name="create_at" id="create_at" defaultValue={moment(this.state.create_at).format("yyyy-MM-DD")}/>
+                                        <Input type="date" name="create_at" id="create_at" defaultValue={moment(this.state.create_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TblOrder;
+use App\Models\InfoShip;
+use App\Models\Customer;
+use App\Models\OrderDetails;
+use App\Models\Product;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -33,15 +37,17 @@ class TblOrderController extends Controller
                 'customer_id'=>'required', 
                 'ship_id'=>'required',
                 'order_status'=>'required',
+                'fee_ship'=>'required',
                 'total_sold'=>'required',
-                'create_at'=>'required'
+                // 'created_at'=>'required'
             ],
             [
                 'customer_id.required'=>'Không lấy được mã khách hàng',
                 'ship_id.required' => 'Không tạo được mã giao hàng',
                 'order_status.required'=> 'Không lấy được trạng thái',
+                'fee_ship.required'=> 'Không lấy được phí giao hàng',
                 'total_sold.required'=> 'Chưa lưu được tổng tiền',
-                'create_at.required'=> 'Chưa lưu được ngày đặt hàng'
+                // 'created_at.required'=> 'Chưa lưu được ngày đặt hàng'
             ]
         );
         if($valid->fails()){
@@ -75,7 +81,9 @@ class TblOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $find = TblOrder::findOrFail($id);
+        echo($find);
+        return $find->update($request->all());
     }
 
     /**
@@ -87,5 +95,41 @@ class TblOrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getInfoShipByShipID($id){
+        $findOrder = TblOrder::find($id);
+        $findInfoShip = InfoShip::find($findOrder->ship_id);
+        // echo($findInfoShip);
+        return $findInfoShip;
+    }
+
+    public function getIncomeStatementByMonth($year){
+        $getAllMonthInYear = [];
+        for($i=1; $i <= 12 ; $i++) { 
+            $findMonthly = TblOrder::where('order_status','!=',5)->where('order_status',4)->whereMonth('created_at',$i)->whereYear('created_at',$year)->sum('total_sold');
+            $getAllMonthInYear[] = $findMonthly;
+        }
+        return response()->json($getAllMonthInYear, 200);
+    }
+    public function getTotalQuantityByMonth(Request $request){
+        $findMonthly = TblOrder::select('product.product_id', 'product.product_name', TblOrder::raw('SUM(order_details.product_quantity) as product_quantity'))
+        ->leftJoin('order_details', 'tbl_order.order_id', '=', 'order_details.order_id')
+        ->leftJoin('product', 'order_details.product_id', '=', 'product.product_id')
+        ->where('tbl_order.order_status',4)
+        ->where('tbl_order.order_status','!=',5)
+        ->whereMonth('order_details.create_at', $request->month)
+        ->whereYear('order_details.create_at', $request->year)
+        ->groupBy('product.product_id', 'product.product_name')->get();
+        // echo($findMonthly);
+        return response()->json($findMonthly, 200);
+    }
+
+    public function getOrderByCustomerId($id)
+    {
+        $customer = Customer::findOrFail($id);
+        $getOrder = TblOrder::select()->where('customer_id',$customer->customer_id)->get();
+        // echo($getOrder);
+        return response()->json($getOrder, 200);
     }
 }

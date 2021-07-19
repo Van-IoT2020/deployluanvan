@@ -13,7 +13,7 @@ export default class AddColor extends Component {
         super(props);
         this.state={
             color_name: "",
-            create_at: moment(new Date()).format("yyyy-MM-DD"),
+            created_at: moment(new Date()).format("yyyy-MM-DD"),
             //attr: ''
         };
         this.onHandleChange = this.onHandleChange.bind(this);
@@ -29,7 +29,7 @@ export default class AddColor extends Component {
     onSubmit(){
         const listColor = {
             color_name: this.state.color_name,
-            create_at: this.state.create_at
+            created_at: this.state.created_at
         }
         axios.post('http://127.0.0.1:8000/api/color/', listColor)
         .then(rep => {
@@ -59,8 +59,8 @@ export default class AddColor extends Component {
                                         <Input type="text" onChange={ this.onHandleChange } name="color_name" id="color_name" placeholder="Nhập vào tên màu" />
                                     </FormGroup>
                                     <FormGroup>
-                                        <Label for="colorCreate">Ngày thêm</Label>
-                                        <Input type="date" name="create_at" id="exampleDate" defaultValue={moment(this.state.create_at).format("yyyy-MM-DD")}/>
+                                        <Label for="colorCreate">Ngày thêm </Label>
+                                        <Input type="date" name="created_at" id="exampleDate" defaultValue={moment(this.state.created_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form>

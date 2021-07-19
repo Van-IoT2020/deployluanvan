@@ -30,27 +30,27 @@ class ReceiptController extends Controller
      */
     public function store(Request $request)
     {
-        $valid = Validator::make($request->all(),
-            [
-                'bill_total'=>'required|numeric|min:5'
-            ],
-            [
-                'bill_total.min'=>'Phải nhập đủ 5 ký tự',
-                'bill_total.numeric' => 'Giá tiền phải đúng định dạng',
-                'bill_total.required'=> 'Phải nhập tổng đơn giá nhập vào'
-            ]
-        );
+        // $valid = Validator::make($request->all(),
+        //     [
+        //         'bill_total'=>'required|numeric|min:5'
+        //     ],
+        //     [
+        //         'bill_total.min'=>'Phải nhập đủ 5 ký tự',
+        //         'bill_total.numeric' => 'Giá tiền phải đúng định dạng',
+        //         'bill_total.required'=> 'Phải nhập tổng đơn giá nhập vào'
+        //     ]
+        // );
 
-        // var_dump($valid->fails());
-        // print_r($valid->errors());
-        if($valid->fails()){
-            $err = [];
-            foreach($valid->errors()->messages() as $key => $value){
-                // echo($value[0]);
-                $err[] = $value[0];
-            }
-            return response()->json($err, 400);
-        }
+        // // var_dump($valid->fails());
+        // // print_r($valid->errors());
+        // if($valid->fails()){
+        //     $err = [];
+        //     foreach($valid->errors()->messages() as $key => $value){
+        //         // echo($value[0]);
+        //         $err[] = $value[0];
+        //     }
+        //     return response()->json($err, 400);
+        // }
 
         return Receipt::create($request->all());
     }
@@ -76,23 +76,23 @@ class ReceiptController extends Controller
     public function update(Request $request, $id)
     {
         $receipt = Receipt::findOrFail($id);
-        $valid = Validator::make($request->all(),
-            [
-                'bill_total'=>'required|numeric|min:5'
-            ],
-            [
-                'bill_total.min'=>'Phải nhập đủ 5 ký tự',
-                'bill_total.numeric' => 'Giá tiền phải đúng định dạng',
-                'bill_total.required'=> 'Phải nhập tổng đơn giá nhập vào'
-            ]
-        );
-        if($valid->fails()){
-            $err = [];
-            foreach($valid->errors()->messages() as $key => $value){
-                $err[] = $value[0];
-            }
-            return response()->json($err, 400);
-        }
+        // $valid = Validator::make($request->all(),
+        //     [
+        //         'bill_total'=>'required|numeric|min:5'
+        //     ],
+        //     [
+        //         'bill_total.min'=>'Phải nhập đủ 5 ký tự',
+        //         'bill_total.numeric' => 'Giá tiền phải đúng định dạng',
+        //         'bill_total.required'=> 'Phải nhập tổng đơn giá nhập vào'
+        //     ]
+        // );
+        // if($valid->fails()){
+        //     $err = [];
+        //     foreach($valid->errors()->messages() as $key => $value){
+        //         $err[] = $value[0];
+        //     }
+        //     return response()->json($err, 400);
+        // }
 
         return $receipt->update($request->all());
     }
@@ -113,26 +113,35 @@ class ReceiptController extends Controller
         return $receipt->delete();
     }
 
-    public function handle_updateBillTotal(Request $request, $id){
-        //  action: 
-        //  1: add -> increment
-        //  2: update -> decrement n increment 
-        //  3: delete -> decrement
+    // public function handle_updateBillTotal(Request $request, $id){
+    //     //  action: 
+    //     //  1: add -> increment
+    //     //  2: update -> decrement n increment 
+    //     //  3: delete -> decrement
 
-        $find_billTotal = Receipt::select('bill_total')->where('receipt_id', $id)->first()->bill_total;
-        // echo($find_billTotal);
+    //     $find_billTotal = Receipt::select('bill_total')->where('receipt_id', $id)->first()->bill_total;
+    //     // echo($find_billTotal);
 
-        if($request->action == 1){
-            $new_money = $find_billTotal + $request->total_money;
-        } 
-        elseif($request->action == 3){
-            $new_money =  $find_billTotal - $request->total_money;
-        } 
-        else{
-            $new_money =  $find_billTotal - $request->total_old_money + $request->total_money;
-        }
+    //     if($request->action == 1){
+    //         $new_money = $find_billTotal + $request->total_money;
+    //     } 
+    //     elseif($request->action == 2){
+    //         $new_money =  $find_billTotal - $request->total_old_money + $request->total_money;
+    //     } 
+    //     else{
+    //         $new_money =  $find_billTotal - $request->total_money;
+    //     }
         
-        $receipt= Receipt::findOrFail($id);
-        return $receipt->update(['bill_total' => $new_money]);
+    //     $receipt= Receipt::findOrFail($id);
+    //     return $receipt->update(['bill_total' => $new_money]);
+    // }
+
+    public function getFundsByMonth($year){
+        $getAllMonthInYear = [];
+        for($i=1; $i <= 12 ; $i++) { 
+            $findMonthly = Receipt::whereMonth('create_at',$i)->whereYear('create_at', $year)->sum('bill_total');
+            $getAllMonthInYear[] = $findMonthly;
+        }
+        return response()->json($getAllMonthInYear, 200);
     }
 }

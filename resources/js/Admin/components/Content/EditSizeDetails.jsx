@@ -52,15 +52,15 @@ class EditSizeDetails extends Component {
         axios.get('http://127.0.0.1:8000/api/size-details/' +  this.props.match.params.id)
         .then(res =>{
             this.setState({
-                color_id: res.data.color_id,
+                size_id: res.data.size_id,
                 product_id: res.data.product_id,
             });
         })
     }
 
     componentWillMount() {
-        this.loadSizes();
         this.loadProducts();
+        this.loadSizes();
         this.editSizeDetails();
     }
 
@@ -111,7 +111,7 @@ class EditSizeDetails extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="create">Ngày cập nhật</Label>
-                                        <Input type="date" name="update_at" id="exampleDate" defaultValue={moment(this.state.update_at).format("yyyy-MM-DD")}/>
+                                        <Input type="date" name="update_at" id="exampleDate" defaultValue={moment(this.state.update_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

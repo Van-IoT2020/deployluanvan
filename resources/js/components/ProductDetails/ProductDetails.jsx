@@ -30,7 +30,7 @@ class ProductDetails extends React.Component {
     render() {
         return (
             <div style={{overflow:"hidden", width:"100vw"}}>
-                <Navigation />
+                <Navigation propsParent = {this.props}/>
                 <Carousels />
                 {/* <Details id={this.state.product_id} slug={this.state.product_slug} /> */}
                 <div className="form-group">

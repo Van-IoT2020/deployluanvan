@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DataTable from 'react-data-table-component';
-import { Button, Form } from 'reactstrap';
+import { Button, Form, Label } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
@@ -193,6 +194,10 @@ class ShowProduct extends Component {
                         <div id="content">
                             <Header propsParent = {this.props}/>
                             <div className="container-fluid">
+                                <Label for="Name" className="mr-sm-2">Thêm sản phẩm:</Label>
+                                <Link to = {"/admin/home/add-product/"}>
+                                    <Button color="success" style={{margin: "10px"}}>Thêm</Button>
+                                </Link>
                                  <DataTable
                                     title="Danh sách sản phẩm"
                                     columns={columns}

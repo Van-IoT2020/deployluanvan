@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Button } from 'reactstrap';
+import { Button, Label } from 'reactstrap';
+import { Link } from 'react-router-dom'
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
@@ -43,16 +44,15 @@ class ShowBrand extends Component {
             }
         })
         .catch(err => {
-            // if(Array.isArray(err.response.data)){
-            //     err.response.data.map((error) => {
-            //         console.log(error);
-            //         // alert(error);
-            //         toast.error('Lỗi '+ error);
-            //     })
-            // } else {
-            //     toast.error('Lỗi '+ err.response.data);
-            // }
-            toast.error('Lỗi '+ err.response.data);
+            if(Array.isArray(err.response.data)){
+                err.response.data.map((error) => {
+                    console.log(error);
+                    // alert(error);
+                    toast.error('Lỗi '+ error);
+                })
+            } else {
+                toast.error('Lỗi '+ err.response.data);
+            }
         })
     }
 
@@ -71,6 +71,10 @@ class ShowBrand extends Component {
                                         <h6 className="m-0 font-weight-bold text-primary">Bảng thương hiệu</h6>
                                     </div>
                                     <div className="card-body">
+                                        <Label for="brandName" className="mr-sm-2">Thêm thương hiệu:</Label>
+                                        <Link to = {"/admin/home/add-brand"}>
+                                            <Button color="success" style={{margin: "10px"}}>Thêm</Button>
+                                        </Link>
                                         <div className="table-responsive">
                                             <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                                                 <thead>

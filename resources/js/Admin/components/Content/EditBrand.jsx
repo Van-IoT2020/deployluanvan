@@ -132,7 +132,7 @@ export default class EditBrand extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="brandUpdate">Ngày cập nhật</Label>
-                                        <Input type="date" value={this.state.update_at} onChange={ this.onHandleChange } name="update_at" id="exampleDate" />
+                                        <Input type="date" value={this.state.update_at} onChange={ this.onHandleChange } name="update_at" id="exampleDate" readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

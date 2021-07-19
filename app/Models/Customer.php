@@ -9,7 +9,7 @@ class Customer extends Model
 {
     use HasFactory;
     public $timestamps =false;
-    protected $table = 'customer'; //sync table name
+    protected $table = 'customer';
     protected $primaryKey = 'customer_id';
     public $incrementing = false;
     protected $keyType = 'string';

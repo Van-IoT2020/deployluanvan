@@ -65,7 +65,7 @@ class ShowProductBrand extends React.Component {
         // }); 
         return(
             <div style={{overflow:"hidden", width:"100vw"}}>
-                <Navigation />
+                <Navigation propsParent = {this.props}/>
                 <Carousels />
                 <Search />
                 <div className="form-group">

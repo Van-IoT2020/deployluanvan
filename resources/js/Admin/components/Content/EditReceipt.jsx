@@ -66,8 +66,8 @@ class EditReceipt extends Component {
     }
 
     componentWillMount(){
-        this.editReceipt();
         this.loadSupplier();
+        this.editReceipt();
     }
 
     render() {
@@ -91,12 +91,12 @@ class EditReceipt extends Component {
                                         </Input>
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                        <Label for="Name" className="mr-sm-2">Tổng tiền phiếu nhâp</Label>
+                                        <Label for="Name" className="mr-sm-2">Tổng tiền phiếu nhập</Label>
                                         <Input type="text" onChange={ this.onHandleChange } value={ this.state.bill_total } name="bill_total" id="bill_total" readOnly/>
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="update">Ngày cập nhật</Label>
-                                        <Input type="date" name="update_at" id="exampleDate" onChange={ this.onHandleChange } defaultValue={moment(this.state.update_at).format("yyyy-MM-DD")}/>
+                                        <Input type="date" name="update_at" id="exampleDate" onChange={ this.onHandleChange } defaultValue={moment(this.state.update_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

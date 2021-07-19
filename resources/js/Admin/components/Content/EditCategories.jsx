@@ -94,7 +94,7 @@ export default class EditCategories extends Component {
                                         <Input type="date" name="date" id="exampleDate" value={
                                             // this.state.category.update_at
                                             this.state.update_at
-                                            } onChange={ this.onHandleChange }/>
+                                            } onChange={ this.onHandleChange } readOnly/>
                                     </FormGroup>
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 

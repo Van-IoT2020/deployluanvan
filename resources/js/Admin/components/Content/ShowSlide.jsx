@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { Button, Label } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar'
@@ -64,9 +64,13 @@ export default class ShowSlide extends Component {
                             <div className="container-fluid">
                                 <div className="card shadow mb-4">
                                     <div className="card-header py-3">
-                                        <h6 className="m-0 font-weight-bold text-primary">Bảng danh mục</h6>
+                                        <h6 className="m-0 font-weight-bold text-primary">Danh sách banner</h6>
                                     </div>
                                     <div className="card-body">
+                                        <Label for="Name" className="mr-sm-2">Thêm banner:</Label>
+                                        <Link to = {"/admin/home/add-slide/"}>
+                                            <Button color="success" style={{margin: "10px"}}>Thêm</Button>
+                                        </Link>
                                         <div className="table-responsive">
                                             <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                                                 <thead>
