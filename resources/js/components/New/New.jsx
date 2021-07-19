@@ -77,7 +77,7 @@ import React from 'react';
             }); 
             return(
                 <div style={{overflow:"hidden", width:"100vw"}}>
-                    <Navigation />
+                    <Navigation propsParent = {this.props} />
                     <Carousels />
                     <Search />
                     <div className="container">

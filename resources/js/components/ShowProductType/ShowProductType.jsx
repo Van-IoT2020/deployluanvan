@@ -39,7 +39,7 @@ class ShowProductType extends Component {
         console.log(this.props.match.params.id);
         return(
             <div style={{overflow:"hidden", width:"100vw"}}>
-                <Navigation />
+                <Navigation propsParent = {this.props} />
                 <Carousels />
                 <Search />
                 <div className="form-group">
