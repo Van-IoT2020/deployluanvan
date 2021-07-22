@@ -14,7 +14,7 @@ class Footer extends React.Component {
                         <div className="row">
                             <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                 <div className="kv-shop">
-                                    <h2><span>KV</span>Store</h2>
+                                    <h2><span style={{color:'gold'}}>KV</span>Store</h2>
                                     <p>Địa chỉ: 180 Cao Lỗ- Phường 4- Quận 8- TP.HCM</p>
                                     <p>Điện thoại: +84 123456789</p>
                                     <p>Email: info@kvstore.com</p>
@@ -22,7 +22,7 @@ class Footer extends React.Component {
                             </div>
                             <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                 <div className="profile">
-                                    <h2>Về <span>KV</span>Store</h2>
+                                    <h2>Về <span style={{color:'gold'}}>KV</span>Store</h2>
                                     <ul>
                                         <li><Link to="/gioi-thieu-kvstore">Giới thiệu</Link></li>
                                         <li><a href="#">Liên hệ</a></li>

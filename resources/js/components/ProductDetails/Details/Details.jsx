@@ -133,44 +133,44 @@ class Details extends React.Component {
                     this.state.product.map(product=>{
                       if(String(product.product_id)===this.props.id){
                         return( */}
-                          <div key={this.state.product.product_id}>
-                            <h5>Tên sản phẩm: {this.state.product.product_name}</h5>
-                            <h5>ID: {this.state.product.product_id}</h5>
-                            <h5>Giá gốc: {this.state.product.unit_price}</h5>
-                            <h5>Giá giảm: {this.state.product.promotion_price}</h5>
+                          <div key={this.state.product.product_id} className="font-details">
+                            <h5>Tên sản phẩm: <span style={{color:'blue'}}>{this.state.product.product_name}</span></h5>
+                            <h5>ID: <span style={{color:'blue'}}>{this.state.product.product_id}</span></h5>
+                            <h5>Giá gốc: <span style={{color:'blue'}}>{this.state.product.unit_price}</span></h5>
+                            <h5>Giá giảm: <span style={{color:'red'}}>{this.state.product.promotion_price}</span></h5>
                           </div>
                         {/* )
                       }
                     })
                   } */}
-                    <Label>Size</Label>
+                    <Label style={{color:'black'}}>Size</Label>
                     <div className="form-group">
                       <Input type="select" name="size_name" className="select" required="required" onChange={ this.onHandleChange } value= {this.state.size_name}>
                         {
                           this.state.size_details.map((item, index) =>
-                            <option key={ index } value={item.size_id}>{item.size_name}</option>
+                            <option style={{color:'black'}} key={ index } value={item.size_id}>{item.size_name}</option>
                           )
                         }
                       </Input>
                     </div>
-                    <Label>Màu sắc</Label>
+                    <Label style={{color:'black'}}>Màu sắc</Label>
                     <div className="form-group">
                       <Input type="select" name="color_name" className="select" required="required" onChange={ this.onHandleChange } value= {this.state.color_name}>
                         {
                           this.state.color_details.map((item, index) =>
-                            <option key={ index } value={item.color_id}>{item.color_name}</option>
+                            <option key={ index } value={item.color_id} style={{color:'black'}}>{item.color_name}</option>
                           )
                         }
                       </Input>
                     </div>
                   <Form>
                     <div className="form-group">
-                      <Input name="product_quantity" type="number" min="1" onChange={ this.onHandleChange } value= {this.state.product_quantity} />
+                      <Input style={{color:'black'}} name="product_quantity" type="number" min="1" onChange={ this.onHandleChange } value= {this.state.product_quantity} />
+                    </div>
+                    <div className="form-group">
                       <Button type="button" onClick={()=>this.addCart()} className="btn btn-success">Thêm vào giỏ hàng</Button>
                     </div>
                   </Form>
-                  <h5>Tình trạng</h5>
-                  <h5>Hàng còn</h5>
                 </div>
               
               {/* <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
