@@ -44,7 +44,7 @@ Route::resource('product', 'App\Http\Controllers\ProductController');
 Route::get('brand-product/{key}', 'App\Http\Controllers\ProductController@showProductBrand');
 Route::get('product-type-product/{key}', 'App\Http\Controllers\ProductController@showProductType');
 Route::get('product-size/{key}', 'App\Http\Controllers\ProductController@getProductSize');
-// Route::get('categories-product/{key}', 'App\Http\Controllers\ProductController@showProductCate');
+Route::get('categories-product/{key}', 'App\Http\Controllers\ProductController@showProductCate');
 Route::get('product-customer', 'App\Http\Controllers\ProductController@getPagination');
 
 Route::resource('product-type', 'App\Http\Controllers\ProductTypeController');

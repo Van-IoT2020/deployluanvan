@@ -87,7 +87,7 @@ class Content extends React.Component {
        //    console.log(temp.reduce((f, s) => `${f},${s}`));
             axios.get('http://127.0.0.1:8000/api/product-size/'+temp.join('-'), {
             // params: {
-            //     size: temp.reduce((f, s) => `${f},${s}`)
+            //     size: temp.reduce((f, s) => `${f},${s}`) 
             // }
             }).then(res=>{
                console.log("return:",res.data)
