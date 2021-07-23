@@ -121,7 +121,7 @@ class Navigation extends React.Component {
                                     <NavItem>
                                             <Link to="/">
                                             <div className="logo">
-                                                <h2><span>KV</span>Store</h2>
+                                                <h2><span style={{color:'gold'}}>KV</span>Store</h2>
                                             </div>
                                             </Link>
                                     </NavItem>  

@@ -40,7 +40,8 @@ class Products extends React.Component {
             return <div className="form-group" className="inline-price">
             <div className="form-check-inline">
                 <h6>
-                    <CurrencyFormat style={{color:'black'}} value={this.props.price} displayType={'text'} thousandSeparator={true} prefix={'VND'} />
+                    <CurrencyFormat style={{color:'black'}} value={this.props.price} displayType={'text'} thousandSeparator={true} />
+                    <ins className="ega-text--no-underline" style={{textDecoration:'none'}}> VND</ins>
                 </h6>
             </div>
         </div>

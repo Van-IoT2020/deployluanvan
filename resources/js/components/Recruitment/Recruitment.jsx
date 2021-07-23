@@ -10,7 +10,7 @@ class Recruitment extends Component {
     render() {
         return (
             <div style={{overflow:"hidden", width:"100vw"}}>
-                    <Navigation propsParent = {this.props} />
+                    <Navigation propsParent = {this.props}sw />
                     <Carousels />
                     <div className="form-group">
                         <div className="container">   
