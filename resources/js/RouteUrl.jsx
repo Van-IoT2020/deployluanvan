@@ -11,7 +11,7 @@ import Categories from "./components/Categories/Categories";
 import Header from "./components/Header/Header";
 import ShowProductBrand from "./components/ShowProductBrand/ShowProductBrand";
 import ShowProductType from "./components/ShowProductType/ShowProductType";
-import ProductCategories from "./components/ProductCategories/ProductCategories";
+// import ProductCategories from "./components/ProductCategories/ProductCategories";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import EditCustomer from "./components/Account/EditCustomer";
 import Recruitment from "./components/Recruitment/Recruitment";
@@ -36,7 +36,7 @@ class RouteUrl extends React.Component {
                     <Route exact path="/search" component={Header} />
                     <Route exact path="/brand/:id" component={ShowProductBrand} />
                     <Route exact path="/product-type/:id" component={ShowProductType} />
-                    <Route exact path="/categories/:id" component={ProductCategories} />
+                    {/* <Route exact path="/categories/:id" component={ProductCategories} /> */}
                     <Route exact path="/tuyen-dung" component={Recruitment} />
                     <Route exact path="/gioi-thieu-kvstore" component={Introduce} />
                     <Route exact path="/cart" component={Cart} />

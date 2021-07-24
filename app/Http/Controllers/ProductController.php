@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\SizeDetails;
+use App\Models\ProductType;
 use DB;
 
 use Illuminate\Support\Facades\Validator;
@@ -190,12 +191,22 @@ class ProductController extends Controller
         return Product::where('product_type_id', $key)->get();
         // ->Paginate(3)
     }
-    // public function showProductCate(){
+    // public function showProductCate($key){
     //     $cate_pro = DB::table('categories')->join('product_type', 'categories.categories_id', '=', 'product_type.categories_id')
-    //         ->join('product', 'product.product_type_id', '=', 'product_type.product_type_id')->get();
-    //     return cate_pro;
+    //         ->join('product', 'product.product_type_id', '=', 'product_type.product_type_id')->where('categories.categories_id', $key)->get();
+    //     return $cate_pro;
     //     // ->Paginate(3)
     // }
+
+    public function showProductCate($id){
+        $arr_product = [];
+
+        $findProduct = ProductType::where('categories_id', $id)->get();
+        foreach($findProduct as $key => $value){
+            $arr_product = Product::where('product_type_id', $value->product_type_id)->get();
+        }
+        return $arr_product;
+    }
 
     //show size
     // public function getProductSize($id){
@@ -213,10 +224,12 @@ class ProductController extends Controller
         $arr_product=[];
         
         $findProduct = SizeDetails::select('product_id')->wherein('size_id', $arr)->get();
-         foreach($findProduct as $key => $value){
-             $arr_product[] = Product::where('product_id', $value->product_id)->paginate(3);
-         }
-         return $arr_product;
+        foreach($findProduct as $key => $value){
+            if (!in_array(Product::find($value->product_id), $arr_product)) {
+                $arr_product[] = Product::find($value->product_id);
+            }
+        }
+        return $arr_product;
       
      }
 

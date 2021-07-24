@@ -17,7 +17,8 @@ class TblOrder extends Model
         'order_status',
         'fee_ship',
         'total_sold',
-        'created_at'
+        'created_at',
+        'updated_at',
     ];
     public function order_details(){
         return $this->hasMany(OrderDetails::class, 'order_id', 'order_id');
