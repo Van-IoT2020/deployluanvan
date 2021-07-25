@@ -8,7 +8,7 @@ import Carousels from '../Carousels/Carousels';
 import {useState} from 'react';
 import ProductsSearch from './ProductsSearch/ProductsSearch'
 
-function Header() {
+function Header(props) {
     const [data, setData] = useState([]);
     async function Search(key){
         console.warn(key);
@@ -32,7 +32,7 @@ function Header() {
     }); 
     return ( 
         <div style={{overflow:"hidden", width:"100vw"}}>
-            <Navigation propsParent = {this.props}/>
+            <Navigation propsParent = {props}/>
             <Carousels />
             <Container style={{marginTop:"25px",marginRight:"auto",marginBottom:"25px",marginRight:"auto", width:"100vw", minHeight: '60vh'}}>
                 <Row>

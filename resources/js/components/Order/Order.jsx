@@ -19,6 +19,7 @@ class Order extends Component {
             ship_notes: "",
             ship_method: 1,
             created_at: moment(new Date()).format("yyyy-MM-DD"),
+            updated_at: moment(new Date()).format("yyyy-MM-DD"),
 
             citys:[],
             city_id:"",
@@ -196,7 +197,8 @@ class Order extends Component {
             ship_email: this.state.ship_email,
             ship_notes: this.state.ship_notes,
             ship_method: this.state.radioTT,
-            created_at: this.state.created_at
+            created_at: this.state.created_at,
+            updated_at: this.state.updated_at,
         }
         console.log("address:", listInfoShip.ship_address);
         
@@ -266,13 +268,17 @@ class Order extends Component {
                 })
             })
         }).catch(err => {
-            err.response.data.map((error) => {
-                toast.error('Lỗi '+ error, {
-                    onClose: () => {
-                        this.setState({isLoading: false});
-                    }
+            if(Array.isArray(err.response.data)){
+                err.response.data.map((error) => {
+                    toast.error('Lỗi '+ error, {
+                        onClose: () => {
+                            this.setState({isLoading: false});
+                        }
                     });
-            })
+                })
+            }else{
+                toast.error('Lỗi: ' + err.response.data);
+            }
         })
     }
     

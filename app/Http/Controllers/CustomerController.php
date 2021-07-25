@@ -61,7 +61,7 @@ class CustomerController extends Controller
         $find = Customer::find($request->customer_id);
         // return response()->json($find, 200);
         if($find != null){ 
-            return response()->json('Lỗi: khóa chính đã tồn tại',400);
+            return response()->json('Lỗi: Tài khoản đã tồn tại !',400);
         }
         $request->offsetSet('customer_password',bcrypt($request->input('customer_password')));
         return Customer::create($request->all());

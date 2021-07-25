@@ -24,6 +24,7 @@ class ProductBrand extends React.Component {
     }
     loadProductBrand(id){
         // console.log(this.props.id)
+        //axios.get('http://127.0.0.1:8000/api/brand-product/'+ id+'/?page='+ pageNumber)
         axios.get('http://127.0.0.1:8000/api/brand-product/'+ id)
         .then(res=>{
             console.log(res);
@@ -43,7 +44,7 @@ class ProductBrand extends React.Component {
         return (
         <>
         {
-    this.state.product.map((item,index)=>
+            this.state.product.map((item,index)=>
         <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4" key={index}>
             <div className="product"  >
                 <Link to={"/product_details/"+item.product_id +"/"+item.product_slug}>
@@ -85,7 +86,8 @@ class ProductBrand extends React.Component {
                   
             </div>
         </div>
-            )}
+            )
+        }
         </>
         );
     }

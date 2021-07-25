@@ -19,9 +19,18 @@ class ChangeStatus extends React.Component {
     }
 
     componentWillMount(){
+        // console.log("order item: ", this.state.order);
         this.setState({
             order: this.props.order,
             order_status: this.props.order.order_status
+        })
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log("order item: ", nextProps.order);
+        this.setState({
+            order: nextProps.order,
+            order_status: nextProps.order.order_status
         })
     }
     
@@ -41,11 +50,18 @@ class ChangeStatus extends React.Component {
                                     })
                                 });
                             } } name="order_status" id="order_status" >
-                            <option value={1}>Đang xác nhận</option>
-                            <option value={2}>Đang xử lý đơn</option>
-                            <option value={3}>Đang giao</option>
-                            <option value={4}>Giao thành công</option>
-                            <option value={5}>Hủy bỏ</option>
+                            {
+                                (this.state.order.order_status != 5 && this.state.order.order_status != 4) ? (
+                                    <>
+                                        <option value={1}>Đang xác nhận</option>
+                                        <option value={2}>Đang xử lý đơn</option>
+                                        <option value={3}>Đang giao</option>
+                                        <option value={4}>Giao thành công</option>
+                                        <option value={5}>Hủy bỏ</option>
+                                    </>
+                                ) : (this.state.order.order_status == 5) ? <option value={5}>Hủy bỏ</option> : <option value={5}>Giao thành công</option> 
+                            }
+                            
                         </Input>
                     </FormGroup>
                     {/* <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
