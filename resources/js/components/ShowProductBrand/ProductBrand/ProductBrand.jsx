@@ -24,6 +24,7 @@ class ProductBrand extends React.Component {
     }
     loadProductBrand(id){
         // console.log(this.props.id)
+        //axios.get('http://127.0.0.1:8000/api/brand-product/'+ id+'/?page='+ pageNumber)
         axios.get('http://127.0.0.1:8000/api/brand-product/'+ id)
         .then(res=>{
             console.log(res);
