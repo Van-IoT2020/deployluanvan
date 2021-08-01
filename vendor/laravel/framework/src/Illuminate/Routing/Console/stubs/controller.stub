@@ -1,12 +1,8 @@
 <?php
-<<<<<<< HEAD:vendor/laravel/framework/src/Illuminate/Routing/Console/stubs/controller.stub
 
 namespace {{ namespace }};
 
 use {{ rootNamespace }}Http\Controllers\Controller;
-=======
-namespace App\Http\Controllers;
->>>>>>> origin/lekieu:app/Http/Controllers/ColorController.php
 use Illuminate\Http\Request;
 
 class {{ class }} extends Controller

@@ -48,6 +48,11 @@ class SizeDetailsController extends Controller
         return SizeDetails::findOrFail($id);
     }
 
+    public function checkDetailsSize($id)
+    {
+        return SizeDetails::where('product_id',$id)->get();
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -87,5 +92,14 @@ class SizeDetailsController extends Controller
             $arr_size[] = Size::select('size_id', 'size_name')-> where('size_id', $value->size_id)->first();
         }
         return $arr_size;
+    }
+
+    //Handle Details of Management Product
+    public function getToEditSize($id){
+        $findProductSize = SizeDetails::where('product_id', $id)->get();
+        return $findProductSize;
+    }
+    public function deleteSizeDetailByProID($id){
+        return SizeDetails::where('product_id', $id)->delete();
     }
 }

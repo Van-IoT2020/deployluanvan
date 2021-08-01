@@ -15,6 +15,7 @@ export default class AddSlide extends Component {
             slide_name: '',
             slide_desc: '',
             slide_status: 1,
+            slide_link: '',
             slide_image: '',
 
             slide_save_image: null,
@@ -52,6 +53,7 @@ export default class AddSlide extends Component {
                             slide_name: this.state.slide_name,
                             slide_desc: this.state.slide_desc,
                             slide_status: this.state.slide_status,
+                            slide_link: this.state.slide_link,
                             slide_image: urlImage,
                         }
                         axios.post('http://127.0.0.1:8000/api/slide/', listSlide)
@@ -89,6 +91,10 @@ export default class AddSlide extends Component {
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="Name" className="mr-sm-2">Mô tả</Label>
                                         <Input type="text" onChange={ this.onHandleChange } name="slide_desc" id="slide_desc" />
+                                    </FormGroup>
+                                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                        <Label for="Name" className="mr-sm-2">Đường dẫn đến</Label>
+                                        <Input type="text" onChange={ this.onHandleChange } name="slide_link" id="slide_link" />
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="Name" className="mr-sm-2">Trạng thái</Label>

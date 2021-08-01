@@ -29,6 +29,7 @@ class ShowInfoShip extends Component {
                     ship_email: res.data.ship_email,
                     ship_phone: res.data.ship_phone,
                     ship_notes: res.data.ship_notes,
+                    ship_method: res.data.ship_method,
                     created_at: res.data.created_at
                 }]
             });
@@ -70,6 +71,17 @@ class ShowInfoShip extends Component {
                 selector: 'ship_notes',
                 sortable: true,
                 right: true,
+            },
+            {
+                name: 'Phương thức thanh toán',
+                selector: 'ship_method',
+                sortable: true,
+                right: true,
+                cell: row => (
+                    <>
+                        {((row.ship_method == 1) ? "Thanh toán COD" : "Đã thanh toán bằng thẻ - Kiểm tra lại Paypal" )}
+                    </>
+                ),
             },
             {
                 name: 'Ngày đặt hàng',

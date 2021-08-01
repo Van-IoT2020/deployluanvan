@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Receipt;
 use App\Models\ReceiptDetails;
+use App\Models\Product;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
+use App\Imports\ImportReceipt;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReceiptController extends Controller
 {
@@ -143,5 +146,87 @@ class ReceiptController extends Controller
             $getAllMonthInYear[] = $findMonthly;
         }
         return response()->json($getAllMonthInYear, 200);
+    }
+
+    function import(Request $request)
+    {
+        $this->validate($request, [
+            'select_file'  => 'required|mimes:xls,xlsx'
+        ]);
+        $valid = Validator::make($request->all(),
+            [
+                'select_file'  => 'required|mimes:xls,xlsx'
+            ],
+            [
+                'select_file.required'=>'Phải nhập file Chi tiết phiếu nhập!',
+                'select_file.mimes' => 'File phải đúng định dạng .xls/xlsx',
+            ]
+        );
+        if($valid->fails()){
+            $err = [];
+            foreach($valid->errors()->messages() as $key => $value){
+                $err[] = $value[0];
+            }
+            return response()->json($err, 400);
+        }
+
+        $path = $request->file('select_file')->getRealPath();
+        $data = new ImportReceipt();
+        Excel::import($data, $path);
+        
+        $insert_product_id = []; // ds quyết định có nên dừng đọc file
+        $insert_data = []; //Dùng để nhận dữ liệu để xử lý
+
+        //read from file Excel
+        foreach($data as $key => $value)
+        {
+            foreach($value as $row)
+            {
+                if(in_array($row[0], $insert_product_id)){
+                    return response()->json('file excel có tồn tại một sản phẩm có id là '.$row[0].' bị trùng. Người dùng chỉnh sửa lại file trước khi thêm!', 400);
+                }
+                $insert_product_id[] = $row[0];
+                $insert_data[] = array(
+                    'receipt_id'  => null,
+                    'product_id'  => $row[0],
+                    'receipt_quantity'   => $row[1],
+                    'receipt_price'   => $row[2],
+                    'created_at'    => null
+                );
+                // echo($row);
+            }
+        }
+
+        $createReceiptId = Receipt::create($request->all())->receipt_id;
+
+        //setup
+        if(!empty($insert_data))
+        {
+            $bill_total = 0;
+
+            foreach($insert_data as $key => $value){
+                if($key!=0){ 
+                    //setup
+                    $value['receipt_id']  = $createReceiptId;
+
+                    //process
+                    $receipt_quantity = $value["receipt_quantity"];
+                    $product_id = $value["product_id"];
+                    $bill_total += $value["receipt_quantity"] * $value["receipt_price"];
+
+                    $findProduct = Product::find($product_id);
+                    $new_quantity = $receipt_quantity + $findProduct->product_quantity;
+                    $update_quantity = $findProduct->update(['product_quantity' => $new_quantity]);
+
+                    //save
+                    ReceiptDetails::create($value);
+                    // echo($product_id);
+                }
+            }
+            $findReceipt = Receipt::find($createReceiptId);
+            $findReceipt->update(['bill_total' => $bill_total]);
+        }
+            
+        return response()->json("successfully", 200);
     }
 }

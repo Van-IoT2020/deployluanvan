@@ -27,6 +27,7 @@ Route::resource('brand', 'App\Http\Controllers\BrandController');
 
 Route::resource('supplier', 'App\Http\Controllers\SupplierController');
 
+Route::post('receipt-excel', 'App\Http\Controllers\ReceiptController@import');//Thêm vào file excel để add ReceiptDetails
 Route::resource('receipt', 'App\Http\Controllers\ReceiptController');
 // Route::put('receipt_upd_bill/{id}', 'App\Http\Controllers\ReceiptController@handle_updateBillTotal');
 
@@ -55,13 +56,22 @@ Route::get('get-categories-producttype/{id}', 'App\Http\Controllers\ProductTypeC
 Route::resource('color', 'App\Http\Controllers\ColorController');
 
 Route::get('get-color-details/{id}', 'App\Http\Controllers\ColorDetailsController@getColor');
+Route::get('get-color/{id}', 'App\Http\Controllers\ColorDetailsController@checkDetailsColor');//Kiểm tra xem có tồn tại chi tiết màu thì không đc xóa hình
+Route::get('get-to-edit-color/{id}', 'App\Http\Controllers\ColorDetailsController@getToEditColor');//Lấy tât cả màu có product_id cần tìm để hiển thị lên form edit
+Route::delete('deletet-color-details/{id}', 'App\Http\Controllers\ColorDetailsController@deleteColorDetailByProID');//Xóa tât cả chi tiết màu theo product_id
 Route::resource('color-details', 'App\Http\Controllers\ColorDetailsController');
 
 Route::resource('size', 'App\Http\Controllers\SizeController');
 
 Route::get('get-size-details/{id}', 'App\Http\Controllers\SizeDetailsController@getSize');
+Route::get('get-size/{id}', 'App\Http\Controllers\SizeDetailsController@checkDetailsSize');//Kiểm tra xem có tồn tại chi tiết size thì không đc xóa hình
+Route::get('get-to-edit-size/{id}', 'App\Http\Controllers\SizeDetailsController@getToEditSize');//Lấy tât cả size có product_id cần tìm để hiển thị lên form edit
+Route::delete('delete-size-details/{id}', 'App\Http\Controllers\SizeDetailsController@deleteSizeDetailByProID');//Xóa tât cả chi tiết size theo product_id
 Route::resource('size-details', 'App\Http\Controllers\SizeDetailsController');
 
+//Hàm dăng nhập/đăng ký customer
+Route::get('customer-checkemail/{email}', 'App\Http\Controllers\CustomerController@getEmailToCheckValid');//Hàm kiểm tra email tồn tại
+Route::get('customer-checkphone/{phone}', 'App\Http\Controllers\CustomerController@getPhoneToCheckValid');//Hàm kiểm tra số điện thoại tồn tại
 Route::resource('customer', 'App\Http\Controllers\CustomerController');
 Route::post("login", "App\Http\Controllers\CustomerController@login");
 
@@ -78,6 +88,7 @@ Route::post('get-total-product-by-month', 'App\Http\Controllers\TblOrderControll
 Route::get('get-history-order/{id}', 'App\Http\Controllers\TblOrderController@getOrderByCustomerId');//Khách hàng xem lịch sử mua hàng 
 Route::get('get-info-ship-by/{id}', 'App\Http\Controllers\TblOrderController@getInfoShipByShipID');//Hiển thị thông tin giao hàng của đơn đơn đặt hàng- ShowOrder
 Route::put('tbl-order/{id}', 'App\Http\Controllers\TblOrderController@update');
+Route::post('tbl-order-date', 'App\Http\Controllers\TblOrderController@getOrderByDate');
 Route::resource('tbl-order', 'App\Http\Controllers\TblOrderController');
 
 Route::get('get-order-details-by/{id}', 'App\Http\Controllers\OrderDetailsController@getOrderDetailsByOrderID');//Hiển thị danh sách đơn hàng của đơn đặt hàng - ShowOrder

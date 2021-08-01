@@ -14,6 +14,8 @@ export default class EditSupplier extends Component {
         this.state = {
             // supplier: {},
             supplier_name: "",
+            supplier_email: "",
+            supplier_phone: "",
             update_at: moment(new Date()).format("yyyy-MM-DD")
         };
         this.onHandleChange = this.onHandleChange.bind(this);
@@ -30,9 +32,15 @@ export default class EditSupplier extends Component {
     }
 
     onSubmit(){
-        console.warn('send: ', this.state.supplier_name);
+        console.warn('send: ', this.state);
         // const listSupp = this.state.supplier;
-        const listSupp = this.state;
+        // const listSupp = this.state;
+        const listSupp = {
+            supplier_name: this.state.supplier_name,
+            supplier_email: this.state.supplier_email,
+            supplier_phone: this.state.supplier_phone,
+            update_at: this.state.update_at
+        }
         axios.put('http://127.0.0.1:8000/api/supplier/' + this.props.match.params.id, listSupp)
         .then(res => {
             if(res != null){
@@ -54,6 +62,8 @@ export default class EditSupplier extends Component {
             this.setState({
                 // supplier: res.data
                 supplier_name: res.data.supplier_name,
+                supplier_email: res.data.supplier_email,
+                supplier_phone: res.data.supplier_phone,
             })
         })
     }
@@ -76,6 +86,14 @@ export default class EditSupplier extends Component {
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="supplier_name" className="mr-sm-2">Tên nhà cung cấp</Label>
                                         <Input type="text" onChange={ this.onHandleChange } value={this.state.supplier_name} name="supplier_name" id="supplier_name" placeholder="Nhập vào tên nhà cung cấp" />
+                                    </FormGroup>
+                                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                        <Label for="supplier_name" className="mr-sm-2">Email nhà cung cấp</Label>
+                                        <Input type="text" onChange={ this.onHandleChange } value={this.state.supplier_email} name="supplier_email" id="supplier_email" placeholder="Nhập vào email nhà cung cấp" />
+                                    </FormGroup>
+                                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                        <Label for="supplier_name" className="mr-sm-2">Điện thoại nhà cung cấp</Label>
+                                        <Input type="text" onChange={ this.onHandleChange } value={this.state.supplier_phone} name="supplier_phone" id="supplier_phone" placeholder="Nhập vào số điện thoại nhà cung cấp" />
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="exampleDate">Ngày cập nhật</Label>

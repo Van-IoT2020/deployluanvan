@@ -66,6 +66,8 @@ export default class ShowSupplier extends Component {
                                                     <tr>
                                                         <th>Mã nhà cung cấp</th>
                                                         <th>Tên nhà cung cấp</th>
+                                                        <th>Email nhà cung cấp</th>
+                                                        <th>Số điện thoại nhà cung cấp</th>
                                                         <th>Ngày thêm</th>
                                                         <th>Ngày cập nhật</th>
                                                         <th>Tác vụ</th>
@@ -75,6 +77,8 @@ export default class ShowSupplier extends Component {
                                                     <tr>
                                                         <th>Mã nhà cung cấp</th>
                                                         <th>Tên nhà cung cấp</th>
+                                                        <th>Email nhà cung cấp</th>
+                                                        <th>Số điện thoại nhà cung cấp</th>
                                                         <th>Ngày thêm</th>
                                                         <th>Ngày cập nhật</th>
                                                         <th>Tác vụ</th>
@@ -86,6 +90,8 @@ export default class ShowSupplier extends Component {
                                                             <tr key={ index }>
                                                                 <td>{item.supplier_id}</td>
                                                                 <td>{item.supplier_name}</td>
+                                                                <td>{item.supplier_email}</td>
+                                                                <td>{item.supplier_phone}</td>
                                                                 <td>{item.created_at}</td>
                                                                 <td>{item.update_at}</td>
                                                                 <td>

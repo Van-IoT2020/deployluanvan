@@ -23,6 +23,9 @@ class TblOrderController extends Controller
     {
         return TblOrder::all();
     }
+    public function getOrderByDate(Request $request){
+        return TblOrder::where('created_at',$request->date)->get();
+    }
 
     /**
      * Store a newly created resource in storage.

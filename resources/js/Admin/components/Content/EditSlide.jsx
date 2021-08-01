@@ -15,6 +15,7 @@ export default class EditSlide extends Component {
             slide_name: '',
             slide_desc: '',
             slide_status: '',
+            slide_link: '',
             slide_image: '',
 
             haveAChangeFile: false,
@@ -109,6 +110,7 @@ export default class EditSlide extends Component {
                 slide_name: res.data.slide_name,
                 slide_desc: res.data.slide_desc,
                 slide_status: res.data.slide_status,
+                slide_link: res.data.slide_link,
                 slide_image: res.data.slide_image,
             });
         })
@@ -140,15 +142,19 @@ export default class EditSlide extends Component {
                             <div className="container-fluid">
                                 <Form>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                        <Label for="brandName" className="mr-sm-2">Tên banner</Label>
+                                        <Label for="Name" className="mr-sm-2">Tên banner</Label>
                                         <Input type="text" onChange={ this.onHandleChange } value={this.state.slide_name} name="slide_name" id="slide_name"/>
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                        <Label for="brandSlug" className="mr-sm-2">Mô tả</Label>
+                                        <Label for="Name" className="mr-sm-2">Mô tả</Label>
                                         <Input type="text" onChange={ this.onHandleChange } value={this.state.slide_desc} name="slide_desc" id="slide_desc" />
                                     </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                        <Label for="brandDesc" className="mr-sm-2">Trạng thái</Label>
+                                        <Label for="Name" className="mr-sm-2">Đường dẫn đến</Label>
+                                        <Input type="text" onChange={ this.onHandleChange } value={this.state.slide_link} name="slide_link" id="slide_link" />
+                                    </FormGroup>
+                                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                        <Label for="Name" className="mr-sm-2">Trạng thái</Label>
                                         {/* <Input type="text" onChange={ this.onHandleChange } value={this.state.slide_status} name="slide_status" id="slide_status" /> */}
                                         <Input type="select" value={this.state.slide_status} onChange={ this.onHandleChange } name="slide_status" id="slide_status" >
                                             <option value={1}>Đang chạy</option>

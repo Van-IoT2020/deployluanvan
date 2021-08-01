@@ -13,6 +13,8 @@ export default class AddSupplier extends Component {
         super(props);
         this.state = {
             supplier_name: "",
+            supplier_email: "",
+            supplier_phone: "",
             created_at: moment(new Date()).format("yyyy-MM-DD"),
         };
         this.onHandleChange = this.onHandleChange.bind(this);
@@ -26,9 +28,11 @@ export default class AddSupplier extends Component {
     }
 
     onSubmit(){
-        console.warn('send:', this.state.supplier_name);
+        console.warn('send:', this.state);
         const listSupplier = {
             supplier_name: this.state.supplier_name,
+            supplier_email: this.state.supplier_email,
+            supplier_phone: this.state.supplier_phone,
             created_at: this.state.created_at
         }
         axios.post('http://127.0.0.1:8000/api/supplier', listSupplier)
@@ -59,6 +63,14 @@ export default class AddSupplier extends Component {
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                         <Label for="Name" className="mr-sm-2">Tên nhà cung cấp</Label>
                                         <Input type="text" onChange={ this.onHandleChange } name="supplier_name" id="supplier_name" placeholder="Nhập vào tên nhà cung cấp" />
+                                    </FormGroup>
+                                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                        <Label for="Name" className="mr-sm-2">Email nhà cung cấp</Label>
+                                        <Input type="text" onChange={ this.onHandleChange } name="supplier_email" id="supplier_email" placeholder="Nhập vào email nhà cung cấp" />
+                                    </FormGroup>
+                                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                        <Label for="Name" className="mr-sm-2">Điện thoại nhà cung cấp</Label>
+                                        <Input type="text" onChange={ this.onHandleChange } name="supplier_phone" id="supplier_phone" placeholder="Nhập vào số điện thoại nhà cung cấp" />
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="Create">Ngày thêm</Label>

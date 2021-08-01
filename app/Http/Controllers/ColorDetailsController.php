@@ -49,6 +49,11 @@ class ColorDetailsController extends Controller
         return ColorDetails::findOrFail($id);
     }
 
+    public function checkDetailsColor($id)
+    {
+        return ColorDetails::where('product_id',$id)->get();
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -88,5 +93,14 @@ class ColorDetailsController extends Controller
         }
         return $arr_color;
         // $findProduct_inColorDetails = ColorDetails::findOrFail($id);
+    }
+
+    //Handle Details of Management Product
+    public function getToEditColor($id){
+        $findProductColor = ColorDetails::where('product_id', $id)->get();
+        return $findProductColor;
+    }
+    public function deleteColorDetailByProID($id){
+        return ColorDetails::where('product_id', $id)->delete();
     }
 }

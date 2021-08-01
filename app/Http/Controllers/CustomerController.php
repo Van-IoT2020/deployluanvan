@@ -30,24 +30,29 @@ class CustomerController extends Controller
     {
         $valid = Validator::make($request->all(),
             [
-                'customer_id'=>'required|min:3',
+                'customer_id'=>'required|min:3|unique:customer,customer_id',
                 'customer_name'=>'required',
-                'customer_email'=>'required|email',
+                'customer_email'=>'required|email|unique:customer,customer_email',
+                'customer_address'=>'required',
                 'customer_password'=>'required|min:5|max:32',
-                'customer_phone'=>'required|numeric|digits:10'
+                'customer_phone'=>'required|numeric|digits:10|unique:customer,customer_phone'
             ],
             [
                 'customer_id.required'=>'Bạn chưa nhập mã người dùng',
                 'customer_id.min'=>'Mã người dùng phải ít nhất 3 kí tự',
+                'customer_id.unique'=>'Mã người dùng đã tồn tại',
                 'customer_name.required'=>'Bạn chưa nhập tên',
                 'customer_email.required'=>'Bạn chưa nhập email',
                 'customer_email.email'=>'Email chưa đúng định dạng',
+                'customer_email.unique'=>'Email đã tồn tại',
+                'customer_address.required'=>'Bạn chưa nhập địa chỉ',
                 'customer_password.required'=>'Bạn chưa nhập mật khẩu',
                 'customer_password.min'=>'Mật khẩu phải ít nhất 5 kí tự',
                 'customer_password.max'=>'Mật khẩu chỉ tối đa 32 kí tự',
                 'customer_phone.required'=>'Bạn chưa nhập số điện thoại',
                 'customer_phone.numeric'=>'Số điện thoại phải là số',
-                'customer_phone.digits'=>'Số điện thoại phải đủ 10 chữ số'
+                'customer_phone.digits'=>'Số điện thoại phải đủ 10 chữ số',
+                'customer_phone.unique'=>'Số điện thoại đã tồn tại'
             ]
         );
         if($valid->fails()){
@@ -79,6 +84,26 @@ class CustomerController extends Controller
         return $customer;
     }
 
+    public function getPhoneToCheckValid($phone)
+    {
+        $customer_phone = Customer::where("customer_phone", $phone)->first();
+        if($customer_phone != null){
+            return response()->json("successful",200);
+        }else{
+            return response()->json("not found",400);
+        }
+    }
+
+    public function getEmailToCheckValid($email)
+    {
+        $customer_email = Customer::where("customer_email", $email)->first();
+        if($customer_email != null){
+            return response()->json("successful",200);
+        }else{
+            return response()->json("not found",400);
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -96,6 +121,7 @@ class CustomerController extends Controller
                 'customer_id'=>'required|min:3)',
                 'customer_name'=>'required',
                 'customer_email'=>'required|email',
+                'customer_address'=>'required',
                 'customer_phone'=>'required|numeric|digits:10'
             ],
             [
@@ -104,6 +130,7 @@ class CustomerController extends Controller
                 'customer_name.required'=>'Bạn chưa nhập tên',
                 'customer_email.required'=>'Bạn chưa nhập email',
                 'customer_email.email'=>'Email chưa đúng định dạng',
+                'customer_address.required'=>'Bạn chưa nhập địa chỉ',
                 'customer_phone.required'=>'Bạn chưa nhập số điện thoại',
                 'customer_phone.numeric'=>'Số điện thoại phải là số',
                 'customer_phone.digits'=>'Số điện thoại phải đủ 10 chữ số'

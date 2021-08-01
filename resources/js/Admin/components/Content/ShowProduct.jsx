@@ -18,6 +18,9 @@ class ShowProduct extends Component {
         this.state = {
             product: [],
             filter_text:"",
+
+            brand: [],
+            product_type: [],
         };
         this.loadProduct = this.loadProduct.bind(this);
         this.onHandleChange = this.onHandleChange.bind(this);
@@ -42,35 +45,68 @@ class ShowProduct extends Component {
         })
         .catch( err => console.log(err) );
     }
+    loadBrand(){
+        axios.get('http://127.0.0.1:8000/api/brand/')
+        .then(res=>{
+            console.log('brand:', res);
+            this.setState({
+                brand: res.data
+            });
+        }).catch(err =>console.log(err));
+    }
+    loadProduct_type(){
+        axios.get('http://127.0.0.1:8000/api/product-type/')
+        .then(res=>{
+            console.log('pro_type:', res);
+            this.setState({
+                product_type: res.data
+            });
+        }).catch(err =>console.log(err));
+    }
 
     componentWillMount(){
         this.loadProduct();
+        this.loadBrand();
+        this.loadProduct_type();
     }
 
     onDelete(id, urlImage){
-        try { 
-            storage.refFromURL(urlImage).delete()
-            .then(() => {
-                alert("Picture is deleted successfully!");
-                axios.delete('http://127.0.0.1:8000/api/product/' + id)
+        axios.get('http://127.0.0.1:8000/api/get-color/' + id)
+        .then(res =>{
+            if(res.data.length != 0){
+                return alert("Delete is fails!");
+            }else{
+                axios.get('http://127.0.0.1:8000/api/get-size/' + id)
                 .then(res =>{
-                    console.log(res);
-                    if(res.data != null){
-                        this.loadProduct();
+                    if(res.data.length != 0){
+                        return alert("Delete is fails!");
+                    }else{
+                        try { 
+                            storage.refFromURL(urlImage).delete()
+                            .then(() => {
+                                alert("Picture is deleted successfully!");
+                                axios.delete('http://127.0.0.1:8000/api/product/' + id)
+                                .then(res =>{
+                                    console.log(res);
+                                    if(res.data != null){
+                                        this.loadProduct();
+                                    }
+                                })
+                                .catch(err => {
+                                    toast.error('Lỗi '+ err.response.data);
+                                })
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                        } catch (error) {
+                            alert("Can't delete Picture!");
+                            console.log(error);
+                        }
                     }
                 })
-                .catch(err => {
-                    toast.error('Lỗi '+ err.response.data);
-                })
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        } catch (error) {
-            alert("Can't delete Picture!");
-            console.log(error);
-        }
-        
+            }
+        })
     }
     
     
@@ -104,12 +140,22 @@ class ShowProduct extends Component {
                 selector: 'product_type_id',
                 sortable: true,
                 right: true,
+                cell: row => (
+                    <>
+                        {this.state.product_type.map((item, index) => <div key={index}>{item.product_type_id == row.product_type_id && row.product_type_id + " - " + item.product_type_name}</div>)}
+                    </>
+                ),
             },
             {
                 name: 'Thương hiệu',
                 selector: 'brand_id',
                 sortable: true,
                 right: true,
+                cell: row => (
+                    <>
+                        {this.state.brand.map((item, index) => <div key={index}>{item.brand_id == row.brand_id && row.brand_id + " - " + item.brand_name}</div>)}
+                    </>
+                ),
             },
             {
                 name: 'Đơn vị',

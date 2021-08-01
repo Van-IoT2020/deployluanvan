@@ -32,10 +32,12 @@ class SlideController extends Controller
         [
             'slide_name'=>'required',
             'slide_desc'=>'required',
+            'slide_link'=>'required',
             'slide_image'=>'required'
         ],[
             'slide_name.required'=>'Phải nhập tên',
             'slide_desc.required'=>'Phải nhập mô tả',
+            'slide_link.required'=>'Phải nhập link dẫn',
             'slide_image.required'=>'Phải nhập hình'
         ]);
         if($valid->fails()){
@@ -73,10 +75,12 @@ class SlideController extends Controller
         [
             'slide_name'=>'required',
             'slide_desc'=>'required',
+            'slide_link'=>'required',
             'slide_image'=>'required'
         ],[
             'slide_name.required'=>'Phải nhập tên',
             'slide_desc.required'=>'Phải nhập mô tả',
+            'slide_link.required'=>'Phải nhập link dẫn',
             'slide_image.required'=>'Phải nhập hình'
         ]);
         if($valid->fails()){

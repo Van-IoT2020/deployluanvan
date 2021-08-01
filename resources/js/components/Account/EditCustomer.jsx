@@ -11,6 +11,7 @@ class EditCustomer extends Component {
             customer_id: '',
             customer_name: '',
             customer_email: '',
+            customer_address: '',
             customer_password: '',
             customer_phone: '',
             customer_old_password:'',
@@ -59,6 +60,7 @@ class EditCustomer extends Component {
                 customer_id: res.data.customer_id,
                 customer_name: res.data.customer_name,
                 customer_email: res.data.customer_email,
+                customer_address: res.data.customer_address,
                 customer_password: res.data.customer_password,
                 customer_phone: res.data.customer_phone,
             })
@@ -70,10 +72,8 @@ class EditCustomer extends Component {
     }
 
     showChangePass(){
-        if(this.state.isChanged == 0){
-            return  <Input type="password" className="form-control form-control-user" defaultValue={ this.state.customer_password } name="customer_password" id="customer_password" readOnly/>
-        }
-        else{
+        if(this.state.isChanged != 0){
+            // return  <Input type="password" className="form-control form-control-user" defaultValue={ this.state.customer_password } name="customer_password" id="customer_password" readOnly/>
             return  <>
                         <div className="col-sm-6 mb-3 mb-sm-0">
                             <Input type="password" className="form-control form-control-user" onChange={ this.onHandleChange } name="customer_password" id="customer_password" placeholder="Nhập vào mật khẩu mới" />              
@@ -83,6 +83,16 @@ class EditCustomer extends Component {
                         </div>
                     </>
         }
+        // else{
+        //     return  <>
+        //                 <div className="col-sm-6 mb-3 mb-sm-0">
+        //                     <Input type="password" className="form-control form-control-user" onChange={ this.onHandleChange } name="customer_password" id="customer_password" placeholder="Nhập vào mật khẩu mới" />              
+        //                 </div>
+        //                 <div className="col-sm-6">
+        //                     <Input type="password" className="form-control form-control-user" onChange={ this.onHandleChange } name="customer_old_password" id="customer_old_password" placeholder="Nhập vào mật khẩu cũ" />
+        //                 </div>
+        //             </>
+        // }
         
     }
     
@@ -111,6 +121,9 @@ class EditCustomer extends Component {
                                         </div>
                                         <div className="form-group">
                                             <Input type="email" className="form-control form-control-user" onChange={ this.onHandleChange } value={ this.state.customer_email } name="customer_email" id="customer_email" placeholder="Nhập địa chỉ email" />
+                                        </div>
+                                        <div className="form-group">
+                                            <Input type="text" className="form-control form-control-user" onChange={ this.onHandleChange } value={ this.state.customer_address } name="customer_address" id="customer_address" placeholder="Nhập địa chỉ" />
                                         </div>
                                         <div className="form-group">
                                             <Input type="text" className="form-control form-control-user" onChange={ this.onHandleChange } value={ this.state.customer_phone } name="customer_phone" id="customer_phone" placeholder="Nhập vào số điện thoại" />

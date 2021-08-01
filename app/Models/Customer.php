@@ -17,6 +17,7 @@ class Customer extends Model
         'customer_id',
         'customer_name',
         'customer_email',
+        'customer_address',
         'customer_password',
         'customer_phone',
         'create_at',

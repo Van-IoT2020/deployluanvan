@@ -12,9 +12,11 @@ class ShowProductType extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            product_type: []
+            product_type: [],
+            categories:[]
         };
         this.loadProduct_type = this.loadProduct_type.bind(this);
+        this.loadCategories = this.loadCategories.bind(this);
     }
 
     loadProduct_type(){
@@ -26,9 +28,19 @@ class ShowProductType extends Component {
             });
         }).catch(err =>console.log(err));
     }
+    loadCategories(){
+        axios.get('http://127.0.0.1:8000/api/categories/')
+        .then(res=>{
+            console.log('sendcate:', res);
+            this.setState({
+                categories: res.data
+            });
+        }).catch(err =>console.log(err));
+    }
 
     componentWillMount(){
         this.loadProduct_type();
+        this.loadCategories();
     }
 
     onDelete(id){
@@ -98,11 +110,11 @@ class ShowProductType extends Component {
                                                             <tr key={ index }>
                                                                 <td>{item.product_type_id}</td>
                                                                 <td>{item.product_type_name}</td>
-                                                                <td>{item.categories_id}</td>
+                                                                <td>{ this.state.categories.map( (itemCate) => <div>{itemCate.categories_id == item.categories_id && item.categories_id + " - " + itemCate.categories_name}</div> ) }</td>
                                                                 <td>{item.meta_keywords}</td>
                                                                 <td>{item.product_type_slug}</td>
                                                                 <td>{item.product_type_desc}</td>
-                                                                <td>{item.product_type_status}</td>
+                                                                <td>{(item.product_type_status == 1)? "Đang kinh doanh" : "Đã ngừng kinh doanh"}</td>
                                                                 <td>{item.created_at}</td>
                                                                 <td>{item.updated_at}</td>
                                                                 <td>

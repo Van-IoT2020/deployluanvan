@@ -33,6 +33,7 @@ export default class Login extends Component {
                 customer_id: res.data[0].customer_id,
                 customer_name: res.data[0].customer_name,
                 customer_email: res.data[0].customer_email,
+                customer_address: res.data[0].customer_address,
                 customer_phone: res.data[0].customer_phone,
             };
             console.log(objCustomer);

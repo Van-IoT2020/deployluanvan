@@ -17,8 +17,17 @@ class AddReceipt extends Component {
             create_at: moment(new Date()).format("yyyy-MM-DD"),
 
             suppliers: [],
+            select_file: null,
         };
         this.onHandleChange = this.onHandleChange.bind(this);
+        this.onHandleChangeFile = this.onHandleChangeFile.bind(this);
+    }
+
+    onHandleChangeFile(e){
+        console.log(e.target.files[0])
+        this.setState({
+            select_file: e.target.files[0],
+        })
     }
 
     onHandleChange(e){
@@ -43,22 +52,37 @@ class AddReceipt extends Component {
     }
 
     onSubmit(){
-        const listReceipt = {
-            supplier_id: this.state.supplier_id,
-            bill_total: this.state.bill_total,
-            create_at: this.state.create_at
-        }
-        axios.post('http://127.0.0.1:8000/api/receipt/', listReceipt)
-        .then(res => {
-            if(res != null){
-                return this.props.history.push('/admin/home/receipt');
-            }
-        })
-        .catch(err => {
-            err.response.data.map((error) => {
-                toast.error('Lỗi '+ error);
+        if(this.state.select_file == null){
+            alert('Bạn chưa chọn file excel!');
+        }else{
+            var fd = new FormData();
+            fd.append('supplier_id', this.state.supplier_id);
+            fd.append('bill_total', this.state.bill_total);
+            fd.append('create_at', this.state.create_at);
+            fd.append('select_file', this.state.select_file);
+
+            axios.post('http://127.0.0.1:8000/api/receipt-excel', fd, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                }
+            }).then(res => {
+                if(res != null){
+                    return this.props.history.push('/admin/home/receipt');
+                }
             })
-        })
+            .catch(err => {
+                console.log("lỗi ", err.response)
+                if(Array.isArray(err.response.data)){
+                    err.response.data.map((error) =>{
+                        console.log(error);
+                        toast.error('Lỗi: '+ error);
+                    })
+                }else{
+                    toast.error('Lỗi: ' + err.response.data);
+                }
+            })
+        }
+        
     }
     render() {
         return (
@@ -88,6 +112,10 @@ class AddReceipt extends Component {
                                         <Label for="create">Ngày thêm</Label>
                                         <Input type="date" name="create_at" id="create_at" defaultValue={moment(this.state.create_at).format("yyyy-MM-DD")} readOnly/>
                                     </FormGroup>
+                                    <FormGroup>
+                                        <Input type="file" onChange={ this.onHandleChangeFile } name="select_file" id="select_file" required />
+                                    </FormGroup>
+                                    
                                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                                 </Form> 
                             </div>

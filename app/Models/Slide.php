@@ -15,6 +15,7 @@ class Slide extends Model
     protected $fillable = [
         'slide_name',
         'slide_desc',
+        'slide_link',
         'slide_status',
         'slide_image'
     ];

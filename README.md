@@ -73,7 +73,7 @@ Máy chủ: remotemysql.com
 
 Cảng: 3306
 
-#----------------------------------------------------------------
+# ----------------------------------------------------------------
 Host: sql6.freesqldatabase.com
 Database name: sql6426036
 Database user: sql6426036
@@ -84,3 +84,4 @@ Port number: 3306
 BS: sb-bs@business.example.com
 PS: checkpaypal@personal.example.com / sb-ps@personal.example.com
 Link-checkPayPal developer: https://developer.paypal.com/developer/accounts/
+Link-checkSandbox: https://www.sandbox.paypal.com/signin

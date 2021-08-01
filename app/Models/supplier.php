@@ -13,6 +13,8 @@ class supplier extends Model
     protected $primaryKey = 'supplier_id';
     protected $fillable = [
         'supplier_name',
+        'supplier_email',
+        'supplier_phone',
         'created_at',
         'update_at'
     ];

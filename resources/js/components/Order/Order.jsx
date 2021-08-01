@@ -13,30 +13,32 @@ class Order extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ship_address: "",
-            ship_phone: "",
-            ship_email: "",
+            ship_address: sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')).customer_address : '',
+            ship_phone: sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')).customer_phone : '',
+            ship_email: sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')).customer_email : '',
             ship_notes: "",
             ship_method: 1,
             created_at: moment(new Date()).format("yyyy-MM-DD"),
             updated_at: moment(new Date()).format("yyyy-MM-DD"),
 
-            citys:[],
-            city_id:"",
-            districts:[],
-            district_id:"",
-            wards:[],
-            wards_id:"",
-            home_address:"",
+            // citys:[],
+            // city_id:"",
+            // districts:[],
+            // district_id:"",
+            // wards:[],
+            // wards_id:"",
+            // home_address:"",
 
             colors:[],
             sizes:[],
 
             customer: sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')) : '',
             cart: localStorage.getItem('arrCart') ? JSON.parse(localStorage.getItem('arrCart')) : [],
-            fee_ship: 0,
+            fee_ship: 30000,
             total_price: 0,
 
+            radioGH: 1,
+            isCheckFeeShip: false,
             radioTT: 1,
             isCheckValid: false,
 
@@ -44,6 +46,7 @@ class Order extends Component {
             handleQuantityProduct: true,
         };
         this.onHandleChange = this.onHandleChange.bind(this);
+        this.checkValid = this.checkValid.bind(this);
         // this.addOrder = this.addOrder.bind(this);
         this.onPay = this.onPay.bind(this);
     }
@@ -68,16 +71,18 @@ class Order extends Component {
     }
 
     checkValid(){
-        if(this.state.home_address=="") { return alert("Địa chỉ không được trống!") }
+        if(this.state.ship_address=="") { return alert("Địa chỉ không được trống!") }
         else if(this.state.ship_phone=="") { return alert("Điện thoại không được trống!") }
         else if(this.state.ship_email=="") { return alert("Email không được trống!") }
         else {
-            this.setState({isCheckValid: true})
+            this.setState({isCheckValid: true},()=>{
+                this.setState({radioTT: 2});
+            })
         }
     }
 
     addOrder(){
-        var payByPayPal = Math.ceil(this.state.total_price / 23000);
+        var payByPayPal = Math.ceil((this.state.total_price + this.state.fee_ship) / 23000);
         console.log(payByPayPal);
         var customer = sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')) : '';
         if(customer == ''){
@@ -118,26 +123,26 @@ class Order extends Component {
     }
 
     componentWillMount(){
-        axios.get('http://127.0.0.1:8000/api/city')
-        .then(res => {
-            console.log('city:',res)
-            this.setState({
-                citys: res.data,
-                city_id: res.data[0].city_id,
-                fee_ship: res.data[0].city_id == "SG" ? 30000 : 50000
-            },() => {
-                axios.get('http://127.0.0.1:8000/api/find-district/' + res.data[0].city_id)
-                .then(res => {
-                    console.log('district:',res)
-                    this.setState({
-                        districts: res.data,
-                        district_id:res.data[0].district_id
-                    }, ()=> {
-                        this.loadWards(res.data[0].district_id);
-                    })
-                }).catch(err =>console.log(err));
-            })
-        }).catch(err =>console.log(err));
+        // axios.get('http://127.0.0.1:8000/api/city')
+        // .then(res => {
+        //     console.log('city:',res)
+        //     this.setState({
+        //         citys: res.data,
+        //         city_id: res.data[0].city_id,
+        //         fee_ship: res.data[0].city_id == "SG" ? 30000 : 50000
+        //     },() => {
+        //         axios.get('http://127.0.0.1:8000/api/find-district/' + res.data[0].city_id)
+        //         .then(res => {
+        //             console.log('district:',res)
+        //             this.setState({
+        //                 districts: res.data,
+        //                 district_id:res.data[0].district_id
+        //             }, ()=> {
+        //                 this.loadWards(res.data[0].district_id);
+        //             })
+        //         }).catch(err =>console.log(err));
+        //     })
+        // }).catch(err =>console.log(err));
     
         var total_price = 0;
         this.state.cart.map(itemCart => {
@@ -163,36 +168,37 @@ class Order extends Component {
         })
     }
 
-    loadDistrict(id){
-        axios.get('http://127.0.0.1:8000/api/find-district/' + id)
-        .then(res => {
-            console.log('district:',res)
-            this.setState({
-                districts: res.data,
-                district_id:res.data[0].district_id
-            },()=> {
-                this.loadWards(res.data[0].district_id);
-            })
-        }).catch(err =>console.log(err));
-    }
-    loadWards(id){
-        axios.get('http://127.0.0.1:8000/api/find-wards/' + id)
-        .then(res => {
-            console.log('wards:',res)
-            this.setState({
-                wards: res.data,
-                wards_id:res.data[0].wards_id
-            })
-        }).catch(err =>console.log(err));
-    }
+    // loadDistrict(id){
+    //     axios.get('http://127.0.0.1:8000/api/find-district/' + id)
+    //     .then(res => {
+    //         console.log('district:',res)
+    //         this.setState({
+    //             districts: res.data,
+    //             district_id:res.data[0].district_id
+    //         },()=> {
+    //             this.loadWards(res.data[0].district_id);
+    //         })
+    //     }).catch(err =>console.log(err));
+    // }
+    // loadWards(id){
+    //     axios.get('http://127.0.0.1:8000/api/find-wards/' + id)
+    //     .then(res => {
+    //         console.log('wards:',res)
+    //         this.setState({
+    //             wards: res.data,
+    //             wards_id:res.data[0].wards_id
+    //         })
+    //     }).catch(err =>console.log(err));
+    // }
 
     onSubmit(){
         this.setState({isLoading: !this.state.isLoading});
-        var city_name = this.state.citys.find(city => city.city_id == this.state.city_id).city_name;
-        var district_name = this.state.districts.find(district => district.district_id == this.state.district_id).district_name;
-        var ward_name = this.state.wards.find(ward => ward.wards_id == this.state.wards_id).wards_name;
+        // var city_name = this.state.citys.find(city => city.city_id == this.state.city_id).city_name;
+        // var district_name = this.state.districts.find(district => district.district_id == this.state.district_id).district_name;
+        // var ward_name = this.state.wards.find(ward => ward.wards_id == this.state.wards_id).wards_name;
         const listInfoShip = {
-            ship_address: city_name + ',' + district_name + ',' + ward_name + ',' + this.state.home_address,
+            // ship_address: city_name + ',' + district_name + ',' + ward_name + ',' + this.state.home_address,
+            ship_address: this.state.ship_address,
             ship_phone: this.state.ship_phone,
             ship_email: this.state.ship_email,
             ship_notes: this.state.ship_notes,
@@ -209,20 +215,20 @@ class Order extends Component {
                 ship_id: res.data.ship_id,
             }, () =>{
                 var customer = sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')) : '';
-                var fee_ship = 0;
-                if(this.state.city_id == "SG"){
-                    fee_ship = 30000;
-                }
-                else{
-                    fee_ship = 50000;
-                }
+                // var fee_ship = 0;
+                // if(this.state.city_id == "SG"){
+                //     fee_ship = 30000;
+                // }
+                // else{
+                //     fee_ship = 50000;
+                // }
                 // return console.log(this.state.fee_ship);
                 const listOrder = {
                     customer_id: customer.customer_id,
                     ship_id: res.data.ship_id,
                     order_status: 1,
-                    fee_ship,
-                    total_sold: this.state.total_price + fee_ship,
+                    fee_ship: this.state.fee_ship,
+                    total_sold: this.state.total_price + this.state.fee_ship,
                     created_at: this.state.created_at
                 }
                 axios.post('http://127.0.0.1:8000/api/tbl-order/', listOrder)
@@ -296,7 +302,7 @@ class Order extends Component {
                                     <Form>
                                         <div className="card shadow mb-4">
                                             <Row style={{padding: "10px 34px"}}>
-                                                <Col sm={3}>
+                                                {/* <Col sm={3}>
                                                     <FormGroup row className="mb-2 mr-sm-2 mb-sm-0">
                                                         <Label for="Name" className="mr-sm-2">Chọn thành phố/tỉnh</Label>
                                                         <Input type="select" onChange={ (e) => {
@@ -343,6 +349,14 @@ class Order extends Component {
                                                         <Label for="Name" className="mr-sm-2" >Địa chỉ nhận hàng</Label>
                                                         <Input type="text" onChange={ this.onHandleChange } name="home_address" id="home_address"/>
                                                     </FormGroup>
+                                                </Col> */}
+                                                <Col sm={12}>
+                                                    <FormGroup row className="mb-2 mr-sm-2 mb-sm-0">
+                                                        <Label for="Name" className="mr-sm-2" sm={4}>Địa chỉ giao hàng</Label>
+                                                        <Col sm={12}>
+                                                            <Input type="text" onChange={ this.onHandleChange } value={ this.state.ship_address } name="ship_address" id="ship_address" placeholder="Số nhà, Đường, Phường/Xã, Quận/Huyện, TP/Tỉnh"/>
+                                                        </Col>
+                                                    </FormGroup>
                                                 </Col>
                                             </Row>
                                             <Row style={{padding: "10px 34px"}}>
@@ -350,7 +364,7 @@ class Order extends Component {
                                                     <FormGroup row className="mb-2 mr-sm-2 mb-sm-0">
                                                         <Label for="Name" className="mr-sm-2" sm={4}>Điện thoại liên lạc</Label>
                                                         <Col sm={12}>
-                                                            <Input type="text" onChange={ this.onHandleChange } name="ship_phone" id="ship_phone"/>
+                                                            <Input type="text" onChange={ this.onHandleChange } value={ this.state.ship_phone } name="ship_phone" id="ship_phone" placeholder="Nhập vào số điện thoại"/>
                                                         </Col>
                                                     </FormGroup>
                                                 </Col>
@@ -358,7 +372,7 @@ class Order extends Component {
                                                     <FormGroup row className="mb-2 mr-sm-2 mb-sm-0">
                                                         <Label for="Name" className="mr-sm-2" sm={4}>Email liên lạc</Label>
                                                         <Col sm={12}>
-                                                            <Input type="text" onChange={ this.onHandleChange } name="ship_email" id="ship_email"/>
+                                                            <Input type="text" onChange={ this.onHandleChange } value={ this.state.ship_email } name="ship_email" id="ship_email" placeholder="Nhập vào địa chỉ email"/>
                                                         </Col>
                                                     </FormGroup>
                                                 </Col>
@@ -369,39 +383,41 @@ class Order extends Component {
                                             </FormGroup>
                                             <hr></hr>
                                             
-                                            {/* <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0" style={{padding: "10px 34px"}}>
                                                 <legend>Chọn hình thức giao hàng</legend>
                                                 <FormGroup check>
-                                                <Label check>
-                                                    <Input type="radio" name="radioGH" value={1}/>Giao hàng tiêu chuẩn từ 2 đến 3 ngày
-                                                </Label>
+                                                    <Label check>
+                                                        <Input type="radio" onClick={ (e) => {
+                                                            this.setState({ radioGH: e.target.value, fee_ship: 30000 })
+                                                        }} name="radioGH" value={1} defaultChecked/>Giao hàng tiêu chuẩn từ 2 đến 3 ngày
+                                                    </Label>
                                                 </FormGroup>
                                                 <FormGroup check>
-                                                <Label check>
-                                                    <Input type="radio" name="radioGH" value={2}/> Giao hàng nhanh
-                                                </Label>
+                                                    <Label check>
+                                                        <Input type="radio" onClick={ (e) => {
+                                                            if(!this.state.isCheckFeeShip){
+                                                                this.setState({ radioGH: e.target.value, fee_ship: 50000 })
+                                                            }
+                                                        } } name="radioGH" value={2}/> Giao hàng nhanh
+                                                    </Label>
                                                 </FormGroup>
-                                            </FormGroup> */}
+                                            </FormGroup>
                                             {
                                                 this.state.handleQuantityProduct ? (
                                                     <>
                                                         <FormGroup className="mb-2 mr-sm-2 mb-sm-0" style={{padding: "10px 34px"}}>
-                                                            {/* <Label for="Name" className="mr-sm-2">Phương thức thanh toán</Label>
-                                                            <Input type="select" value={this.state.ship_method} onChange={ this.onHandleChange } name="ship_method" id="ship_method" >
-                                                                <option value={1}>COD - thanh toán khi nhận hàng</option>
-                                                                <option value={2}>Thanh toán bằng thẻ</option>
-                                                            </Input> */}
                                                             <legend>Chọn phương thức thanh toán</legend>
                                                             <FormGroup check>
                                                                 <Label check>
-                                                                    <Input type="radio" onClick={ this.onHandleChange } name="radioTT" value={1} defaultChecked/>COD - thanh toán khi nhận hàng
+                                                                    <Input type="radio" onClick={ (e) => {
+                                                                        if(this.state.isCheckValid){ this.setState({radioTT: e.target.value}) }
+                                                                     } } name="radioTT" value={1} defaultChecked/>COD - thanh toán khi nhận hàng
                                                                 </Label>
                                                             </FormGroup>
                                                             <FormGroup check>
                                                                 <Label check>
                                                                     <Input type="radio" onClick={ (e) => {
                                                                         this.checkValid();
-                                                                        if(this.state.isCheckValid){ this.setState({radioTT: e.target.value}) }
                                                                      }
                                                                     } name="radioTT" value={2}/>Thanh toán bằng thẻ
                                                                 </Label>
@@ -462,7 +478,7 @@ class Order extends Component {
                                                     }
                                                 </tbody>
                                             </table>
-                                            <table style={{float:"left", width:"40%", textAlign:'left'}}>
+                                            {/* <table style={{float:"left", width:"40%", textAlign:'left'}}>
                                                 <tr>
                                                     <td>
                                                         {
@@ -470,7 +486,7 @@ class Order extends Component {
                                                         }
                                                     </td>
                                                 </tr>
-                                            </table>
+                                            </table> */}
                                             <table style={{float:"right", width:"40%", textAlign:'left'}}>
                                                 <tr>
                                                     <th>Phí giao hàng : </th>

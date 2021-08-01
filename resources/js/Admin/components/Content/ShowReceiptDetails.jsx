@@ -108,18 +108,18 @@ class ShowReceiptDetails extends Component {
                 sortable: true,
                 right: true,
             },
-            {
-                name: 'Ngày thêm',
-                selector: 'created_at',
-                sortable: true,
-                right: true,
-            },
-            {
-                name: 'Ngày cập nhật',
-                selector: 'updated_at',
-                sortable: true,
-                right: true,
-            },
+            // {
+            //     name: 'Ngày thêm',
+            //     selector: 'created_at',
+            //     sortable: true,
+            //     right: true,
+            // },
+            // {
+            //     name: 'Ngày cập nhật',
+            //     selector: 'updated_at',
+            //     sortable: true,
+            //     right: true,
+            // },
             {
                 cell: row => <Button onClick={ () => {
                                 this.props.history.push({

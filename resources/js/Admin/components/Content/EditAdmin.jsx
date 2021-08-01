@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
+import { Button, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import Sidebar from '../Sidebar/Sidebar';
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
@@ -80,12 +80,23 @@ class EditAdmin extends Component {
         }
         else{
             return  <>
-                        <div className="col-sm-6 mb-3 mb-sm-0">
-                            <Input type="password" className="form-control form-control-user" onChange={ this.onHandleChange } name="admin_password" id="admin_password" placeholder="Nhập vào mật khẩu mới" />              
-                        </div>
-                        <div className="col-sm-6">
-                            <Input type="password" className="form-control form-control-user" onChange={ this.onHandleChange } name="admin_old_pass" id="admin_old_pass" placeholder="Nhập vào mật khẩu cũ" />
-                        </div>
+                        <Row>
+                            <Col sm={6} >
+                                <FormGroup>
+                                    <div className="col-sm-6 mb-3 mb-sm-0">
+                                        <Input type="password" className="form-control form-control-user" style={{width:"40vw"}} onChange={ this.onHandleChange } name="admin_password" id="admin_password" placeholder="Nhập vào mật khẩu mới" />              
+                                    </div>
+                                </FormGroup>
+                            </Col>
+                            <Col sm={6} >
+                                <FormGroup>
+                                    <div className="col-sm-6 mb-3 mb-sm-0">
+                                        <Input type="password" className="form-control form-control-user" style={{width:"40vw"}} onChange={ this.onHandleChange } name="admin_old_pass" id="admin_old_pass" placeholder="Nhập vào mật khẩu cũ" />
+                                    </div>
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                        
                     </>
         }
         
@@ -117,11 +128,10 @@ class EditAdmin extends Component {
                                     <FormGroup>
                                         <Label check><Input onChange={ (e)=>{ this.setState({isChanged: e.target.checked}) } } type="checkbox"/>Chọn để thay đổi password</Label>
                                     </FormGroup>
-                                    <FormGroup>
-                                        {
-                                            this.showChangePass()
-                                        }
-                                    </FormGroup>
+                                    {
+                                        this.showChangePass()
+                                    }
+                                    
                                     <Button onClick={ ()=>this.onChangeInfo() }>Thay đổi thông tin tài khoản</Button>
                                 </Form> 
                             </div>

@@ -32,9 +32,9 @@ class Details extends React.Component {
       },()=>console.log(this.state));
     }
     
-    loadDetail(){
-      console.log(this.props.id)
-      axios.get('http://127.0.0.1:8000/api/product/' + this.props.id)
+    loadDetail(id){
+      console.log(id)
+      axios.get('http://127.0.0.1:8000/api/product/' + id)
       .then(res=>{
         this.setState({product:res.data});
       }).catch(err=>console.log(err));
@@ -109,11 +109,20 @@ class Details extends React.Component {
       //       this.loadSizes(res.data.product_id);
       //   })
       // } else {
-        this.loadDetail();
+        this.loadDetail(this.props.id);
         this.loadColors(this.props.id);
         this.loadSizes(this.props.id);
       // }
       console.log(this.props)
+    }
+
+    componentWillReceiveProps(nextProps){
+      this.setState({
+        product_id: nextProps.id
+      })
+      this.loadDetail(nextProps.id);
+      this.loadColors(nextProps.id);
+      this.loadSizes(nextProps.id);
     }
 
     

@@ -4,7 +4,7 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import ReactToPdf from 'react-to-pdf';
-import { Button, Form, FormGroup, Label } from 'reactstrap';
+import { Button, Col, Form, FormGroup, Label, Row } from 'reactstrap';
 
 class ShowTblOrderPDF extends Component {
     constructor(props) {
@@ -115,65 +115,71 @@ class ShowTblOrderPDF extends Component {
                             <Header propsParent = {this.props}/>
                             <div ref={ref}>
                                 <div className="container-fluid order-details-bg">
-                                    {
-                                        this.state.info_ship.map((item, index) =>
-                                            <div key={index} className="card shadow mb-4">
-                                                <div className="card-header py-3">
-                                                    <h6 className="m-0 font-weight-bold text-primary">Chi tiết giao hàng</h6>
-                                                    <Form>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Mã đơn giao hàng: {item.ship_id}</Label>
-                                                        </FormGroup>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Địa chỉ đặt hàng: {item.ship_address}</Label>
-                                                        </FormGroup>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Điện thoại liên lạc: {item.ship_phone}</Label>
-                                                        </FormGroup>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Địa chỉ email: {item.ship_email}</Label>
-                                                        </FormGroup>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Ghi chú giao hàng: {item.ship_notes}</Label>
-                                                        </FormGroup>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Ngày đặt hàng: {item.created_at}</Label>
-                                                        </FormGroup>
-                                                    </Form>
+                                <Row style={{margin:"auto"}}>
+                                    <Col sm={6}>
+                                        {
+                                            this.state.info_ship.map((item, index) =>
+                                                <div key={index} className="card shadow mb-4">
+                                                    <div className="card-header py-3">
+                                                        <h6 className="m-0 font-weight-bold text-primary">Chi tiết giao hàng</h6>
+                                                        <Form>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Mã đơn giao hàng: {item.ship_id}</Label>
+                                                            </FormGroup>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Địa chỉ đặt hàng: {item.ship_address}</Label>
+                                                            </FormGroup>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Điện thoại liên lạc: {item.ship_phone}</Label>
+                                                            </FormGroup>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Địa chỉ email: {item.ship_email}</Label>
+                                                            </FormGroup>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Ghi chú giao hàng: {item.ship_notes}</Label>
+                                                            </FormGroup>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Ngày đặt hàng: {item.created_at}</Label>
+                                                            </FormGroup>
+                                                        </Form>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )
-                                    }
-                                    <hr></hr>
-                                    {
-                                        this.state.tbl_order.map((item, index) => 
-                                            <div key={index} className="card shadow mb-4">
-                                                <div className="card-header py-3">
-                                                    <h6 className="m-0 font-weight-bold text-primary">Chi tiết đơn hàng</h6>
-                                                    <Form>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Mã đơn đặt hàng: {item.order_id}</Label>
-                                                        </FormGroup>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Mã khách hàng: {item.customer_id}</Label>
-                                                        </FormGroup>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Trạng thái đơn đặt hàng: {item.order_status}</Label>
-                                                        </FormGroup>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Phí giao hàng: {item.fee_ship}</Label>
-                                                        </FormGroup>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Tổng giá đơn đặt: {item.total_sold}</Label>
-                                                        </FormGroup>
-                                                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                                            <Label for="name" className="mr-sm-2">Ngày lập đơn: {item.created_at}</Label>
-                                                        </FormGroup>
-                                                    </Form>
+                                            )
+                                        }
+                                    </Col>
+                                    <Col sm={6}>
+                                        {
+                                            this.state.tbl_order.map((item, index) => 
+                                                <div key={index} className="card shadow mb-4">
+                                                    <div className="card-header py-3">
+                                                        <h6 className="m-0 font-weight-bold text-primary">Chi tiết đơn hàng</h6>
+                                                        <Form>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Mã đơn đặt hàng: {item.order_id}</Label>
+                                                            </FormGroup>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Mã khách hàng: {item.customer_id}</Label>
+                                                            </FormGroup>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Trạng thái đơn đặt hàng: {((item.order_status == 1) ? "Đang xác nhận" : (item.order_status == 2) ? "Đang xử lý đơn" : (item.order_status == 3) ? "Đang giao" : (item.order_status == 4) ? "Giao thành công" : "Hủy bỏ")}</Label>
+                                                            </FormGroup>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Phí giao hàng: {item.fee_ship}</Label>
+                                                            </FormGroup>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Tổng giá đơn đặt: {item.total_sold}</Label>
+                                                            </FormGroup>
+                                                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                                                <Label for="name" className="mr-sm-2">Ngày lập đơn: {item.created_at}</Label>
+                                                            </FormGroup>
+                                                        </Form>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )
-                                    }
+                                            )
+                                        }
+                                    </Col>
+                                </Row>
+                                    
                                 </div>
                                 <div className="container-fluid">
                                     <div className="card shadow mb-4">

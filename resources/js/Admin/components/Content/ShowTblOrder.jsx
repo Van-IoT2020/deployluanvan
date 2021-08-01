@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
-import { Button, FormGroup, Form, Input } from 'reactstrap';
+import { Button, FormGroup, Form, Input, Label } from 'reactstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ShowOrderDetails from "./ShowOrderDetails";
+import moment from 'moment';
 
 class ChangeStatus extends React.Component {
     constructor(props) {
@@ -41,14 +42,16 @@ class ChangeStatus extends React.Component {
                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                         <Input type="select" value={this.state.order_status} 
                             onChange={ (e) => {
-                                this.setState({ order_status: e.target.value },() => {
-                                    var data = this.state.order;
-                                    data.order_status = this.state.order_status;
-                                    axios.put('http://127.0.0.1:8000/api/tbl-order/' + this.state.order.order_id, data)
-                                    .then(res => {
-                                        alert("Bạn vừa cập nhật trạng thái của đơn: " + this.state.order.order_id);
-                                    })
-                                });
+                                if(confirm("Bạn chắc chắn muốn đổi trạng thái sang: " + ((e.target.value == 1) ? "Đang xác nhận" : (e.target.value == 2) ? "Đang xử lý đơn" : (e.target.value == 3) ? "Đang giao" : (e.target.value == 4) ? "Giao thành công" : "Hủy bỏ")) ){
+                                    this.setState({ order_status: e.target.value },() => {
+                                        var data = this.state.order;
+                                        data.order_status = this.state.order_status;
+                                        axios.put('http://127.0.0.1:8000/api/tbl-order/' + this.state.order.order_id, data)
+                                        .then(res => {
+                                            alert("Bạn vừa cập nhật trạng thái của đơn: " + this.state.order.order_id);
+                                        })
+                                    });
+                                }
                             } } name="order_status" id="order_status" >
                             {
                                 (this.state.order.order_status != 5 && this.state.order.order_status != 4) ? (
@@ -98,19 +101,33 @@ class ShowTblOrder extends Component {
         });
     }
 
-    loadOrders(){
-        axios.get('http://127.0.0.1:8000/api/tbl-order/')
-        .then(res => {
+    // loadOrders(){
+    //     axios.get('http://127.0.0.1:8000/api/tbl-order/')
+    //     .then(res => {
+    //         console.log('orders: ', res);
+    //         this.setState({
+    //             orders: res.data
+    //         });
+    //     })
+    //     .catch( err => console.log(err) );
+    // }
+    
+    loadOrdersDate(date){
+        var dateData = {
+            date: date
+        }
+        axios.post('http://127.0.0.1:8000/api/tbl-order-date/', dateData)
+        .then(res =>{
             console.log('orders: ', res);
             this.setState({
                 orders: res.data
             });
         })
-        .catch( err => console.log(err) );
     }
 
     componentWillMount(){
-        this.loadOrders();
+        this.loadOrdersDate(moment(new Date()).format("yyyy-MM-DD"));
+        // this.loadOrders();
     }
     
     render() {
@@ -182,9 +199,12 @@ class ShowTblOrder extends Component {
                         </div>
                     </div>
                 </Form>
+                <FormGroup>
+                    <Label for="create">Ngày đặt</Label>
+                    <Input type="date" name="created_at" onChange={ (e) => { this.loadOrdersDate(e.target.value)} } id="exampleDate" defaultValue={moment(this.state.created_at).format("yyyy-MM-DD")}/>
+                </FormGroup>
             </>
-          );
-
+        );
         return (
             <div id="page-top">
                 <div id="wrapper">

@@ -109,7 +109,7 @@ class ShowBrand extends Component {
                                                                 <td>{item.brand_name}</td>
                                                                 <td>{item.brand_slug}</td>
                                                                 <td>{item.brand_desc}</td>
-                                                                <td>{item.brand_status}</td>
+                                                                <td>{(item.brand_status == 1)? "Đang kinh doanh" : "Đã ngừng kinh doanh"}</td>
                                                                 <td>{item.created_at}</td>
                                                                 <td>{item.update_at}</td>
                                                                 <td>

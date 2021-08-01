@@ -13,7 +13,7 @@ class Categories extends Model
     protected $primaryKey = 'categories_id';
     protected $fillable=[
         'categories_name',
-        'create_at',
+        'created_at',
         'update_at'
     ];
     public function product_type(){

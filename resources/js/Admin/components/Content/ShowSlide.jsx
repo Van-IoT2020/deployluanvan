@@ -78,6 +78,7 @@ export default class ShowSlide extends Component {
                                                         <th>Mã banner</th>
                                                         <th>Tên banner</th>
                                                         <th>Mô tả</th>
+                                                        <th>Đường dẫn</th>
                                                         <th>Trạng thái</th>
                                                         <th>Tên hình</th>
                                                         <th>Tác vụ</th>
@@ -88,6 +89,7 @@ export default class ShowSlide extends Component {
                                                         <th>Mã banner</th>
                                                         <th>Tên banner</th>
                                                         <th>Mô tả</th>
+                                                        <th>Đường dẫn</th>
                                                         <th>Trạng thái</th>
                                                         <th>Tên hình</th>
                                                         <th>Tác vụ</th>
@@ -109,7 +111,8 @@ export default class ShowSlide extends Component {
                                                                 <td>{item.slide_id}</td>
                                                                 <td>{item.slide_name}</td>
                                                                 <td>{item.slide_desc}</td>
-                                                                <td>{item.slide_status}</td>
+                                                                <td>{item.slide_link}</td>
+                                                                <td>{(item.slide_status == 1)? "Đang chạy" : "Đã ngừng"}</td>
                                                                 {/* <td>{item.slide_image}</td> */}
                                                                 <td><img height="100" width="200" src={ item.slide_image } alt="Card image cap" /></td>
                                                                 <td>

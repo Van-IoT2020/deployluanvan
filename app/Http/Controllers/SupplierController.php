@@ -30,9 +30,16 @@ class SupplierController extends Controller
     {
         $valid = Validator::make($request->all(),
         [
-            'supplier_name'=>'required'
+            'supplier_name'=>'required',
+            'supplier_email'=>'required|email',
+            'supplier_phone'=>'required|numeric|digits:10|unique:supplier,supplier_phone'
         ],[
-            'supplier_name.required'=>'Phải nhập tên'
+            'supplier_name.required'=>'Phải nhập tên',
+            'supplier_email.required'=>'Bạn chưa nhập email',
+            'supplier_email.email'=>'Email chưa đúng định dạng',
+            'supplier_phone.required'=>'Bạn chưa nhập số điện thoại',
+            'supplier_phone.numeric'=>'Số điện thoại phải là số',
+            'supplier_phone.digits'=>'Số điện thoại phải đủ 10 chữ số'
         ]);
         if($valid->fails()){
             $err = [];
@@ -67,9 +74,16 @@ class SupplierController extends Controller
         $supplier = supplier::findOrFail($id);
         $valid = Validator::make($request->all(),
         [
-            'supplier_name'=>'required'
+            'supplier_name'=>'required',
+            'supplier_email'=>'required|email',
+            'supplier_phone'=>'required|numeric|digits:10'
         ],[
-            'supplier_name.required'=>'Phải nhập tên'
+            'supplier_name.required'=>'Phải nhập tên',
+            'supplier_email.required'=>'Bạn chưa nhập email',
+            'supplier_email.email'=>'Email chưa đúng định dạng',
+            'supplier_phone.required'=>'Bạn chưa nhập số điện thoại',
+            'supplier_phone.numeric'=>'Số điện thoại phải là số',
+            'supplier_phone.digits'=>'Số điện thoại phải đủ 10 chữ số'
         ]);
         if($valid->fails()){
             $err = [];

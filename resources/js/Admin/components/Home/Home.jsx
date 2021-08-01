@@ -61,7 +61,7 @@ class Home extends React.Component {
     loadIncomestatement(){
         axios.get('http://127.0.0.1:8000/api/get-income-statement/' + this.state.year_input)
         .then(res=>{
-            console.log('doanh thu: ', res);
+            // console.log('doanh thu: ', res);
             this.setState({
                 incomestatement: res.data
             })
@@ -71,7 +71,7 @@ class Home extends React.Component {
     loadFunds(){
         axios.get('http://127.0.0.1:8000/api/get-funds/' + this.state.year_input)
         .then(res=>{
-            console.log('vốn liếng: ', res);
+            // console.log('vốn liếng: ', res);
             this.setState({
                 funds: res.data
             })
@@ -95,7 +95,7 @@ class Home extends React.Component {
         }
         axios.post('http://127.0.0.1:8000/api/get-total-product-by-month/', dateForProductSell)
         .then(res=>{
-            console.log('seller: ', res);
+            // console.log('seller: ', res);
             var temp_products = [];
             var temp_quatity = [];
             res.data.map(item => {
@@ -144,13 +144,13 @@ class Home extends React.Component {
                                         labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4','Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8','Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
                                         datasets: [
                                             {
-                                                label: 'Doanh thu hàng tháng',
+                                                label: 'Doanh thu của tháng:',
                                                 data: this.state.incomestatement,
                                                 backgroundColor: 'rgba(220, 20, 60, 0.2)',
                                                 borderColor: 'rgba(220, 20, 60, 1)',
                                             },
                                             {
-                                                label: 'Vốn nhập hàng tháng',
+                                                label: 'Vốn nhập của tháng:',
                                                 data: this.state.funds,
                                                 backgroundColor: 'rgba(248, 148, 6, 0.2)',
                                                 borderColor: 'rgba(248, 148, 6, 1)',
@@ -164,7 +164,7 @@ class Home extends React.Component {
                                         labels: this.state.product,
                                         datasets: [
                                             {
-                                                label: 'Doanh thu hàng tháng',
+                                                label: 'Bán được trong tháng:',
                                                 data: this.state.quantity,
                                                 backgroundColor: [
                                                     'rgba(255, 99, 132, 0.2)',
