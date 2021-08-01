@@ -20,7 +20,8 @@ class ProductsSearch extends React.Component {
     render() {
         return (
             <div className="product">
-                <Link to={"/product_details/"+this.props.id}>
+
+                <Link to={"/product_details/"+this.props.id + '/' + this.props.product_slug}>
                     <img className="card-img-top" src={this.props.image} alt={this.props.name} style={{width:"280"}} style={{height:"300"}} />
                 </Link>
                 <div className="card-body">
@@ -49,7 +50,7 @@ class ProductsSearch extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-12">
-                    <Link to={"/product_details/"+this.props.id} className="btn btn-primary">Xem chi tiết</Link><span> </span>
+                    <Link to={"/product_details/"+this.props.id  + '/' + this.props.product_slug} className="btn btn-primary">Xem chi tiết</Link><span> </span>
                     <a className="btn btn-danger" onClick={this.onAddToCart}>Mua hàng</a>
                 </div>
                   

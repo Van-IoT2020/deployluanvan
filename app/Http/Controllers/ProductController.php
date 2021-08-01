@@ -182,8 +182,8 @@ class ProductController extends Controller
     }
     //Show theo thương hiệu
     public function showProductBrand($key){
-        return Product::where('brand_id', $key)->get();
-        // ->Paginate(3)
+        return Product::where('brand_id', $key)->paginate(3);
+        // ->Paginate(3) ->get()
     }
 
     //Show theo loai
@@ -226,7 +226,7 @@ class ProductController extends Controller
         $findProduct = SizeDetails::select('product_id')->wherein('size_id', $arr)->get();
         foreach($findProduct as $key => $value){
             if (!in_array(Product::find($value->product_id), $arr_product)) {
-                $arr_product[] = Product::find($value->product_id);
+                $arr_product[] = Product::find($value->product_id)->get();
             }
         }
         return $arr_product;
