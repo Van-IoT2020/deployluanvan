@@ -114,17 +114,17 @@ class ShowSizeDetails extends Component {
                 sortable: true,
                 right: true,
             },
-            {
-                cell: row => <Button onClick={ () => {
-                                this.props.history.push({
-                                    pathname: '/admin/home/edit-size-details/' + row.size_detail_id,
-                                    sendData: {
-                                        size_detail_id: row.size_detail_id
-                                    }
-                                });
-                            }} outline color="info" style={{margin: "10px"}}>Sửa</Button>,
-                button: true,
-            },
+            // {
+            //     cell: row => <Button onClick={ () => {
+            //                     this.props.history.push({
+            //                         pathname: '/admin/home/edit-size-details/' + row.size_detail_id,
+            //                         sendData: {
+            //                             size_detail_id: row.size_detail_id
+            //                         }
+            //                     });
+            //                 }} outline color="info" style={{margin: "10px"}}>Sửa</Button>,
+            //     button: true,
+            // },
             {
                 cell: row => <Button onClick={ (id)=>this.onDelete(row.size_detail_id)} outline color="danger" style={{margin: "10px"}}>Xóa</Button>,
                 button: true,
@@ -153,10 +153,10 @@ class ShowSizeDetails extends Component {
                         <div id="content">
                             <Header propsParent = {this.props}/>
                             <div className="container-fluid">
-                                <Label for="Name" className="mr-sm-2">Thêm kích cỡ sản phẩm:</Label>
+                                {/* <Label for="Name" className="mr-sm-2">Thêm kích cỡ sản phẩm:</Label>
                                 <Link to = {"/admin/home/add-size-details/"}>
                                     <Button color="success" style={{margin: "10px"}}>Thêm</Button>
-                                </Link>
+                                </Link> */}
                                 <DataTable
                                     title="Danh sách kích cỡ sản phẩm"
                                     columns={columns}

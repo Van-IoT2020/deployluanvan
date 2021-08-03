@@ -115,17 +115,17 @@ class ShowColorDetails extends Component {
                 sortable: true,
                 right: true,
             },
-            {
-                cell: row => <Button onClick={ () => {
-                                this.props.history.push({
-                                    pathname: '/admin/home/edit-color-details/' + row.color_detail_id,
-                                    sendData: {
-                                        color_detail_id: row.color_detail_id
-                                    }
-                                });
-                            }} outline color="info" style={{margin: "10px"}}>Sửa</Button>,
-                button: true,
-            },
+            // {
+            //     cell: row => <Button onClick={ () => {
+            //                     this.props.history.push({
+            //                         pathname: '/admin/home/edit-color-details/' + row.color_detail_id,
+            //                         sendData: {
+            //                             color_detail_id: row.color_detail_id
+            //                         }
+            //                     });
+            //                 }} outline color="info" style={{margin: "10px"}}>Sửa</Button>,
+            //     button: true,
+            // },
             {
                 cell: row => <Button onClick={ (id)=>this.onDelete(row.color_detail_id)} outline color="danger" style={{margin: "10px"}}>Xóa</Button>,
                 button: true,
@@ -154,10 +154,10 @@ class ShowColorDetails extends Component {
                         <div id="content">
                             <Header propsParent = {this.props}/>
                             <div className="container-fluid">
-                                <Label for="Name" className="mr-sm-2">Thêm kích cỡ sản phẩm:</Label>
+                                {/* <Label for="Name" className="mr-sm-2">Thêm kích cỡ sản phẩm:</Label>
                                 <Link to = {"/admin/home/add-color-details/"}>
                                     <Button color="success" style={{margin: "10px"}}>Thêm</Button>
-                                </Link>
+                                </Link> */}
                                 <DataTable
                                     title="Danh sách màu sản phẩm"
                                     columns={columns}

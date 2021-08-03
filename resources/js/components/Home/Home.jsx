@@ -24,7 +24,7 @@ class Home extends React.Component {
                 <Navigation propsParent = {this.props} />
                 <Carousels />
                 {/* <Header onSearch={this.props.onSearch} /> */}
-                <Search />
+                {/* <Search /> */}
                 <Content propsParent = {this.props}/>
                 <span> </span>
                 <Footer />

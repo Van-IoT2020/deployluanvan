@@ -16,7 +16,11 @@ use App\Http\Controllers\Api\CategoriesController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/product_details/{id}', function () {
+
+Route::get('/product-detail/{id}/{slug}', function () {
+    return view('welcome');
+});
+Route::get('/login', function () {
     return view('welcome');
 });
 // Route::get('/order-tracking/{id}', function () {
@@ -29,5 +33,8 @@ Route::get('/admin/', function () {
 });
 
 Route::get('/admin/home', function () {
+    return view('Admin.welcome');
+});
+Route::get('/admin/rating', function () {
     return view('Admin.welcome');
 });
