@@ -21,6 +21,13 @@ export default class Login extends Component {
         });
     }
 
+    componentWillMount(){
+        const currentUser = JSON.parse(sessionStorage.getItem("objCustomer"));
+        if(currentUser){
+            return this.props.history.push("/");
+        }
+    }
+
     onLogin(){
         const customer={
             customer_id: this.state.customer_id,
@@ -41,7 +48,12 @@ export default class Login extends Component {
             return this.props.history.push("/");
         }).catch((error)=>{
             console.log("catch: ", error.response);
-            toast.error('Lỗi '+ error.response.data);
+            if(error.response){
+                toast.error('Lỗi '+ error.response.data);
+            }
+            else{
+                return this.props.history.push("/");
+            }
         });
     }
 

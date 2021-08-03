@@ -35,7 +35,7 @@ class RouteUrl extends React.Component {
         const {brand} = this.state;
         console.log(currentUser);
         return (
-            <div>
+            <Router>
                 <Switch>
                     <Route exact path="/" render={() => <Home brand={brand} />} />
                     <Route
@@ -46,12 +46,11 @@ class RouteUrl extends React.Component {
                     <Route path="/categories/:id" component={Categories} />
                     <Route path="/edit-customer/:id" component={EditCustomer} />
                     <Route path="/register" component={Register} />
-                    <Route
-                        exact
-                        path="/login"
-                        render={() =>
-                            currentUser ? <Redirect to="/" /> : <Login />
-                        }
+                    <Route exact path="/login"
+                        // render={() =>
+                        //     currentUser ? <Redirect to="/" /> : <Login />
+                        // }
+                        component={Login}
                     />
                     <Route path="/search" component={Header} />
                     <Route path="/brand/:id" component={ShowProductBrand} />
@@ -67,7 +66,7 @@ class RouteUrl extends React.Component {
                     <Route path="/order-tracking/:id" component={InfoOrder} />
                     <Route path="/history-order/:id" component={HistoryOrder} />
                 </Switch>
-            </div>
+            </Router>
         );
     }
 }

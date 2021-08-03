@@ -133,20 +133,26 @@ class Products extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-12">
-                    <Button
-                        onClick={() => {
-                            this.props.propsParent.history.push(
-                                "/product-detail/" +
+                <Link to={"/product-detail/" +
                                     this.props.id +
                                     "/" +
-                                    this.props.product_slug
-                            );
-                        }}
+                                    this.props.product_slug}>
+                    <Button
+                        // onClick={() => {
+                        //     this.props.propsParent.history.push(
+                        //         "/product-detail/" +
+                        //             this.props.id +
+                        //             "/" +
+                        //             this.props.product_slug
+                        //     );
+                        // }}
                         color="info"
                         style={{ margin: "10px" }}
                     >
                         Xem chi tiết
                     </Button>
+                </Link>
+                    
                     <span> </span>
                     <Button
                         className="btn btn-danger"
