@@ -34,7 +34,6 @@ class Content extends React.Component {
                 keyword: "",
                 orderBy: "",
                 size: [],
-                orderBy: "",
                 brand: "",
             },
         };

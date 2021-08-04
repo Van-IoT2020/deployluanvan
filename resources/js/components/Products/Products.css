@@ -22,6 +22,9 @@ p {
     display: inline-block;
     font-weight: bold;
 }
+.product .rate {
+    height: 28px !important;
+}
 .product .rate > label {
     font-size: 16px;
 }

@@ -125,29 +125,24 @@ class Products extends React.Component {
                     <p className="card-text">Mô tả: {this.props.content}</p>
                 </div>
                 <div className="col-md-12">
-                    <div className="rating">
-                        {total > 0 ? <StarComponent
-                            ratingValue={total}
-                            handleChange={() => {}}
-                        /> : <div className="rating__text">Không có đánh giá</div>}
+                    <div className="row flex-column align-items-center rating">
+                        {total > 0 ? (
+                            <React.Fragment>
+                                {" "}
+                                <StarComponent
+                                    ratingValue={total}
+                                    handleChange={() => {}}
+                                />
+                                <span className="rating__text" style={{fontSize: "14px", fontStyle:"italic"}}>({total} sao)</span>
+                            </React.Fragment>
+                        ) : (
+                            <div className="rating__text">
+                                Không có đánh giá
+                            </div>
+                        )}
                     </div>
                 </div>
-                <div className="col-md-12">
-                    <Button
-                        onClick={() => {
-                            this.props.propsParent.history.push(
-                                "/product-detail/" +
-                                    this.props.id +
-                                    "/" +
-                                    this.props.product_slug
-                            );
-                        }}
-                        color="info"
-                        style={{ margin: "10px" }}
-                    >
-                        Xem chi tiết
-                    </Button>
-                    <span> </span>
+                <div className="col-md-12 mt-2">
                     <Button
                         className="btn btn-danger"
                         onClick={this.onAddToCart}

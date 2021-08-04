@@ -54,17 +54,18 @@ class ProductController extends Controller
             }
             if ($searchData->type) {
                 $query->leftJoin("product_type","product.product_type_id", "=", "product_type.product_type_id")
-                        ->where("product.product_type_id", "=", $searchData->type);
+                        ->leftJoin("categories", "categories.categories_id", "=", "product_type.categories_id")
+                        ->where("categories.categories_id", "=", $searchData->type);
             }
             if ($searchData->brand) {
                 $query->where('product.brand_id', $searchData->brand);
             }
             if ($searchData->orderBy != "default") {
                 if ($searchData->orderBy == "minPrice") {
-                    $query->orderBy("unit_price", "ASC");
+                    $query->addSelect(DB::raw('IF (promotion_price = 0, unit_price, promotion_price) AS price'))->orderBy("price", "ASC");
                 } 
                 if ($searchData->orderBy == "maxPrice") {
-                    $query->orderBy("unit_price", "DESC");
+                    $query->addSelect(DB::raw('IF (promotion_price = 0, unit_price, promotion_price) AS price'))->orderBy("price", "DESC");
                 }
             }
              else {
