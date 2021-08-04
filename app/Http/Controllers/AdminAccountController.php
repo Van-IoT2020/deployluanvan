@@ -87,11 +87,14 @@ class AdminAccountController extends Controller
         $valid = Validator::make($request->all(),
             [
                 'admin_name'=>'required|min:3',
+                'admin_email'=>'required|email',
                 'admin_phone'=>'required|numeric|digits:10',
             ],
             [
                 'admin_name.required'=>'Bạn chưa nhập tên người dùng',
                 'admin_name.min'=>'Tên người dùng phải ít nhất 3 kí tự',
+                'admin_email.required'=>'Bạn chưa nhập email',
+                'admin_email.email'=>'Email chưa đúng định dạng',
                 'admin_phone.required'=>'Bạn chưa nhập số điện thoại',
                 'admin_phone.numeric'=>'Số điện thoại phải là số',
                 'admin_phone.digits'=>'Số điện thoại phải đủ 10 chữ số',

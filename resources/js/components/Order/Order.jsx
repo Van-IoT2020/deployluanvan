@@ -20,6 +20,8 @@ class Order extends Component {
             ship_method: 1,
             created_at: moment(new Date()).format("yyyy-MM-DD"),
             updated_at: moment(new Date()).format("yyyy-MM-DD"),
+            create_at: moment(new Date()).format("yyyy-MM-DD"),
+            update_at: moment(new Date()).format("yyyy-MM-DD"),
 
             // citys:[],
             // city_id:"",
@@ -247,7 +249,9 @@ class Order extends Component {
                                 size_name: item.size_name,
                                 unit_price: item.unit_price,
                                 promotion_price: item.promotion_price,
-                                product_quantity: item.product_quantity
+                                product_quantity: item.product_quantity,
+                                create_at: this.state.create_at,
+                                update_at: this.state.update_at
                             }
                             axios.post('http://127.0.0.1:8000/api/order-details',listOrderDetails)
                             .then(res => {

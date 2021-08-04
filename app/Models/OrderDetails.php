@@ -18,7 +18,9 @@ class OrderDetails extends Model
         'size_name',
         'unit_price',
         'promotion_price',
-        'product_quantity'
+        'product_quantity',
+        'create_at',
+        'update_at'
     ];
     public function product(){
         return $this->belongsTo(Product::class, 'product_id', 'product_id');

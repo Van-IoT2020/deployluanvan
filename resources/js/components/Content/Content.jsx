@@ -34,7 +34,6 @@ class Content extends React.Component {
                 keyword: "",
                 orderBy: "",
                 size: [],
-                orderBy: "",
                 brand: "",
             },
         };
@@ -427,7 +426,10 @@ class Content extends React.Component {
                                                     className="col-xs-4 col-sm-4 col-md-4 col-lg-4"
                                                 >
                                                     <Products
-                                                        propsParent={this.props.propsParent}
+                                                        propsParent={
+                                                            this.props
+                                                                .propsParent
+                                                        }
                                                         id={product_id}
                                                         name={product_name}
                                                         price={unit_price}

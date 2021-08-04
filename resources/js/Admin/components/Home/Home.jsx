@@ -95,7 +95,7 @@ class Home extends React.Component {
         }
         axios.post('http://127.0.0.1:8000/api/get-total-product-by-month/', dateForProductSell)
         .then(res=>{
-            // console.log('seller: ', res);
+            console.log('seller: ', res);
             var temp_products = [];
             var temp_quatity = [];
             res.data.map(item => {

@@ -43,7 +43,9 @@ class ChangeStatus extends React.Component {
                         <Input type="select" value={this.state.order_status} 
                             onChange={ (e) => {
                                 if(confirm("Bạn chắc chắn muốn đổi trạng thái sang: " + ((e.target.value == 1) ? "Đang xác nhận" : (e.target.value == 2) ? "Đang xử lý đơn" : (e.target.value == 3) ? "Đang giao" : (e.target.value == 4) ? "Giao thành công" : "Hủy bỏ")) ){
-                                    this.setState({ order_status: e.target.value },() => {
+                                    this.setState({ 
+                                        order_status: e.target.value,
+                                    },() => {
                                         var data = this.state.order;
                                         data.order_status = this.state.order_status;
                                         axios.put('http://127.0.0.1:8000/api/tbl-order/' + this.state.order.order_id, data)
@@ -54,7 +56,7 @@ class ChangeStatus extends React.Component {
                                 }
                             } } name="order_status" id="order_status" >
                             {
-                                (this.state.order.order_status != 5 && this.state.order.order_status != 4) ? (
+                                (this.state.order_status != 5 && this.state.order_status != 4) ? (
                                     <>
                                         <option value={1}>Đang xác nhận</option>
                                         <option value={2}>Đang xử lý đơn</option>
@@ -62,7 +64,7 @@ class ChangeStatus extends React.Component {
                                         <option value={4}>Giao thành công</option>
                                         <option value={5}>Hủy bỏ</option>
                                     </>
-                                ) : (this.state.order.order_status == 5) ? <option value={5}>Hủy bỏ</option> : <option value={5}>Giao thành công</option> 
+                                ) : (this.state.order_status == 5) ? <option value={5}>Hủy bỏ</option> : <option value={4}>Giao thành công</option> 
                             }
                             
                         </Input>
