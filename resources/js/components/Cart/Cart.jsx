@@ -7,6 +7,35 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { deleteNumberCart } from '../../ReduxConfig/Actions/numberCart';
+import { useDispatch } from 'react-redux';
+
+function BtnDeleteCart (props) {
+    var dispatch = useDispatch();
+    const onDelete = (id, color_name, size_name) => {
+        const newCart = props.stateParent.cart.filter(itemCart => itemCart.product_id != id ||  itemCart.color_name != color_name ||  itemCart.size_name != size_name);
+        console.log(newCart);
+        localStorage.setItem('arrCart', JSON.stringify(newCart));
+        //
+        var cart = props.stateParent.cart.filter(itemCart => itemCart.product_id != id ||  itemCart.color_name != color_name ||  itemCart.size_name != size_name);
+        var total_price = 0;
+        cart.map(itemCart => {
+            let price = itemCart.promotion_price != 0 ? itemCart.promotion_price : itemCart.unit_price;
+            let product_quantity = itemCart.product_quantity;
+            total_price += price*product_quantity;
+        })
+        props.onResult(cart, total_price);
+
+        var act = deleteNumberCart(props.product_quantity);
+        dispatch(act);
+    }
+  
+    return (
+        <>
+            <Button onClick={ () => onDelete(props.product_id, props.color_name, props.size_name)} outline color="danger" style={{margin: "10px"}}>Xóa</Button>
+        </>
+    )
+}
 
 class Cart extends Component {
     constructor(props) {
@@ -20,22 +49,29 @@ class Cart extends Component {
         }
     }
 
-    onDelete(id, color_name, size_name){
-        const newCart = this.state.cart.filter(itemCart => itemCart.product_id != id ||  itemCart.color_name != color_name ||  itemCart.size_name != size_name);
-        console.log(newCart);
-        localStorage.setItem('arrCart',JSON.stringify(newCart));
-        //
+    // onDelete(id, color_name, size_name){
+    //     const newCart = this.state.cart.filter(itemCart => itemCart.product_id != id ||  itemCart.color_name != color_name ||  itemCart.size_name != size_name);
+    //     console.log(newCart);
+    //     localStorage.setItem('arrCart',JSON.stringify(newCart));
+    //     //
+    //     this.setState({
+    //         cart: this.state.cart.filter(itemCart => itemCart.product_id != id ||  itemCart.color_name != color_name ||  itemCart.size_name != size_name)
+    //     }, ()=>{
+    //         var total_price = 0;
+    //         this.state.cart.map(itemCart => {
+    //             let price = itemCart.promotion_price != 0 ? itemCart.promotion_price : itemCart.unit_price;
+    //             let product_quantity = itemCart.product_quantity;
+    //             total_price += price*product_quantity;
+    //         })
+    //         this.setState({total_price: total_price})
+    //     });
+    // }
+
+    onResult(cart, total_price){
         this.setState({
-            cart: this.state.cart.filter(itemCart => itemCart.product_id != id ||  itemCart.color_name != color_name ||  itemCart.size_name != size_name)
-        }, ()=>{
-            var total_price = 0;
-            this.state.cart.map(itemCart => {
-                let price = itemCart.promotion_price != 0 ? itemCart.promotion_price : itemCart.unit_price;
-                let product_quantity = itemCart.product_quantity;
-                total_price += price*product_quantity;
-            })
-            this.setState({total_price: total_price})
-        });
+            cart: cart,
+            total_price: total_price
+        })
     }
 
     componentWillMount(){
@@ -99,7 +135,15 @@ class Cart extends Component {
                                                         <td>{item.ten_kichco}</td>
                                                         <td>{item.promotion_price == 0 ? item.unit_price : item.promotion_price}</td>
                                                         <td>
-                                                            <Button onClick={ ()=>this.onDelete(item.product_id, item.color_name, item.size_name)} outline color="danger" style={{margin: "10px"}}>Xóa</Button>
+                                                            {/* <Button onClick={ ()=>this.onDelete(item.product_id, item.color_name, item.size_name)} outline color="danger" style={{margin: "10px"}}>Xóa</Button> */}
+                                                            <BtnDeleteCart 
+                                                                stateParent={this.state}
+                                                                product_id={item.product_id} 
+                                                                color_name={item.color_name} 
+                                                                size_name={item.size_name} 
+                                                                product_quantity={item.product_quantity} 
+                                                                onResult={(cart, total_price) => this.onResult(cart, total_price)}
+                                                            />
                                                         </td>
                                                     </tr>
                                                 )

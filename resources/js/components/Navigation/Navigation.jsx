@@ -24,6 +24,16 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Row, Col } from 'reactstrap';
+import { useSelector } from 'react-redux';
+
+function DisplayNumberCart(){
+    const sl = useSelector(state => state.numberCartReducer.sl);
+    return (
+        <>
+            <span style={{backgroundColor: "red", borderRadius: "50%", paddingRight: "4px", color: "white"}}> {sl} </span>
+        </>
+    );
+}
 
 class Navigation extends React.Component {
     constructor(props) {
@@ -158,8 +168,7 @@ class Navigation extends React.Component {
                                     <Row style={{margin:"auto"}}>
                                         <Col md="6" style={{margin:"auto"}}>
                                             <NavItem className="cart">
-                                                <Link to="/cart"><FontAwesomeIcon icon={faCartPlus} size="lg" /></Link>
-                                                {/* <span>0</span> */}
+                                                <Link to="/cart" style={{textDecoration: 'none'}}><FontAwesomeIcon icon={faCartPlus} size="lg" /><DisplayNumberCart/></Link>
                                             </NavItem>
                                         </Col>
                                         <Col md="6" style={{margin:"auto"}}>

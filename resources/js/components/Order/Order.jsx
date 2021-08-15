@@ -8,6 +8,211 @@ import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import PayCreditCard from './PayCreditCard';
 // import Carousels from '../Carousels/Carousels';
+import { useDispatch } from 'react-redux';
+import { removeNumberCart } from '../../ReduxConfig/Actions/numberCart';
+
+function BtnCheckout(props) {
+    var dispatch = useDispatch();
+    const onSubmit = () => {
+        props.onResult(!props.stateParent.isLoading);
+        const listInfoShip = {
+            ship_address: props.stateParent.ship_address,
+            ship_phone: props.stateParent.ship_phone,
+            ship_email: props.stateParent.ship_email,
+            ship_notes: props.stateParent.ship_notes,
+            ship_method: props.stateParent.radioTT,
+            created_at: props.stateParent.created_at,
+            updated_at: props.stateParent.updated_at,
+        }
+        console.log("address:", listInfoShip.ship_address);
+        
+        axios.post('http://127.0.0.1:8000/api/info-ship/', listInfoShip)
+        .then(res => {
+            console.log('ship_id', res.data.ship_id);
+            var ship_id = res.data.ship_id;
+            var customer = sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')) : '';
+            
+            const listOrder = {
+                customer_id: customer.customer_id,
+                ship_id: ship_id,
+                order_status: 1,
+                fee_ship: props.stateParent.fee_ship,
+                total_sold: props.stateParent.total_price + props.stateParent.fee_ship,
+                created_at: props.stateParent.created_at
+            }
+            axios.post('http://127.0.0.1:8000/api/tbl-order/', listOrder)
+            .then(res => {
+                console.log('customer_id:', res.data.customer_id);
+                console.log('order_id:', res.data);
+                var order_id = res.data.order_id;
+                var cart = localStorage.getItem('arrCart') ? JSON.parse(localStorage.getItem('arrCart')) : [];
+                cart.map(item => {
+                    const listOrderDetails = {
+                        order_id: order_id,
+                        product_id: item.product_id,
+                        color_name: item.color_name,
+                        size_name: item.size_name,
+                        unit_price: item.unit_price,
+                        promotion_price: item.promotion_price,
+                        product_quantity: item.product_quantity,
+                        create_at: props.stateParent.create_at,
+                        update_at: props.stateParent.update_at
+                    }
+                    axios.post('http://127.0.0.1:8000/api/order-details',listOrderDetails)
+                    .then(res => {
+                        axios.put('http://127.0.0.1:8000/api/update-quantity-after-order/' + listOrderDetails.product_id, listOrderDetails)
+                    }).catch(err => console.log(err))
+                })
+                const toSendMail = {
+                    ship_email: listInfoShip.ship_email,
+                    customer_id: listOrder.customer_id,
+                    order_id: res.data.order_id,
+                    ship_phone: listInfoShip.ship_phone,
+                    created_at: listOrder.created_at,
+                    total_sold: listOrder.total_sold
+                }
+                axios.post('http://127.0.0.1:8000/api/sendmail', toSendMail)
+                .then(response => {
+                    alert('Đã gửi mail');
+                })
+                localStorage.removeItem('arrCart');
+                var act = removeNumberCart();
+                dispatch(act);
+                props.onResult(!props.stateParent.isLoading);
+                alert('Đặt hàng thành công!');
+                props.propsParent.history.push("/order-tracking/" + res.data.order_id);
+            })
+        }).catch(err => {
+            if(err.response){
+                if(Array.isArray(err.response.data)){
+                    err.response.data.map((error) => {
+                        toast.error('Lỗi '+ error, {
+                            onClose: () => {
+                                props.onResult(false);
+                            }
+                        });
+                    })
+                }else{
+                    toast.error('Lỗi: ' + err.response.data);
+                } 
+            }
+           
+        })
+    }
+    return (
+        <>
+            <Button onClick={ ()=>onSubmit() } style={{padding: "10px 34px"}}>Thanh toán</Button>
+        </>
+    );
+}
+
+function BtnCheckoutPayPal(props) {
+    var dispatch = useDispatch();
+    function onSubmit(){
+        props.onResult(!props.stateParent.isLoading);
+        const listInfoShip = {
+            ship_address: props.stateParent.ship_address,
+            ship_phone: props.stateParent.ship_phone,
+            ship_email: props.stateParent.ship_email,
+            ship_notes: props.stateParent.ship_notes,
+            ship_method: props.stateParent.radioTT,
+            created_at: props.stateParent.created_at,
+            updated_at: props.stateParent.updated_at,
+        }
+        console.log("address:", listInfoShip.ship_address);
+        
+        axios.post('http://127.0.0.1:8000/api/info-ship/', listInfoShip)
+        .then(res => {
+            console.log('ship_id', res.data.ship_id);
+            var ship_id = res.data.ship_id;
+            var customer = sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')) : '';
+            
+            const listOrder = {
+                customer_id: customer.customer_id,
+                ship_id: ship_id,
+                order_status: 1,
+                fee_ship: props.stateParent.fee_ship,
+                total_sold: props.stateParent.total_price + props.stateParent.fee_ship,
+                created_at: props.stateParent.created_at
+            }
+            axios.post('http://127.0.0.1:8000/api/tbl-order/', listOrder)
+            .then(res => {
+                console.log('customer_id:', res.data.customer_id);
+                console.log('order_id:', res.data);
+                var order_id = res.data.order_id;
+                var cart = localStorage.getItem('arrCart') ? JSON.parse(localStorage.getItem('arrCart')) : [];
+                cart.map(item => {
+                    const listOrderDetails = {
+                        order_id: order_id,
+                        product_id: item.product_id,
+                        color_name: item.color_name,
+                        size_name: item.size_name,
+                        unit_price: item.unit_price,
+                        promotion_price: item.promotion_price,
+                        product_quantity: item.product_quantity,
+                        create_at: props.stateParent.create_at,
+                        update_at: props.stateParent.update_at
+                    }
+                    axios.post('http://127.0.0.1:8000/api/order-details',listOrderDetails)
+                    .then(res => {
+                        axios.put('http://127.0.0.1:8000/api/update-quantity-after-order/' + listOrderDetails.product_id, listOrderDetails)
+                    }).catch(err => console.log(err))
+                })
+                const toSendMail = {
+                    ship_email: listInfoShip.ship_email,
+                    customer_id: listOrder.customer_id,
+                    order_id: res.data.order_id,
+                    ship_phone: listInfoShip.ship_phone,
+                    created_at: listOrder.created_at,
+                    total_sold: listOrder.total_sold
+                }
+                axios.post('http://127.0.0.1:8000/api/sendmail', toSendMail)
+                .then(response => {
+                    alert('Đã gửi mail');
+                })
+                localStorage.removeItem('arrCart');
+                var act = removeNumberCart();
+                dispatch(act);
+                props.onResult(!props.stateParent.isLoading);
+                alert('Đặt hàng thành công!');
+                props.propsParent.history.push("/order-tracking/" + res.data.order_id);
+            })
+        }).catch(err => {
+            if(err.response){
+                if(Array.isArray(err.response.data)){
+                    err.response.data.map((error) => {
+                        toast.error('Lỗi '+ error, {
+                            onClose: () => {
+                                props.onResult(false);
+                            }
+                        });
+                    })
+                }else{
+                    toast.error('Lỗi: ' + err.response.data);
+                } 
+            }
+           
+        })
+    }
+
+    const onPay = (err, cancelled, payment) => {
+        console.log(err, cancelled, payment);
+        if(err){ 
+            alert("Không đủ tiền trong tài khoản");
+        } 
+        else if(cancelled){
+            alert("Giao dịch bị gián đoạn");
+        }else{
+            onSubmit();
+        }
+    }
+
+    return (
+        <>
+            <PayCreditCard onResultPay = { onPay } total = { props.payByPayPal } />
+        </>
+    );
+}
 
 class Order extends Component {
     constructor(props) {
@@ -50,7 +255,7 @@ class Order extends Component {
         this.onHandleChange = this.onHandleChange.bind(this);
         this.checkValid = this.checkValid.bind(this);
         // this.addOrder = this.addOrder.bind(this);
-        this.onPay = this.onPay.bind(this);
+        // this.onPay = this.onPay.bind(this);
     }
 
     onHandleChange(e){
@@ -58,18 +263,6 @@ class Order extends Component {
         this.setState({
             [e.target.name] : e.target.value
         });
-    }
-
-    onPay(err, cancelled, payment){
-        console.log(err, cancelled, payment);
-        if(err){ 
-            alert("Không đủ tiền trong tài khoản");
-        } 
-        else if(cancelled){
-            alert("Giao dịch bị gián đoạn");
-        }else{
-            this.onSubmit();
-        }
     }
 
     checkValid(){
@@ -112,12 +305,14 @@ class Order extends Component {
                                                             <div style={{position: "relative", left: "30%", padding: "10px 34px"}}>
                                                                 {
                                                                     this.state.isCheckValid && (
-                                                                        <PayCreditCard onResultPay = { this.onPay } total = { payByPayPal } />
+                                                                        <BtnCheckoutPayPal stateParent = {this.state} propsParent = {this.props} payByPayPal={payByPayPal} onResult = {(isLoading)=>this.onResult(isLoading)}  />
                                                                     )
                                                                 }
                                                                
                                                             </div>
-                                                        ) : (<Button onClick={ ()=>this.onSubmit() } style={{padding: "10px 34px"}}>Thanh toán</Button>)
+                                                        ) : (
+                                                            <BtnCheckout stateParent = {this.state} propsParent = {this.props} onResult = {(isLoading)=>this.onResult(isLoading)} />
+                                                        )
                                                     )
                 }
             </>
@@ -193,104 +388,108 @@ class Order extends Component {
     //     }).catch(err =>console.log(err));
     // }
 
-    onSubmit(){
-        this.setState({isLoading: !this.state.isLoading});
-        // var city_name = this.state.citys.find(city => city.city_id == this.state.city_id).city_name;
-        // var district_name = this.state.districts.find(district => district.district_id == this.state.district_id).district_name;
-        // var ward_name = this.state.wards.find(ward => ward.wards_id == this.state.wards_id).wards_name;
-        const listInfoShip = {
-            // ship_address: city_name + ',' + district_name + ',' + ward_name + ',' + this.state.home_address,
-            ship_address: this.state.ship_address,
-            ship_phone: this.state.ship_phone,
-            ship_email: this.state.ship_email,
-            ship_notes: this.state.ship_notes,
-            ship_method: this.state.radioTT,
-            created_at: this.state.created_at,
-            updated_at: this.state.updated_at,
-        }
-        console.log("address:", listInfoShip.ship_address);
-        
-        axios.post('http://127.0.0.1:8000/api/info-ship/', listInfoShip)
-        .then(res => {
-            console.log('ship_id', res.data.ship_id);
-            this.setState({
-                ship_id: res.data.ship_id,
-            }, () =>{
-                var customer = sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')) : '';
-                // var fee_ship = 0;
-                // if(this.state.city_id == "SG"){
-                //     fee_ship = 30000;
-                // }
-                // else{
-                //     fee_ship = 50000;
-                // }
-                // return console.log(this.state.fee_ship);
-                const listOrder = {
-                    customer_id: customer.customer_id,
-                    ship_id: res.data.ship_id,
-                    order_status: 1,
-                    fee_ship: this.state.fee_ship,
-                    total_sold: this.state.total_price + this.state.fee_ship,
-                    created_at: this.state.created_at
-                }
-                axios.post('http://127.0.0.1:8000/api/tbl-order/', listOrder)
-                .then(res => {
-                    console.log('customer_id:', res.data.customer_id);
-                    console.log('order_id:', res.data);
-                    this.setState({
-                        order_id: res.data.order_id,
-                    }, () => {
-                        var cart = localStorage.getItem('arrCart') ? JSON.parse(localStorage.getItem('arrCart')) : [];
-                        cart.map(item => {
-                            const listOrderDetails = {
-                                order_id: res.data.order_id,
-                                product_id: item.product_id,
-                                color_name: item.color_name,
-                                size_name: item.size_name,
-                                unit_price: item.unit_price,
-                                promotion_price: item.promotion_price,
-                                product_quantity: item.product_quantity,
-                                create_at: this.state.create_at,
-                                update_at: this.state.update_at
-                            }
-                            axios.post('http://127.0.0.1:8000/api/order-details',listOrderDetails)
-                            .then(res => {
-                                axios.put('http://127.0.0.1:8000/api/update-quantity-after-order/' + listOrderDetails.product_id, listOrderDetails)
-                            }).catch(err => console.log(err))
-                        })
-                        const toSendMail = {
-                            ship_email: listInfoShip.ship_email,
-                            customer_id: listOrder.customer_id,
-                            order_id: res.data.order_id,
-                            ship_phone: listInfoShip.ship_phone,
-                            created_at: listOrder.created_at,
-                            total_sold: listOrder.total_sold
-                        }
-                        axios.post('http://127.0.0.1:8000/api/sendmail', toSendMail)
-                        .then(response => {
-                            alert('Đã gửi mail');
-                        })
-                        localStorage.removeItem('arrCart');
-                        this.setState({isLoading: !this.state.isLoading});
-                        alert('Đặt hàng thành công!');
-                        this.props.history.push("/order-tracking/" + res.data.order_id);
-                    })
-                })
-            })
-        }).catch(err => {
-            if(Array.isArray(err.response.data)){
-                err.response.data.map((error) => {
-                    toast.error('Lỗi '+ error, {
-                        onClose: () => {
-                            this.setState({isLoading: false});
-                        }
-                    });
-                })
-            }else{
-                toast.error('Lỗi: ' + err.response.data);
-            }
-        })
+    onResult(isLoading) {
+        this.setState({isLoading: isLoading});  
     }
+
+    // onSubmit(){
+    //     this.setState({isLoading: !this.state.isLoading});
+    //     // var city_name = this.state.citys.find(city => city.city_id == this.state.city_id).city_name;
+    //     // var district_name = this.state.districts.find(district => district.district_id == this.state.district_id).district_name;
+    //     // var ward_name = this.state.wards.find(ward => ward.wards_id == this.state.wards_id).wards_name;
+    //     const listInfoShip = {
+    //         // ship_address: city_name + ',' + district_name + ',' + ward_name + ',' + this.state.home_address,
+    //         ship_address: this.state.ship_address,
+    //         ship_phone: this.state.ship_phone,
+    //         ship_email: this.state.ship_email,
+    //         ship_notes: this.state.ship_notes,
+    //         ship_method: this.state.radioTT,
+    //         created_at: this.state.created_at,
+    //         updated_at: this.state.updated_at,
+    //     }
+    //     console.log("address:", listInfoShip.ship_address);
+        
+    //     axios.post('http://127.0.0.1:8000/api/info-ship/', listInfoShip)
+    //     .then(res => {
+    //         console.log('ship_id', res.data.ship_id);
+    //         this.setState({
+    //             ship_id: res.data.ship_id,
+    //         }, () =>{
+    //             var customer = sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')) : '';
+    //             // var fee_ship = 0;
+    //             // if(this.state.city_id == "SG"){
+    //             //     fee_ship = 30000;
+    //             // }
+    //             // else{
+    //             //     fee_ship = 50000;
+    //             // }
+    //             // return console.log(this.state.fee_ship);
+    //             const listOrder = {
+    //                 customer_id: customer.customer_id,
+    //                 ship_id: res.data.ship_id,
+    //                 order_status: 1,
+    //                 fee_ship: this.state.fee_ship,
+    //                 total_sold: this.state.total_price + this.state.fee_ship,
+    //                 created_at: this.state.created_at
+    //             }
+    //             axios.post('http://127.0.0.1:8000/api/tbl-order/', listOrder)
+    //             .then(res => {
+    //                 console.log('customer_id:', res.data.customer_id);
+    //                 console.log('order_id:', res.data);
+    //                 this.setState({
+    //                     order_id: res.data.order_id,
+    //                 }, () => {
+    //                     var cart = localStorage.getItem('arrCart') ? JSON.parse(localStorage.getItem('arrCart')) : [];
+    //                     cart.map(item => {
+    //                         const listOrderDetails = {
+    //                             order_id: res.data.order_id,
+    //                             product_id: item.product_id,
+    //                             color_name: item.color_name,
+    //                             size_name: item.size_name,
+    //                             unit_price: item.unit_price,
+    //                             promotion_price: item.promotion_price,
+    //                             product_quantity: item.product_quantity,
+    //                             create_at: this.state.create_at,
+    //                             update_at: this.state.update_at
+    //                         }
+    //                         axios.post('http://127.0.0.1:8000/api/order-details',listOrderDetails)
+    //                         .then(res => {
+    //                             axios.put('http://127.0.0.1:8000/api/update-quantity-after-order/' + listOrderDetails.product_id, listOrderDetails)
+    //                         }).catch(err => console.log(err))
+    //                     })
+    //                     const toSendMail = {
+    //                         ship_email: listInfoShip.ship_email,
+    //                         customer_id: listOrder.customer_id,
+    //                         order_id: res.data.order_id,
+    //                         ship_phone: listInfoShip.ship_phone,
+    //                         created_at: listOrder.created_at,
+    //                         total_sold: listOrder.total_sold
+    //                     }
+    //                     axios.post('http://127.0.0.1:8000/api/sendmail', toSendMail)
+    //                     .then(response => {
+    //                         alert('Đã gửi mail');
+    //                     })
+    //                     localStorage.removeItem('arrCart');
+    //                     this.setState({isLoading: !this.state.isLoading});
+    //                     alert('Đặt hàng thành công!');
+    //                     this.props.history.push("/order-tracking/" + res.data.order_id);
+    //                 })
+    //             })
+    //         })
+    //     }).catch(err => {
+    //         if(Array.isArray(err.response.data)){
+    //             err.response.data.map((error) => {
+    //                 toast.error('Lỗi '+ error, {
+    //                     onClose: () => {
+    //                         this.setState({isLoading: false});
+    //                     }
+    //                 });
+    //             })
+    //         }else{
+    //             toast.error('Lỗi: ' + err.response.data);
+    //         }
+    //     })
+    // }
     
     render() {
         return (

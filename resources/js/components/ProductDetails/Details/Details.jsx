@@ -4,6 +4,59 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { Label, Button, Input, Form } from 'reactstrap';
+import { useDispatch } from 'react-redux';
+import { addNumberCart } from './../../../ReduxConfig/Actions/numberCart';
+
+function BtnAddCart (props) {
+  var dispatch = useDispatch();
+  const addCart = () => {
+    console.log(props.stateParent);
+
+    var ten_mau = props.stateParent.color_details[props.stateParent.color_details.findIndex((element) => element.color_id == props.stateParent.color_name)].color_name;
+    var ten_kichco = props.stateParent.size_details[props.stateParent.size_details.findIndex((element) => element.size_id == props.stateParent.size_name)].size_name;
+
+    //la phan tu dat vao storage
+    var itemCart={
+      order_id: null,
+      product_id: props.propsParent.id,
+      product_name: props.stateParent.product.product_name,
+      product_image: props.stateParent.product.product_image,
+      color_name: props.stateParent.color_name,
+      ten_mau: ten_mau,
+      size_name: props.stateParent.size_name,
+      ten_kichco: ten_kichco,
+      unit_price: props.stateParent.product.unit_price,
+      promotion_price: props.stateParent.product.promotion_price,
+      product_quantity: props.stateParent.product_quantity
+    }
+    
+    var act = addNumberCart(itemCart.product_quantity);
+    dispatch(act)
+
+    // return console.log('item', itemCart);
+    //là danh sach hien tai co trong storage
+    var arrCart = localStorage.getItem('arrCart') ? JSON.parse(localStorage.getItem('arrCart')) : [];
+
+    var find_product = arrCart.find(x => itemCart.product_id == x.product_id &&  itemCart.color_name == x.color_name &&  itemCart.size_name == x.size_name);
+    // console.log(find_product);
+    if(find_product != null){
+      itemCart.product_quantity = parseInt(find_product.product_quantity) + parseInt(itemCart.product_quantity);
+      arrCart = arrCart.filter(x => itemCart.product_id != x.product_id ||  itemCart.color_name != x.color_name ||  itemCart.size_name != x.size_name);
+      arrCart.push(itemCart);
+      localStorage.setItem('arrCart',JSON.stringify(arrCart));
+    } else {
+      arrCart.push(itemCart);
+      localStorage.setItem('arrCart',JSON.stringify(arrCart));
+    }
+  }
+
+  return (
+    <>
+      <Button type="button" onClick={addCart} className="btn btn-success">Thêm vào giỏ hàng</Button>
+    </>
+  )
+}
+
 class Details extends React.Component {
     constructor(props){
       super(props);
@@ -177,7 +230,8 @@ class Details extends React.Component {
                       <Input style={{color:'black'}} name="product_quantity" type="number" min="1" onChange={ this.onHandleChange } value= {this.state.product_quantity} />
                     </div>
                     <div className="form-group">
-                      <Button type="button" onClick={()=>this.addCart()} className="btn btn-success">Thêm vào giỏ hàng</Button>
+                      {/* <Button type="button" onClick={()=>this.addCart()} className="btn btn-success">Thêm vào giỏ hàng</Button> */}
+                      <BtnAddCart stateParent={this.state} propsParent={this.props} />
                     </div>
                   </Form>
                 </div>
