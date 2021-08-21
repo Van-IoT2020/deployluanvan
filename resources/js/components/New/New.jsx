@@ -49,16 +49,16 @@ import React from 'react';
                     this.setState({categories:res.data});
                 });
         }
-        showCategoriess(){
-            // console.log(this.state.categories);
-            const lstCategories = this.state.categories.map((item, index)=>
-                <Link to={ '/categories/' + item.categories_id } 
-                style={{color:'black'}}  key={index} className="list-group-item">
-                    {item.categories_name}
-                </Link>
-            );
-            return lstCategories;
-        }
+        // showCategoriess(){
+        //     // console.log(this.state.categories);
+        //     const lstCategories = this.state.categories.map((item, index)=>
+        //         <Link to={ '/categories/' + item.categories_id } 
+        //         style={{color:'black'}}  key={index} className="list-group-item">
+        //             {item.categories_name}
+        //         </Link>
+        //     );
+        //     return lstCategories;
+        // }
         render(){
             let elements= Array.isArray(this.state.product) && this.state.product.map((product, index) => {
                 if(product.product_status===1){
@@ -79,35 +79,30 @@ import React from 'react';
                 <div style={{overflow:"hidden", width:"100vw"}}>
                     <Navigation propsParent = {this.props} />
                     <Carousels />
-                    <Search />
+                    {/* <Search /> */}
                     <div className="container">
-                        <div className="row">
-                            <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <div className="list-group">
-                                    {this.showCategoriess()}
+                       
+                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div className="form-group">
+                                <div className="row">
+                                    {elements}
                                 </div>
                             </div>
-                            <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                <div className="form-group">
-                                    <div className="row">
-                                        {elements}
-                                    </div>
-                                </div>
-                                <div className="form-group">
-                                    <div className="d-flex justify-content-center">
-                                        <Pagination
-                                            activePage={this.state.activePage}
-                                            itemsCountPerPage={this.state.itemsCountPerPage}
-                                            totalItemsCount={this.state.totalItemsCount}
-                                            pageRangeDisplayed={this.state.pageRangeDisplayed}
-                                            onChange={this.handlePageChange.bind(this)}
-                                            itemClass='page-item'
-                                            linkClass='page-link'
-                                        />
-                                    </div>
+                            <div className="form-group">
+                                <div className="d-flex justify-content-center">
+                                    <Pagination
+                                        activePage={this.state.activePage}
+                                        itemsCountPerPage={this.state.itemsCountPerPage}
+                                        totalItemsCount={this.state.totalItemsCount}
+                                        pageRangeDisplayed={this.state.pageRangeDisplayed}
+                                        onChange={this.handlePageChange.bind(this)}
+                                        itemClass='page-item'
+                                        linkClass='page-link'
+                                    />
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                     <span> </span>
                     <Footer />

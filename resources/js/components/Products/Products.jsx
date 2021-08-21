@@ -17,7 +17,7 @@ class Products extends React.Component {
     }
 
     onAddToCart() {
-        alert(this.props.name + "-" + this.props.price);
+        alert(this.props.product_name + "-" + this.props.unit_price);
     }
     showPrice() {
         if (this.props.promotion_price !== 0) {
@@ -93,16 +93,12 @@ class Products extends React.Component {
         const { total } = this.props;
         return (
             <div className="product">
-                <span
-                    onClick={() => {
-                        this.props.propsParent.history.push(
-                            "/product_details/" +
-                                this.props.id +
-                                "/" +
-                                this.props.product_slug
-                        );
-                    }}
-                >
+                
+                    <Link
+                            to={`product-detail/${
+                                this.props.id + "/" + this.props.product_slug
+                            }`}
+                        >
                     <img
                         className="card-img-top"
                         src={this.props.image}
@@ -110,7 +106,7 @@ class Products extends React.Component {
                         style={{ width: "280" }}
                         style={{ height: "300" }}
                     />
-                </span>
+                    </Link>
                 <div className="card-body">
                     <h4 className="card-title">
                         <Link
@@ -145,9 +141,14 @@ class Products extends React.Component {
                 <div className="col-md-12 mt-2">
                     <Button
                         className="btn btn-danger"
-                        onClick={this.onAddToCart}
+                    >
+                    <Link
+                    to={`product-detail/${
+                        this.props.id + "/" + this.props.product_slug
+                    }`} style={{color: 'white'}}
                     >
                         Mua hàng
+                        </Link>
                     </Button>
                 </div>
             </div>

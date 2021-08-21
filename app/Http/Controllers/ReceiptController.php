@@ -206,21 +206,22 @@ class ReceiptController extends Controller
 
             foreach($insert_data as $key => $value){
                 if($key!=0){ 
-                    //setup
-                    $value['receipt_id']  = $createReceiptId;
+                    if($value["product_id"] || $value["receipt_quantity"]){
+                        //setup
+                        $value['receipt_id']  = $createReceiptId;
 
-                    //process
-                    $receipt_quantity = $value["receipt_quantity"];
-                    $product_id = $value["product_id"];
-                    $bill_total += $value["receipt_quantity"] * $value["receipt_price"];
+                        //process
+                        $receipt_quantity = $value["receipt_quantity"];
+                        $product_id = $value["product_id"];
+                        $bill_total += $value["receipt_quantity"] * $value["receipt_price"];
 
-                    $findProduct = Product::find($product_id);
-                    $new_quantity = $receipt_quantity + $findProduct->product_quantity;
-                    $update_quantity = $findProduct->update(['product_quantity' => $new_quantity]);
+                        $findProduct = Product::find($product_id);
+                        $new_quantity = $receipt_quantity + $findProduct->product_quantity;
+                        $update_quantity = $findProduct->update(['product_quantity' => $new_quantity]);
 
-                    //save
-                    ReceiptDetails::create($value);
-                    // echo($product_id);
+                        //save
+                        ReceiptDetails::create($value);
+                    }
                 }
             }
             $findReceipt = Receipt::find($createReceiptId);

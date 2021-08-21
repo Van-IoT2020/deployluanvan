@@ -250,8 +250,8 @@ export default class Sidebar extends Component {
                                         <h6 className="collapse-header">Quản lý đơn giao hàng:</h6>
                                         <Link className="collapse-item" to="/admin/home/tbl-order">Xem đơn giao</Link>
                                         <div className="collapse-divider" />
-                                        <h6 className="collapse-header">Other Pages:</h6>
-                                        <Link className="collapse-item" to="/admin/err">404 Page</Link>
+                                        {/* <h6 className="collapse-header">Other Pages:</h6>
+                                        <Link className="collapse-item" to="/admin/err">404 Page</Link> */}
                                     </div>
                                 </div>
                             </li>
