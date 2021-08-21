@@ -90,6 +90,7 @@ Route::get('get-info-ship-by/{id}', 'App\Http\Controllers\TblOrderController@get
 Route::put('tbl-order/{id}', 'App\Http\Controllers\TblOrderController@update');
 Route::post('tbl-order-date', 'App\Http\Controllers\TblOrderController@getOrderByDate');
 Route::resource('tbl-order', 'App\Http\Controllers\TblOrderController');
+Route::post('tbl-order-statistic', 'App\Http\Controllers\TblOrderController@getStatisticByMonth');//Hiển thị danh sách các sản phẩm đã bán được trong tháng.
 
 Route::get('get-order-details-by/{id}', 'App\Http\Controllers\OrderDetailsController@getOrderDetailsByOrderID');//Hiển thị danh sách đơn hàng của đơn đặt hàng - ShowOrder
 Route::resource('order-details', 'App\Http\Controllers\OrderDetailsController');

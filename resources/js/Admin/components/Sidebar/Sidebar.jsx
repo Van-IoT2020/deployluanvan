@@ -129,8 +129,8 @@ export default class Sidebar extends Component {
                                         <h6 className="collapse-header">Quản lý đơn giao hàng:</h6>
                                         <Link className="collapse-item" to="/admin/home/tbl-order">Xem đơn giao</Link>
                                         <div className="collapse-divider" />
-                                        <h6 className="collapse-header">Other Pages:</h6>
-                                        <Link className="collapse-item" to="/admin/err">404 Page</Link>
+                                        {/* <h6 className="collapse-header">Other Pages:</h6>
+                                        <Link className="collapse-item" to="/admin/err">404 Page</Link> */}
                                     </div>
                                 </div>
                             </li>
@@ -171,9 +171,9 @@ export default class Sidebar extends Component {
                             </li>
                             {/* Nav Item - Tables */}
                             <li className="nav-item">
-                                <Link className="nav-link" to="/admin/home">
+                                <Link className="nav-link" to="/admin/home/tbl-order-statistic">
                                     <FontAwesomeIcon icon={ faTable } fixedWidth className="mr-2"/>
-                                    <span>Thống kê</span>
+                                    <span>Thống kê chi tiết</span>
                                 </Link>
                             </li>
                         </ul>
@@ -276,9 +276,9 @@ export default class Sidebar extends Component {
                             </li>
                             {/* Nav Item - Tables */}
                             <li className="nav-item">
-                                <Link className="nav-link" to="/admin/home">
+                                <Link className="nav-link" to="/admin/home/tbl-order-statistic">
                                     <FontAwesomeIcon icon={ faTable } fixedWidth className="mr-2"/>
-                                    <span>Thống kê</span>
+                                    <span>Thống kê chi tiết</span>
                                 </Link>
                             </li>
                         </ul>

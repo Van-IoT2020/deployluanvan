@@ -28,11 +28,11 @@ class InputToGetReport extends React.Component {
                 <Form inline>
                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                         <Label for="Name" className="mr-sm-2">Nhập vào năm cần kiểm tra</Label>
-                        <Input type="text" onChange={ (e) => {this.setState({ year_input: e.target.value});} } value={this.state.slide_name} name="year_input" id="year_input"/>
+                        <Input type="text" onChange={ (e) => {this.setState({ year_input: e.target.value});} } value={this.state.year_input} name="year_input" id="year_input"/>
                     </FormGroup>
                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                         <Label for="Name" className="mr-sm-2">Nhập vào tháng cần kiểm tra</Label>
-                        <Input type="text" onChange={ (e) => {this.setState({ month_input: e.target.value});} } value={this.state.slide_name} name="month_input" id="month_input"/>
+                        <Input type="text" onChange={ (e) => {this.setState({ month_input: e.target.value});} } value={this.state.month_input} name="month_input" id="month_input"/>
                     </FormGroup>
                     <Button onClick={ ()=>this.onSubmit() }>Submit</Button>
                 </Form>

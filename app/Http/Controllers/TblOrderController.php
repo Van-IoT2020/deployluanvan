@@ -9,6 +9,7 @@ use App\Models\InfoShip;
 use App\Models\Customer;
 use App\Models\OrderDetails;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -153,5 +154,28 @@ class TblOrderController extends Controller
         $getOrder = TblOrder::select()->where('customer_id',$customer->customer_id)->get();
         // echo($getOrder);
         return response()->json($getOrder, 200);
+    }
+
+    
+    public function getStatisticByMonth(Request $request){
+        $statistic = DB::select(
+            'SELECT order_details.product_id, product.product_image, product.product_name, SUM(order_details.product_quantity) AS product_quantity,
+
+            SUM(CASE
+                WHEN order_details.promotion_price != 0
+                THEN order_details.promotion_price * order_details.product_quantity
+                ELSE order_details.unit_price * order_details.product_quantity
+            END) AS price
+            
+            FROM tbl_order LEFT JOIN order_details ON tbl_order.order_id = order_details.order_id
+            LEFT JOIN product on order_details.product_id = product.product_id
+            
+            WHERE tbl_order.order_status = 4 
+            AND YEAR(order_details.create_at) = '.$request->year.'
+            AND MONTH(order_details.create_at) = '.$request->month.'
+            GROUP BY order_details.product_id'
+        );
+
+        return $statistic;
     }
 }

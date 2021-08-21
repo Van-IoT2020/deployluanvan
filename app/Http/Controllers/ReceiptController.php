@@ -191,7 +191,7 @@ class ReceiptController extends Controller
                     'product_id'  => $row[0],
                     'receipt_quantity'   => $row[1],
                     'receipt_price'   => $row[2],
-                    'created_at'    => null
+                    'created_at'    => date("Y-m-d")
                 );
                 // echo($row);
             }
