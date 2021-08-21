@@ -63,7 +63,7 @@ class Carousels extends React.Component {
 
   render() {
     return (
-      <>
+      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         {/* <UncontrolledCarousel  items= {this.state.sliders}/>  */}
         <Carousel
           activeIndex={this.state.activeIndex}
@@ -97,7 +97,7 @@ class Carousels extends React.Component {
           <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => this.previous()} />
           <CarouselControl direction="next" directionText="Next" onClickHandler={() => this.next()} />
         </Carousel>
-      </>
+      </div>
     )
   }
 }

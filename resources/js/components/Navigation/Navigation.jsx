@@ -56,28 +56,28 @@ class Navigation extends React.Component {
         });
         
     }
-    showProductType(){
-        // console.log(this.state.product_type);
-        const lstproducttype=this.state.product_type.map((item, index)=>
-            <MenuItem key={index}>
-                <Link to={ '/product-type/' + item.product_type_id } style={{color:'black'}}>
-                {item.product_type_name}
-                </Link>
-            </MenuItem>);
-        return lstproducttype;
-    }
+    // showProductType(){
+    //     // console.log(this.state.product_type);
+    //     const lstproducttype=this.state.product_type.map((item, index)=>
+    //         <MenuItem key={index}>
+    //             <Link to={ '/product-type/' + item.product_type_id } style={{color:'black'}}>
+    //             {item.product_type_name}
+    //             </Link>
+    //         </MenuItem>);
+    //     return lstproducttype;
+    // }
 
-    showBrand(){
-        // console.log(this.state.brand);
-        const lstbrand = this.state.brand.map((item, index)=>
-            <DropdownItem key={index}>
-                <Link to={ '/brand/' + item.brand_id } style={{color:'black'}}>
-                    <NavbarText className="nav-link"><span>{item.brand_name}</span></NavbarText>
-                </Link>
-            </DropdownItem>
-        );
-        return lstbrand;
-    }
+    // showBrand(){
+    //     // console.log(this.state.brand);
+    //     const lstbrand = this.state.brand.map((item, index)=>
+    //         <DropdownItem key={index}>
+    //             <Link to={ '/brand/' + item.brand_id } style={{color:'black'}}>
+    //                 <NavbarText className="nav-link"><span>{item.brand_name}</span></NavbarText>
+    //             </Link>
+    //         </DropdownItem>
+    //     );
+    //     return lstbrand;
+    // }
 
     componentWillMount(){
         var customer = sessionStorage.getItem('objCustomer') ? JSON.parse(sessionStorage.getItem('objCustomer')) : '';
@@ -140,17 +140,23 @@ class Navigation extends React.Component {
                                         </Col>
                                         <Col md="3">
                                             {/* <UncontrolledDropdown nav inNavbar> */}
-                                            <Menu menuButton={<MenuButton >SẢN PHẨM</MenuButton>}>
+                                            {/* <Menu menuButton={<MenuButton >SẢN PHẨM</MenuButton>}>
                                                 {this.showProductType()}
-                                            </Menu>
+                                            </Menu> */}
+                                            <NavItem className="home">
+                                                <Link to="/gioi-thieu-kvstore">GIỚI THIỆU</Link>
+                                            </NavItem>
                                         </Col>
                                         <Col md="3">
-                                            <UncontrolledDropdown nav inNavbar>
+                                            {/* <UncontrolledDropdown nav inNavbar>
                                                 <DropdownToggle nav caret className="dropdown">THƯƠNG HIỆU</DropdownToggle>
                                                 <DropdownMenu right>
                                                     {this.showBrand()}
                                                 </DropdownMenu>
-                                            </UncontrolledDropdown>
+                                            </UncontrolledDropdown> */}
+                                            <NavItem className="home">
+                                                <Link to="/tuyen-dung">TUYỂN DỤNG</Link>
+                                            </NavItem>
                                         </Col>
                                     </Row>
                                 </Col>
