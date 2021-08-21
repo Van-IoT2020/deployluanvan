@@ -20,6 +20,7 @@ class ProductDetails extends React.Component {
             ratingMessage: null,
         };
         this.handleRatingSubmit = this.handleRatingSubmit.bind(this);
+        this.handlePagination = this.handlePagination.bind(this);
     }
     componentDidMount() {
         axios
@@ -80,7 +81,24 @@ class ProductDetails extends React.Component {
                 });
         }
     }
-
+    handlePagination(pageNumber) {
+        axios
+        .get("http://127.0.0.1:8000/api/get-rating-list", {
+            params: {
+                data: {
+                    product_id: this.state.product_id,
+                    customer_id: this.state.currentUser?.customer_id || "",
+                },
+                page: pageNumber
+            },
+        })
+        .then((res) =>
+            this.setState({
+                ratings: res.data.ratings,
+                canRating: res.data.canRating,
+            })
+        );
+    }
     render() {
         const { currentUser, product_id, canRating, ratings, ratingMessage } =
             this.state;
@@ -138,7 +156,7 @@ class ProductDetails extends React.Component {
                                         activePage={ratings?.current_page}
                                         totalItemsCount={ratings?.total}
                                         itemsCountPerPage={ratings?.per_page}
-                                        onChange={this.props.handleChange}
+                                        onChange={this.handlePagination}
                                         hideDisabled={true}
                                         hideFirstLastPages={true}
                                         itemClass="rating-page-item"

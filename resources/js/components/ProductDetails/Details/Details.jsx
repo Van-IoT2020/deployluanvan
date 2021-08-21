@@ -31,7 +31,7 @@ class Details extends React.Component {
           [e.target.name] : e.target.value
       },()=>console.log(this.state));
     }
-    
+    //bên lấy detail là lm bên react chỗ này á 
     loadDetail(id){
       console.log(id)
       axios.get('http://127.0.0.1:8000/api/product/' + id)

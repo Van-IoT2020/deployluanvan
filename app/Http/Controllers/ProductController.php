@@ -33,7 +33,7 @@ class ProductController extends Controller
                                 "product.promotion_price", "product.product_desc", "product.product_content", 
                                 "product.product_image", "product.product_status", "rating.total");
         $query->leftJoin(DB::raw('(select tbl_rating.product_id, AVG(tbl_rating.rating) as total from tbl_rating WHERE 
-                                    (tbl_rating.status = 1 or tbl_rating.status is null) and (tbl_rating.del_flg = 0 or tbl_rating.del_flg is null))
+                                    (tbl_rating.status = 1 or tbl_rating.status is null) and (tbl_rating.del_flg = 0 or tbl_rating.del_flg is null) group by tbl_rating.product_id)
                                     as rating') ,
                             'product.product_id', '=', 'rating.product_id')->groupBy('product.product_id');
 
