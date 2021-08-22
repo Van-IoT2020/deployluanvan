@@ -100,8 +100,7 @@ class RatingController extends Controller
                         ->leftJoin('customer as c', 'c.customer_id', '=', 'tbl_rating.customer_id')
                         ->where('tbl_rating.product_id', $data->product_id)
                         ->where('tbl_rating.status', 1)
-                        ->where('tbl_rating.del_flg', 0)
-                        ->groupBy('tbl_rating.product_id');
+                        ->where('tbl_rating.del_flg', 0);
 
         $ratings = $query->paginate(10);
 
@@ -124,7 +123,9 @@ class RatingController extends Controller
                         ->leftJoin('customer', 'tbl_rating.customer_id', '=', 'customer.customer_id')
                         ->addSelect('tbl_rating.id', 'tbl_rating.rating', 'tbl_rating.comment', 'tbl_rating.status')
                         ->addSelect('customer.customer_name')
-                        ->addSelect('product.product_name')->where('del_flg', 0)->orderBy('tbl_rating.created_at', 'ASC');
+                        ->addSelect('product.product_name')
+                        ->where('del_flg', 0)
+                        ->orderBy('tbl_rating.created_at', 'ASC');
 
         $ratings = $query->paginate(10);
 
