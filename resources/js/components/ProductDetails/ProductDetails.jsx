@@ -108,7 +108,7 @@ class ProductDetails extends React.Component {
                 <Carousels />
                 {/* <Details id={this.state.product_id} slug={this.state.product_slug} /> */}
                 <div className="form-group">
-                    <div className="container" style={{minHeight:"62vh"}}>
+                    <div className="container" style={{minHeight:"85vh"}}>
                         <Details id={this.props.match.params.id} />
                         {ratingMessage?.status ? (
                             <div>{ratingMessage?.message}</div>
