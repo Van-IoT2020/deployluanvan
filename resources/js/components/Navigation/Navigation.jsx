@@ -138,17 +138,17 @@ class Navigation extends React.Component {
                                 </Col>
                                 <Col xs="12" md="8">
                                     <Row style={{margin:"auto"}}>
-                                        <Col md="3">
+                                        <Col md="4">
                                             <NavItem className="home">
                                                 <Link to="/">TRANG CHỦ</Link>
                                             </NavItem>
                                         </Col>
-                                        <Col md="3">
+                                        {/* <Col md="3">
                                             <NavItem className="products-new">
                                                 <Link to="/products-new" >HÀNG MỚI VỀ</Link>
                                             </NavItem>
-                                        </Col>
-                                        <Col md="3">
+                                        </Col> */}
+                                        <Col md="4">
                                             {/* <UncontrolledDropdown nav inNavbar> */}
                                             {/* <Menu menuButton={<MenuButton >SẢN PHẨM</MenuButton>}>
                                                 {this.showProductType()}
@@ -157,7 +157,7 @@ class Navigation extends React.Component {
                                                 <Link to="/gioi-thieu-kvstore">GIỚI THIỆU</Link>
                                             </NavItem>
                                         </Col>
-                                        <Col md="3">
+                                        <Col md="4">
                                             {/* <UncontrolledDropdown nav inNavbar>
                                                 <DropdownToggle nav caret className="dropdown">THƯƠNG HIỆU</DropdownToggle>
                                                 <DropdownMenu right>
