@@ -30,13 +30,15 @@ class BrandController extends Controller
     {
         $valid = Validator::make($request->all(),
             [
-                'brand_name'=>'required|min:4',
-                'brand_slug'=>'required',
+                'brand_name'=>'required|unique:brand|min:4',
+                'brand_slug'=>'required|unique:brand',
             ],
             [
                 'brand_name.min'=>'Phải nhập đủ 4 ký tự',
+                'brand_name.unique'=>'Tên thương hiệu đã tồn tại',
                 'brand_name.required' => 'Phải nhập tên',
-                'brand_slug.required'=> 'Phải nhập slug'
+                'brand_slug.required'=> 'Phải nhập slug',
+                'brand_slug.unique'=>'Tên slug thương hiệu đã tồn tại',
             ]
         );
 
@@ -83,13 +85,15 @@ class BrandController extends Controller
         $brand = Brand::findOrFail($id);
         $valid = Validator::make($request->all(),
             [
-                'brand_name'=>'required|min:4',
-                'brand_slug'=>'required',
+                'brand_name'=>'required|unique:brand|min:4',
+                'brand_slug'=>'required|unique:brand',
             ],
             [
                 'brand_name.min'=>'Phải nhập đủ 4 ký tự',
+                'brand_name.unique'=>'Tên thương hiệu đã tồn tại',
                 'brand_name.required' => 'Phải nhập tên',
-                'brand_slug.required'=> 'Phải nhập slug'
+                'brand_slug.required'=> 'Phải nhập slug',
+                'brand_slug.unique'=>'Tên slug thương hiệu đã tồn tại',
             ]
         );
 

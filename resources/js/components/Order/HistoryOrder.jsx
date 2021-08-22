@@ -85,7 +85,7 @@ class HistoryOrder extends Component {
             <div style={{overflow:"hidden", width:"100vw"}}>
                 <Navigation propsParent = {this.props}/>
                 {/* <Carousels /> */}
-                <div className="content" style={{minHeight:"62vh"}}>
+                <div className="content" style={{minHeight:"85vh"}}>
                     <div className="container-fluid">
                         <DataTable
                             title="Lịch sử đơn đặt hàng"

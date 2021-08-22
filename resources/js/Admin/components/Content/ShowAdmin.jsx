@@ -100,7 +100,7 @@ export default class ShowAdmin extends Component {
                                                                 <td>{item.admin_phone}</td>
                                                                 <td>{(item.grant == 1) ? "Tài khoản quản lý cấp cao" : "Tài khoản admin thường"}</td>
                                                                 <td>
-                                                                    <Button onClick={ (id)=>this.onDelete(item.customer_id) } outline color="danger" style={{margin: "10px"}}>Xóa</Button>
+                                                                    <Button onClick={ (id)=>this.onDelete(item.admin_id) } outline color="danger" style={{margin: "10px"}}>Xóa</Button>
                                                                 </td>
                                                             </tr>
                                                         )

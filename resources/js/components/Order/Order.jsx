@@ -496,7 +496,7 @@ class Order extends Component {
             <div style={{overflow:"hidden", width:"100vw"}}>
                 <Navigation propsParent = {this.props}/>
                 {/* <Carousels /> */}
-                <div className="content" style={{minHeight:"62vh"}}>
+                <div className="content" style={{minHeight:"85vh"}}>
                     <ToastContainer position="top-right" />
                     <div className="container-fluid">
                         <div className="form-group">

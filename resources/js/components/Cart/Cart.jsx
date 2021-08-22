@@ -91,7 +91,7 @@ class Cart extends Component {
                 <Navigation propsParent = {this.props}/>
                 {/* <Carousels /> */}
                 <ToastContainer />
-                <div className="content" style={{minHeight:"62vh"}}>
+                <div className="content" style={{minHeight:"85vh"}}>
                     <div className="container-fluid">
                         <div className="card shadow mb-4">
                             <div className="card-header py-3">

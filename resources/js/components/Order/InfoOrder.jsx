@@ -187,7 +187,7 @@ class InfoOrder extends Component {
             <div style={{overflow:"hidden", width:"100vw"}}>
                 <Navigation propsParent = {this.props}/>
                 {/* <Carousels /> */}
-                <div className="content" style={{minHeight:"62vh"}}>
+                <div className="content" style={{minHeight:"85vh"}}>
                     <div className="container-fluid">
                         <div className="container-fluid order-details-bg">
                             <DataTable
